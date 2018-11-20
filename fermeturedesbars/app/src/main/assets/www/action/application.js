@@ -18,7 +18,7 @@
   }
 
   naviger = function(event){
-    if(!window.location.hash || (window.location.hash.match(/^#menu-principale/)){
+    if(!window.location.hash || (window.location.hash.match(/^#menu-principale/))){
       this.vueMenuPrincipale.afficher();
     }else if(window.location.hash.match(/^#choisir-pseudo/)){
       this.vueChoisirPseudo.afficher();
