@@ -34,6 +34,8 @@
       this.vueFinSolo.afficher();
     }else if(window.location.hash.match(/^#apreciation/)){
       this.vueApreciation.afficher();
+    }else if(window.location.hash.match(/^#statistique/)){
+      this.vueStatistique.afficher();
     }
   }
   lancer();
