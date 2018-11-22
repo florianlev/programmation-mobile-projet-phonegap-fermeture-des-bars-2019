@@ -12,9 +12,13 @@
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
-
+    console.log(localStorage['pseudo']);
     window.addEventListener("hashchange", this.naviger);
-    this.naviger();
+    if(!localStorage['pseudo']){
+      window.location.hash = '#choisir-pseudo';
+    }else{
+      this.naviger();
+    }
   }
 
   naviger = function(event){
