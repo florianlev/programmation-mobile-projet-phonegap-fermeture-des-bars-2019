@@ -19,6 +19,9 @@
     }else{
       this.naviger();
     }
+    console.log("WIDTH" + window.innerWidth);
+    console.log("HEIGHT" + window.innerHeight);
+    this.naviger();
   }
 
   naviger = function(event){
