@@ -13,18 +13,18 @@
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
     console.log(localStorage['pseudo']);
-    window.addEventListener("hashchange", this.naviger);
+    window.addEventListener("hashchange", this.naviguer);
     if(!localStorage['pseudo']){
       window.location.hash = '#choisir-pseudo';
     }else{
-      this.naviger();
+      this.naviguer();
     }
     console.log("WIDTH" + window.innerWidth);
     console.log("HEIGHT" + window.innerHeight);
-    this.naviger();
+    this.naviguer();
   }
 
-  naviger = function(event){
+  naviguer = function(event){
     if(!window.location.hash || (window.location.hash.match(/^#menu-principale/))){
       this.vueMenuPrincipale.afficher();
     }else if(window.location.hash.match(/^#choisir-pseudo/)){
