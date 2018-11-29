@@ -1,10 +1,12 @@
 var VueFinSolo = function(){
   var contenuPage;
-  constructeur = function(){
+  innitialiser = function(){
     contenuPage = document.getElementById("fin-solo").innerHTML;
   }
-  this.afficher = function(){
+  this.afficher = function(pointage){
     document.body.innerHTML = contenuPage;
+    tagScorePartie = document.getElementsByName('h1')[0];
+    tagScorePartie.innerHTML += ": " + pointage.score;
   }
-  constructeur();
+  innitialiser();
 }
