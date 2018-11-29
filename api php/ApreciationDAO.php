@@ -1,5 +1,5 @@
 <?php
-include_once "BaseDeDonne.php";
+include_once "baseDeDonne.php";
 
 class ApreciationDAO{
   function ajouterApreciation($donnees){
