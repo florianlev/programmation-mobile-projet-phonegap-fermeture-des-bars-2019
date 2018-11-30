@@ -1,18 +1,24 @@
-var VueStatistique = function(){
+var VueStatistique = function () {
   var contenuPage;
-  innitialiser = function(){
+
+  function initialiser(){
     contenuPage = document.getElementById("statistique").innerHTML;
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
+
     document.body.innerHTML = contenuPage;
     conteneur = document.getElementById("statistique");
     daoStatistique = new DaoStatistique();
     donnees = daoStatistique.recupererToutLesStatistique();
     html = "";
-    for(int iStatistique = 0; iStatistique < donnees.lenght; i++){
-      html += "<span><p>"+donnes[i].nom+"</p><p>"+donnees[i].score+"</p></span>";
+
+    for (i = 0; i < donnees.lenght; i++) {
+      html += "<span><p>" + donnes[i].nom + "</p><p>" + donnees[i].score + "</p></span>";
     }
+
     conteneur.innerHTML = html;
+
   }
-  innitialiser();
+  initialiser();
 }
