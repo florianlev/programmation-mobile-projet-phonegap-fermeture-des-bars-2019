@@ -1,17 +1,19 @@
 var VueJeu = function(){
   var contenuPage;
   var canvas;
+  var scene;
 
-  constructeur = function(){
+  function initialiser(){
     contenuPage = document.getElementById("jeu").innerHTML;
-    
-  }
-  this.afficher = function(){
-    document.body.innerHTML = contenuPage;
     canvas = document.getElementById('dessin');
     contexte = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
   }
-  constructeur();
+  this.afficher = function(){
+    document.body.innerHTML = contenuPage;
+    
+  }
+  initialiser();
 }
