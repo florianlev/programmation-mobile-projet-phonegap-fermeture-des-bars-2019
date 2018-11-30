@@ -1,8 +1,9 @@
-(function()
-{
+(function () {
+  
   instance = this;
 
-  lancer = function(){
+  function initialiser() {
+
     this.vueApreciation = new VueApreciation();
     this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
     this.vueChoisirPseudo = new VueChoisirPseudo();
@@ -12,38 +13,47 @@
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
+
     console.log(localStorage['pseudo']);
+
     window.addEventListener("hashchange", this.naviguer);
-    if(!localStorage['pseudo']){
+
+    if (!localStorage['pseudo']) {
       window.location.hash = '#choisir-pseudo';
-    }else{
+    }
+
+    else {
       this.naviguer();
     }
+
     console.log("WIDTH" + window.innerWidth);
     console.log("HEIGHT" + window.innerHeight);
     this.naviguer();
+
   }
 
-  naviguer = function(event){
-    if(!window.location.hash || (window.location.hash.match(/^#menu-principale/))){
+  naviguer = function (event) {
+    if (!window.location.hash || (window.location.hash.match(/^#menu-principale/))) {
       this.vueMenuPrincipale.afficher();
-    }else if(window.location.hash.match(/^#choisir-pseudo/)){
+    } else if (window.location.hash.match(/^#choisir-pseudo/)) {
       this.vueChoisirPseudo.afficher();
-    }else if(window.location.hash.match(/^#attente-multijoueur/)){
+    } else if (window.location.hash.match(/^#attente-multijoueur/)) {
       this.vueAttenteMultijoueur.afficher();
-    }else if(window.location.hash.match(/^#jeu-multijoueur/)){
+    } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
-    }else if(window.location.hash.match(/^#jeu/)){
+    } else if (window.location.hash.match(/^#jeu/)) {
       this.vueJeu.afficher();
-    }else if(window.location.hash.match(/^#fin-multijoueur/)){
+    } else if (window.location.hash.match(/^#fin-multijoueur/)) {
       this.vueFinMultijoueur.afficher();
-    }else if(window.location.hash.match(/^#fin-solo/)){
+    } else if (window.location.hash.match(/^#fin-solo/)) {
       this.vueFinSolo.afficher();
-    }else if(window.location.hash.match(/^#apreciation/)){
+    } else if (window.location.hash.match(/^#apreciation/)) {
       this.vueApreciation.afficher();
-    }else if(window.location.hash.match(/^#statistique/)){
+    } else if (window.location.hash.match(/^#statistique/)) {
       this.vueStatistique.afficher();
     }
   }
-  lancer();
+
+  initialiser();
+
 })();
