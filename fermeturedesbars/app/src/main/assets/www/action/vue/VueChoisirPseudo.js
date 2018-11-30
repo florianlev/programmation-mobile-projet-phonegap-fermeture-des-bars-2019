@@ -1,17 +1,22 @@
-var VueChoisirPseudo = function(){
+var VueChoisirPseudo = function () {
   var contenuPage;
-  constructeur = function(){
+
+  function initialiser() {
     contenuPage = document.getElementById("choisir-pseudo").innerHTML;
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
     document.body.innerHTML = contenuPage;
-    document.getElementById("formPseudo").addEventListener("submit",enregistrer);
+    document.getElementById("formPseudo").addEventListener("submit", enregistrer);
   }
-  var enregistrer = function(evenement){
+
+  var enregistrer = function (evenement) {
     evenement.preventDefault();
     nom = document.getElementById("inputPseudo");
     localStorage['pseudo'] = nom.value;
-    window.location.hash='#menu-principale'
+    window.location.hash = '#menu-principale'
   }
-  constructeur();
+
+  initialiser();
+
 }

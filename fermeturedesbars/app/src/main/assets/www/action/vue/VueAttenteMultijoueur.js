@@ -1,10 +1,17 @@
-var VueAttenteMultijoueur = function(){
+var VueAttenteMultijoueur = function () {
+
   var contenuPage;
-  constructeur = function(){
+
+  function initialiser() {
+    
     contenuPage = document.getElementById("attente-multijoueur").innerHTML;
+
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
+
     document.body.innerHTML = contenuPage;
   }
-  constructeur();
+
+  initialiser();
 }

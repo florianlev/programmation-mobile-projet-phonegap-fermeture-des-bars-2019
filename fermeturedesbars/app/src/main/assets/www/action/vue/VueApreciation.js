@@ -1,10 +1,15 @@
-var VueApreciation = function(){
+var VueApreciation = function () {
+
   var contenuPage;
-  constructeur = function(){
+
+  function initialiser() {
     contenuPage = document.getElementById("apreciation").innerHTML;
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
     document.body.innerHTML = contenuPage;
   }
-  constructeur();
+
+  initialiser();
+
 }

@@ -1,10 +1,15 @@
-var VueJeuMultijoueur = function(){
+var VueJeuMultijoueur = function () {
+  
   var contenuPage;
-  constructeur = function(){
+
+  function initialiser() {
     contenuPage = document.getElementById("jeu-multijoueur").innerHTML;
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
     document.body.innerHTML = contenuPage;
   }
-  constructeur();
+
+  initialiser();
+
 }

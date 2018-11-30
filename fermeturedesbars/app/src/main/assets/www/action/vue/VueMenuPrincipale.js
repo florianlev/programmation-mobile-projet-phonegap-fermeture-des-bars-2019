@@ -1,10 +1,15 @@
-var VueMenuPrincipale = function(){
+var VueMenuPrincipale = function () {
+
   var contenuPage;
-  constructeur = function(){
+
+  function initialiser() {
+ 
     contenuPage = document.getElementById("menu-principale").innerHTML;
   }
-  this.afficher = function(){
+
+  this.afficher = function () {
     document.body.innerHTML = contenuPage;
   }
-  constructeur();
+
+  initialiser();
 }
