@@ -13,6 +13,11 @@ var VueJeu = function(){
   }
   this.afficher = function(){
     document.body.innerHTML = contenuPage;
+
+    //Initialisation scene createJs
+    scene = new createjs.Stage(canvas);
+
+    
     
   }
   initialiser();
