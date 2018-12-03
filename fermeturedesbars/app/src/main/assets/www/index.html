@@ -3,12 +3,29 @@
 
 <head>
   <title></title>
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <link rel="stylesheet" href="css/main.css">
   <style type="text/css">
     #dessin {
-      border: solid 1px #dddddd;
+      margin: 0;
+      padding: 0;
+
     }
-  </style>
-  </style>
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    #content {
+      position: relative;
+      background-color: #000000;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
   </style>
 </head>
 
@@ -43,7 +60,10 @@
   </script>
 
   <script type="plain/text" id="jeu">
-    <canvas id="dessin" width="980" height="1742"></canvas>
+    <div id="content" class=" viewStack">
+
+    <canvas id="dessin"></canvas>
+  </div>
 
   </script>
 
@@ -140,6 +160,9 @@
   <script src="action/vue/VueMenuPrincipale.js"></script>
   <script src="action/vue/VueStatistique.js"></script>
   <script src="action/application.js"></script>
+  <script type="text/javascript">
+
+  </script>
 </body>
 
 </html>
