@@ -24,13 +24,14 @@ function Route(scene) {
 
         imageRoute.onload = function()
         {
-            paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,canvas.width,canvas.height).endStroke();
+            paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,5000,1200).endStroke();
             scene.addChild(paysageRoute)
             scene.update();
         }
+    }
 
-
-
+    this.raffraichirMatrice = function(){
+        matriceRoute.translate(0,-1);
 
     }
 

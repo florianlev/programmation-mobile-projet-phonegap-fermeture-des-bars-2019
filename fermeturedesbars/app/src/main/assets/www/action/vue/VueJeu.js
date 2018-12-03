@@ -1,4 +1,5 @@
 var VueJeu = function(){
+  var vueJeu = this;
   var contenuPage;
   var canvas;
   var content;
@@ -8,12 +9,13 @@ var VueJeu = function(){
   function initialiser(){
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
-    
   }
 
   this.afficher = function(){
     //Initialisaton du canvas
     document.body.innerHTML = contenuPage;
+    canvas = document.getElementById("dessin");
+
     arrangerCanvas();
 
     //Initialisation scene createJs
@@ -30,12 +32,13 @@ var VueJeu = function(){
   }
 
   function rafraichirJeu(evenement){
+    route.raffraichirMatrice();
     scene.update(evenement);
   }
 
   function arrangerCanvas() {
-	content = document.getElementById("content");
-    canvas = document.getElementById("dessin");
+    content = document.getElementById("content");
+
     if (canvas.width < content.offsetWidth) {
 
         canvas.width = content.offsetWidth;
