@@ -8,7 +8,7 @@ var VueApreciation = function () {
 
   this.afficher = function () {
     document.body.innerHTML = contenuPage;
-    var formulaireAjouter = document.getElementById("formulaire-ajouter");
+    var formulaireAjouter = document.getElementById("formulaireapreciation");
     formulaireAjouter.addEventListener("submit",enregistrerEquipe);
   }
   var enregistrerEquipe = function(evenement)
