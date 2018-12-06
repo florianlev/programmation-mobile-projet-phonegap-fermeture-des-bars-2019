@@ -6,16 +6,17 @@ var VueJeu = function(){
   var scene;
   var route;
   var hammer;
+  var joueur;
   function initialiser(){
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
   }
 
   this.afficher = function(){
+    hammer = new Hammer(document.body);
     //Initialisaton du canvas
     document.body.innerHTML = contenuPage;
     canvas = document.getElementById("dessin");
-    hammer = new Hammer(document.body);
     arrangerCanvas();
 
     //Initialisation scene createJs
@@ -27,8 +28,8 @@ var VueJeu = function(){
     createjs.Ticker.setFPS(50);
 
     //Initilialisation de la route
+    document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
     route = new Route(scene);
-    hammer.on('pan', deplacement);
   }
 
   function rafraichirJeu(evenement){
@@ -49,8 +50,16 @@ var VueJeu = function(){
     }
   }
   function deplacement(evenement){
-    //console.log(e.center.x);
-    //console.log(e.center.y);
+    console.log(evenement.center.x);
+    console.log(evenement.center.y);
+    differenceY = window.innerHeight/2;
+    x= evenement.center.x;
+    y = evenement.center.y - differenceY;
+    joueur.setPosition(x,y);
+  }
+  function chargementObjets(evenement){
+    joueur = new Joueur(scene);
+    hammer.on('pan', deplacement);
   }
   initialiser();
 }

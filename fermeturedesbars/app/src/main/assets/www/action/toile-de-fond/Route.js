@@ -25,8 +25,8 @@ function Route(scene) {
         imageRoute.onload = function()
         {
             paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,5000,1200).endStroke();
-            scene.addChild(paysageRoute)
-            scene.update();
+            scene.addChild(paysageRoute);
+            document.body.dispatchEvent(new CustomEvent("ROUTE_CHARGER"));
         }
     }
 
