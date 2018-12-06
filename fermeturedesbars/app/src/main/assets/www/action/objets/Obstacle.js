@@ -1,4 +1,5 @@
 var Obstacle = function(){
+  
   function initialiser(){
 
   }
@@ -9,5 +10,7 @@ var Obstacle = function(){
   this.raffraichirMatrice = function(){
 
   }
+
+
   initialiser();
 }

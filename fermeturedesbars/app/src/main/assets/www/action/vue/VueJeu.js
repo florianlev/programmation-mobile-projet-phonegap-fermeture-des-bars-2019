@@ -24,8 +24,8 @@ var VueJeu = function(){
 
     //Inistialisation du rafraichissement du jeu
     createjs.Ticker.addEventListener("tick", rafraichirJeu);
-    createjs.Ticker.setInterval(25);
-    createjs.Ticker.setFPS(50);
+    createjs.Ticker.setInterval(2);
+    createjs.Ticker.setFPS(60);
 
     //Initilialisation de la route
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
