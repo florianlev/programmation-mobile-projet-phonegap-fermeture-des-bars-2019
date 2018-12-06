@@ -57,6 +57,7 @@ var VueJeu = function(){
   function chargementObjets(evenement){
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
+    niveauAlcool =new NiveauAlcool(scene);
   }
   initialiser();
 }
