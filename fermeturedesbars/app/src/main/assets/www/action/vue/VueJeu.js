@@ -24,8 +24,8 @@ var VueJeu = function(){
 
     //Inistialisation du rafraichissement du jeu
     createjs.Ticker.addEventListener("tick", rafraichirJeu);
-    createjs.Ticker.setInterval(25);
-    createjs.Ticker.setFPS(50);
+    createjs.Ticker.setInterval(2);
+    createjs.Ticker.setFPS(60);
 
     //Initilialisation de la route
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
@@ -50,12 +50,9 @@ var VueJeu = function(){
     }
   }
   function deplacement(evenement){
-    console.log(evenement.center.x);
-    console.log(evenement.center.y);
-    differenceY = window.innerHeight/2;
-    x= evenement.center.x;
-    y = evenement.center.y - differenceY;
-    joueur.setPosition(x,y);
+    //console.log(evenement.center.x);
+    //console.log(evenement.center.y);
+    joueur.setPosition(evenement.center.x,evenement.center.y);
   }
   function chargementObjets(evenement){
     joueur = new Joueur(scene);
