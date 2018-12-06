@@ -50,12 +50,9 @@ var VueJeu = function(){
     }
   }
   function deplacement(evenement){
-    console.log(evenement.center.x);
-    console.log(evenement.center.y);
-    differenceY = window.innerHeight/2;
-    x= evenement.center.x;
-    y = evenement.center.y - differenceY;
-    joueur.setPosition(x,y);
+    //console.log(evenement.center.x);
+    //console.log(evenement.center.y);
+    joueur.setPosition(evenement.center.x,evenement.center.y);
   }
   function chargementObjets(evenement){
     joueur = new Joueur(scene);
