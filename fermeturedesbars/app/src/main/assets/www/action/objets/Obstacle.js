@@ -1,4 +1,4 @@
-var Obstacle = function(scene, recupererObstacleCharger){
+var Obstacle = function(scene,content,envoyerObstacleCharger){
 
   var obstacle = this;
   var imgObstacle = new Image();
@@ -22,13 +22,22 @@ var Obstacle = function(scene, recupererObstacleCharger){
 
   this.afficher = function () {
     scene.addChild(bitmapObstacle);
-    bitmapObstacle.x = 400;
-    bitmapObstacle.y = 300;
-    recupererObstacleCharger();
+    bitmapObstacle.x = 400
+    bitmapObstacle.y = content.offsetHeight;
+    envoyerObstacleCharger();
   }
 
   this.mouvementObstacle = function(){
     bitmapObstacle.y -= 1;
+
+    //Si l'objet sort de la map on le repositionne
+    if(bitmapObstacle.y == -200){
+      repositionnerObstacle();
+    }
+  }
+
+  function repositionnerObstacle(){
+    bitmapObstacle.y = content.offsetHeight;
   }
 
 

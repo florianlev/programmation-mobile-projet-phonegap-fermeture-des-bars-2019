@@ -30,8 +30,8 @@ function Route(scene) {
         }
     }
 
-    this.raffraichirMatrice = function(){
-        matriceRoute.translate(0,-1);
+    this.raffraichirMatrice = function(vitesse){
+        matriceRoute.translate(0,vitesse);
 
     }
 
