@@ -58,6 +58,10 @@ var VueJeu = function(){
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
     niveauAlcool =new NiveauAlcool(scene);
+    bouteille = new Bouteille(scene);
+    bouteille.afficher();
+    obstacle = new Obstacle(scene);
+
   }
   initialiser();
 }
