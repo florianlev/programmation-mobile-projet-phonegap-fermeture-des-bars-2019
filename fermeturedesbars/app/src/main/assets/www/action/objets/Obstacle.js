@@ -28,7 +28,7 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
     envoyerObstacleCharger();
   }
 
-  this.mouvementObstacle = function(){
+  this.mouvementObstacle = function(vitesseRoute){
     bitmapObstacle.y -= 1;
 
     //Si l'objet sort de la map on le repositionne

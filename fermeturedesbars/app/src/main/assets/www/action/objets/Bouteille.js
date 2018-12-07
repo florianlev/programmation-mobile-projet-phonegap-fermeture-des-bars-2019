@@ -1,4 +1,4 @@
-var Bouteille = function(scene){
+var Bouteille = function(scene,content,envoyerBouteilleCharger){
   var bouteille = this;
   var imgBouteille = new Image();
   var bitmapBouteille;
@@ -7,6 +7,7 @@ var Bouteille = function(scene){
     imgBouteille.src = "images/beer.png";
     imgBouteille.onload = terminerChargement;
   }
+
   function terminerChargement()
   {
     bitmapBouteille = new createjs.Bitmap(imgBouteille);
@@ -14,10 +15,30 @@ var Bouteille = function(scene){
     bitmapBouteille.scaleY = 0.05;
     bouteille.afficher();
   }
+
   this.afficher = function () {
     scene.addChild(bitmapBouteille);
-    bitmapBouteille.x = 200;
-    bitmapBouteille.y = 100;
+    repositionnerBouteille();
+    envoyerBouteilleCharger();
+
+  }
+
+  this.mouvementBouteille = function(vitesseRoute){
+    bitmapBouteille.y -= vitesseRoute;
+
+    //Si l'objet sort de la map on le repositionne
+    if(bitmapBouteille.y == -200){
+      repositionnerBouteille();
+    }
+  }
+
+  function repositionnerBouteille(){
+    bitmapBouteille.y = content.offsetHeight;
+    bitmapBouteille.x = getNombreHazard(10,content.offsetWidth);
+  }
+
+  function getNombreHazard(min, max) {
+    return Math.random() * (max - min) + min;
   }
   
   initialiser();
