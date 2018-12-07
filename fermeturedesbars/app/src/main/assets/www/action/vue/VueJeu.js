@@ -8,8 +8,10 @@ var VueJeu = function(){
   var hammer;
   var joueur;
   var obstacleEstCharger = false;
-  
+  var bouteilleEstCharger = false;
+
   //vitesse du jeu 
+  var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
 
   function initialiser(){
@@ -37,11 +39,15 @@ var VueJeu = function(){
     route = new Route(scene);
   }
 
+  //Boucle de jeu
   function rafraichirJeu(evenement){
     route.raffraichirMatrice(vitesseRoute);
 
     if(obstacleEstCharger){
-      obstacle.mouvementObstacle(vitesseRoute);
+      obstacle.mouvementObstacle(vitesseObjetRoute);
+    }
+    if(bouteilleEstCharger){
+      bouteille.mouvementBouteille(vitesseObjetRoute);
     }
 
     scene.update(evenement);
@@ -60,8 +66,6 @@ var VueJeu = function(){
     }
   }
   function deplacement(evenement){
-    //console.log(evenement.center.x);
-    //console.log(evenement.center.y);
     joueur.setPosition(evenement.center.x,evenement.center.y);
   }
 
@@ -69,13 +73,18 @@ var VueJeu = function(){
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
-    bouteille = new Bouteille(scene);
+    bouteille = new Bouteille(scene,content,verifierBouteilleCharger);
     obstacle = new Obstacle(scene,content,verifierObstacleCharger);
   }
 
-  //CallBack pour verifier si l'obstacle et charger
+  //CallBack pour verifier si l'obstacle est charger
   function verifierObstacleCharger(){
     obstacleEstCharger = true;
+  }
+
+  //CallBack pour verifier si la bouteille est charger
+  function verifierBouteilleCharger(){
+    bouteilleEstCharger = true;
   }
 
   initialiser();
