@@ -7,6 +7,8 @@ var VueJeu = function(){
   var route;
   var hammer;
   var joueur;
+  var obstacleEstCharger = false;
+
   function initialiser(){
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
@@ -34,6 +36,10 @@ var VueJeu = function(){
 
   function rafraichirJeu(evenement){
     route.raffraichirMatrice();
+    if(obstacleEstCharger){
+      console.log(obstacleEstCharger);
+      obstacle.mouvementObstacle();
+    }
     scene.update(evenement);
   }
 
@@ -54,14 +60,18 @@ var VueJeu = function(){
     //console.log(evenement.center.y);
     joueur.setPosition(evenement.center.x,evenement.center.y);
   }
+
   function chargementObjets(evenement){
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
     niveauAlcool =new NiveauAlcool(scene);
     bouteille = new Bouteille(scene);
-    bouteille.afficher();
-    obstacle = new Obstacle(scene);
-
+    obstacle = new Obstacle(scene,recupererObstacleCharger);
   }
+
+  function recupererObstacleCharger(){
+    obstacleEstCharger = true;
+  }
+
   initialiser();
 }

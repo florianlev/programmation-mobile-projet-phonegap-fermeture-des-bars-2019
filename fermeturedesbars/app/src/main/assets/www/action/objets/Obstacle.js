@@ -1,11 +1,13 @@
-var Obstacle = function(scene){
+var Obstacle = function(scene, recupererObstacleCharger){
 
   var obstacle = this;
   var imgObstacle = new Image();
   var bitmapObstacle;
 
+  this.estCharger = false;
+
   function initialiser(){
-    imgObstacle.src = "../images/cone.png"
+    imgObstacle.src = "images/cone.png"
     imgObstacle.onload = terminerChargement;
 
   }
@@ -13,17 +15,23 @@ var Obstacle = function(scene){
   function terminerChargement()
   {
     bitmapObstacle = new createjs.Bitmap(imgObstacle);
-    bitmapObstacle.scaleX = 0.05;
-    bitmapObstacle.scaleY = 0.05;
+    bitmapObstacle.scaleX = 0.5;
+    bitmapObstacle.scaleY = 0.5;
     obstacle.afficher();
   }
 
   this.afficher = function () {
-    scene.addChild(bitmapBouteille);
-    bitmapBouteille.x = 400;
-    bitmapBouteille.y = 300;
+    scene.addChild(bitmapObstacle);
+    bitmapObstacle.x = 400;
+    bitmapObstacle.y = 300;
+    recupererObstacleCharger();
+  }
+
+  this.mouvementObstacle = function(){
+    bitmapObstacle.y -= 1;
   }
 
 
   initialiser();
+
 }
