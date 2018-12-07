@@ -8,6 +8,8 @@ var VueJeu = function(){
   var hammer;
   var joueur;
   var obstacleEstCharger = false;
+  
+  //vitesse du jeu 
   var vitesseRoute = -1;
 
   function initialiser(){
@@ -66,7 +68,7 @@ var VueJeu = function(){
   function chargementObjets(evenement){
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
-    niveauAlcool =new NiveauAlcool(scene);
+    //niveauAlcool =new NiveauAlcool(scene);
     bouteille = new Bouteille(scene);
     obstacle = new Obstacle(scene,content,verifierObstacleCharger);
   }

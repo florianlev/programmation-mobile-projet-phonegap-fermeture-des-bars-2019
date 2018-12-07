@@ -7,6 +7,8 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
   this.estCharger = false;
 
   function initialiser(){
+
+    //TO DO : Tableau avec plusieurs images.
     imgObstacle.src = "images/cone.png"
     imgObstacle.onload = terminerChargement;
 
@@ -22,8 +24,7 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
 
   this.afficher = function () {
     scene.addChild(bitmapObstacle);
-    bitmapObstacle.x = 400
-    bitmapObstacle.y = content.offsetHeight;
+    repositionnerObstacle();
     envoyerObstacleCharger();
   }
 
@@ -38,6 +39,11 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
 
   function repositionnerObstacle(){
     bitmapObstacle.y = content.offsetHeight;
+    bitmapObstacle.x = getNombreHazard(10,content.offsetWidth);
+  }
+
+  function getNombreHazard(min, max) {
+    return Math.random() * (max - min) + min;
   }
 
 
