@@ -48,13 +48,16 @@ var VueJeu = function () {
     }
     if (bouteilleEstCharger) {
       bouteille.mouvementBouteille(vitesseObjetRoute);
-      if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
-        console.log("COLLISION");
-      }
-
+      verificationCollisionnementJoueurBouteille();
     }
 
     scene.update(evenement);
+  }
+
+  function verificationCollisionnementJoueurBouteille(){
+    if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
+        //RAJOUTER ICI L'AUGMENTATION DU SCORE
+    }
   }
 
   function arrangerCanvas() {
