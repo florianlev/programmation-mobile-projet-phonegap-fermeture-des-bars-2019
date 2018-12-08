@@ -56,6 +56,9 @@ var VueJeu = function () {
 
   function verificationCollisionnementJoueurBouteille(){
     if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
+        console.log("COLLISIONNEMENT ! ");
+        bouteille.repositionnerBouteille();
+        score.augmenterScore(10);
         //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
