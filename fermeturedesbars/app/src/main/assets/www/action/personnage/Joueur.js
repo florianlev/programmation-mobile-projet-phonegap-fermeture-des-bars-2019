@@ -4,6 +4,10 @@ function Joueur(scene){
     var cercle;
     var distanceDoit;
     var fantome;
+
+    joueur.height = 20;
+    joueur.width = 20;
+
     function initialiser(){
         // dessiner cercle
         distanceDoit = 80;
@@ -22,6 +26,7 @@ function Joueur(scene){
         scene.addChild(cercle);
         scene.addChild(fantome);
       }
+
     this.setPosition = function(x,y){
       //  cercle.set({x:position.x,y:position.y});
       differenceY = window.innerHeight/2;
@@ -33,6 +38,13 @@ function Joueur(scene){
         fantome.x = x;
         fantome.y = y+differenceY;
       }
+    }
+
+    this.rectangleCollisionJoueur = function()
+    {
+      cercle.setBounds(cercle.x,cercle.y,joueur.height,joueur.width);
+      //console.log(cercle.getBounds());
+      return cercle.getBounds();
     }
 
     initialiser();

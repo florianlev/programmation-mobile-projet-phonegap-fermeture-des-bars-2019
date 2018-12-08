@@ -1,7 +1,10 @@
 var Bouteille = function(scene,content,envoyerBouteilleCharger){
-  var bouteille = this;
+  var bouteille = this; 
   var imgBouteille = new Image();
   var bitmapBouteille;
+  bouteille.height = 20;
+  bouteille.width = 20;
+
   function initialiser(){
     
     imgBouteille.src = "images/beer.png";
@@ -40,6 +43,13 @@ var Bouteille = function(scene,content,envoyerBouteilleCharger){
   function getNombreHazard(min, max) {
     return Math.random() * (max - min) + min;
   }
+
+  this.rectangleCollisionBouteille= function()
+  {
+    bitmapBouteille.setBounds(bitmapBouteille.x,bitmapBouteille.y,bouteille.width,bouteille.height);
+    return bitmapBouteille.getBounds();
+  }
+
   
   initialiser();
 }

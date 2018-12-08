@@ -1,4 +1,4 @@
-var VueJeu = function(){
+var VueJeu = function () {
   var vueJeu = this;
   var contenuPage;
   var canvas;
@@ -14,12 +14,12 @@ var VueJeu = function(){
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
 
-  function initialiser(){
+  function initialiser() {
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
   }
 
-  this.afficher = function(){
+  this.afficher = function () {
     hammer = new Hammer(document.body);
     //Initialisaton du canvas
     document.body.innerHTML = contenuPage;
@@ -40,14 +40,18 @@ var VueJeu = function(){
   }
 
   //Boucle de jeu
-  function rafraichirJeu(evenement){
+  function rafraichirJeu(evenement) {
     route.raffraichirMatrice(vitesseRoute);
 
-    if(obstacleEstCharger){
+    if (obstacleEstCharger) {
       obstacle.mouvementObstacle(vitesseObjetRoute);
     }
-    if(bouteilleEstCharger){
+    if (bouteilleEstCharger) {
       bouteille.mouvementBouteille(vitesseObjetRoute);
+      if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
+        console.log("COLLISION");
+      }
+
     }
 
     scene.update(evenement);
@@ -58,32 +62,33 @@ var VueJeu = function(){
 
     if (canvas.width < content.offsetWidth) {
 
-        canvas.width = content.offsetWidth;
+      canvas.width = content.offsetWidth;
     }
 
     if (canvas.height < content.offsetHeight) {
       canvas.height = content.offsetHeight;
     }
   }
-  function deplacement(evenement){
-    joueur.setPosition(evenement.center.x,evenement.center.y);
+  function deplacement(evenement) {
+    joueur.setPosition(evenement.center.x, evenement.center.y);
   }
 
-  function chargementObjets(evenement){
+  function chargementObjets(evenement) {
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
-    bouteille = new Bouteille(scene,content,verifierBouteilleCharger);
-    obstacle = new Obstacle(scene,content,verifierObstacleCharger);
+    bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
+    obstacle = new Obstacle(scene, content, verifierObstacleCharger);
+    score = new Score(scene);
   }
 
   //CallBack pour verifier si l'obstacle est charger
-  function verifierObstacleCharger(){
+  function verifierObstacleCharger() {
     obstacleEstCharger = true;
   }
 
   //CallBack pour verifier si la bouteille est charger
-  function verifierBouteilleCharger(){
+  function verifierBouteilleCharger() {
     bouteilleEstCharger = true;
   }
 
