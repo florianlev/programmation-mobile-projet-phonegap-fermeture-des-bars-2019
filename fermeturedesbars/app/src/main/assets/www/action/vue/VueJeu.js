@@ -36,7 +36,7 @@ var VueJeu = function () {
 
     //Initilialisation de la route
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
-    route = new Route(scene);
+    route = new Route(scene,content);
   }
 
   //Boucle de jeu
