@@ -9,7 +9,8 @@ var VueJeu = function () {
   var joueur;
   var obstacleEstCharger = false;
   var bouteilleEstCharger = false;
-
+  var niveauAlcool
+  var score;
   //vitesse du jeu
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
@@ -36,6 +37,7 @@ var VueJeu = function () {
 
     //Initilialisation de la route
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
+    document.body.addEventListener("PARTIE_TERMINER", fin);
     route = new Route(scene,content);
   }
 
@@ -59,6 +61,7 @@ var VueJeu = function () {
         console.log("COLLISIONNEMENT ! ");
         bouteille.repositionnerBouteille();
         score.augmenterScore(10);
+        niveauAlcool.ajouterNiveau(10);
         //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
@@ -79,14 +82,14 @@ var VueJeu = function () {
     joueur.setPosition(evenement.center.x, evenement.center.y);
   }
 
-  function chargementObjets(evenement) {
+  function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
     joueur = new Joueur(scene);
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
     bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
     obstacle = new Obstacle(scene, content, verifierObstacleCharger);
     score = new Score(scene);
-    niceeauAlcool = new NiveauAlcool(scene);
+    niveauAlcool = new NiveauAlcool(scene);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
   }
 
   //CallBack pour verifier si l'obstacle est charger
@@ -98,6 +101,11 @@ var VueJeu = function () {
   function verifierBouteilleCharger() {
     bouteilleEstCharger = true;
   }
-
+  this.getScore = function(){
+    return score.getScore();
+  }
+  function fin(){
+    window.location.hash = "fin-solo";
+  }
   initialiser();
 }

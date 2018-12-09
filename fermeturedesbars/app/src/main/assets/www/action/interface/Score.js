@@ -12,8 +12,8 @@ var Score = function(scene)
     this.afficher = function()
     {
         scene.addChild(scoreText);
-        scoreText.x = 500;
-        scoreText.y = 100;
+        scoreText.x = (window.innerWidth/2)-40;//changer le 500px pcq cetais offscreen pour mon phone
+        scoreText.y = 60;// 60px tombe 10px en dessou de la barre c mieu que 100px
         scoreText.scaleX = 10;
         scoreText.scaleY = 10;
     }
@@ -33,6 +33,9 @@ var Score = function(scene)
 
         actualiserScore();
 
+    }
+    this.getScore = function(){
+      return score;
     }
     initialiser();
 

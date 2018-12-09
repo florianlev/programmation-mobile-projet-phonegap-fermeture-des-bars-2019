@@ -1,5 +1,5 @@
 (function () {
-  
+
   instance = this;
 
   function initialiser() {
@@ -31,7 +31,6 @@
     this.naviguer();
 
   }
-
   naviguer = function (event) {
     if (!window.location.hash || (window.location.hash.match(/^#menu-principale/))) {
       this.vueMenuPrincipale.afficher();
@@ -46,7 +45,7 @@
     } else if (window.location.hash.match(/^#fin-multijoueur/)) {
       this.vueFinMultijoueur.afficher();
     } else if (window.location.hash.match(/^#fin-solo/)) {
-      this.vueFinSolo.afficher();
+      this.vueFinSolo.afficher(this.vueJeu.getScore());
     } else if (window.location.hash.match(/^#apreciation/)) {
       this.vueApreciation.afficher();
     } else if (window.location.hash.match(/^#statistique/)) {

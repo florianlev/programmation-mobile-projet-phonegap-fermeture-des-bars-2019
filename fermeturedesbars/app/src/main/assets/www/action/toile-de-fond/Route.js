@@ -24,6 +24,12 @@ function Route(scene,content) {
 
         imageRoute.onload = function()
         {
+
+            //jai essayer d'arranger le scale de limage de backgroud sa fait rien
+            //scale = window.innerWidth/imageRoute.width;
+            //imageRoute.width = imageRoute.width*scale;
+            //imageRoute.height = imageRoute.height*scale;
+
             paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,content.offsetWidth,content.offsetHeight).endStroke();
             scene.addChild(paysageRoute);
             document.body.dispatchEvent(new CustomEvent("ROUTE_CHARGER"));

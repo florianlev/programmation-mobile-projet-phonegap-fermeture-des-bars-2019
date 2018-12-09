@@ -4,13 +4,18 @@ var DaoStatistique = function () {
     return localStorage['statistiques'];
   }
 
-  this.ajouterPartie = function (partie) {
+  this.ajouterPartie = function (partie, pseudo) {//ne fonctionne pas.... ?
     if (localStorage['statistiques']) {
       donnees = localStorage['statistiques'];
-      donnees['statistique'][donnees.length] = partie;
+      donnees[donnees.length] = [];
+      donnees[donnees.length]['score'] = partie;
+      donnees[donnees.length]['pseudo'] = pseudo;
       localStorage['statistiques'] = donnees;
     } else {
-      localStorage['statistiques'][0] = partie;
+      statistique = [];
+      statistique['score'] = partie;
+      statistique['pseudo'] = pseudo;
+      localStorage['statistiques'] = [statistique];
     }
 
   }
