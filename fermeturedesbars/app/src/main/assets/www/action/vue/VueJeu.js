@@ -10,7 +10,7 @@ var VueJeu = function () {
   var obstacleEstCharger = false;
   var bouteilleEstCharger = false;
 
-  //vitesse du jeu 
+  //vitesse du jeu
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
 
@@ -86,6 +86,7 @@ var VueJeu = function () {
     bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
     obstacle = new Obstacle(scene, content, verifierObstacleCharger);
     score = new Score(scene);
+    niceeauAlcool = new NiveauAlcool(scene);
   }
 
   //CallBack pour verifier si l'obstacle est charger
