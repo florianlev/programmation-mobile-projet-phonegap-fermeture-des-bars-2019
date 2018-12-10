@@ -32,7 +32,7 @@ var VueJeu = function () {
 
     //Inistialisation du rafraichissement du jeu
     createjs.Ticker.addEventListener("tick", rafraichirJeu);
-    createjs.Ticker.setInterval(2);
+    createjs.Ticker.setInterval(1000/60);
     createjs.Ticker.setFPS(60);
 
     //Initilialisation de la route
@@ -42,7 +42,7 @@ var VueJeu = function () {
   }
 
   //Boucle de jeu
-  function rafraichirJeu(evenement) {
+  function rafraichirJeu(evenement) {// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
     route.raffraichirMatrice(vitesseRoute);
 
     if (obstacleEstCharger) {
@@ -52,7 +52,7 @@ var VueJeu = function () {
       bouteille.mouvementBouteille(vitesseObjetRoute);
       verificationCollisionnementJoueurBouteille();
     }
-
+    niveauAlcool.diminution();
     scene.update(evenement);
   }
 

@@ -5,7 +5,7 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
   var bitmapObstacle;
 
   this.estCharger = false;
-
+//possibiliter d'utiliser un manager d'objet pour socuper de la gestion de tout les objets
   function initialiser(){
 
     //TO DO : Tableau avec plusieurs images.

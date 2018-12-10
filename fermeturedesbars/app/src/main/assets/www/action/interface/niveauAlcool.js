@@ -16,7 +16,6 @@ function NiveauAlcool(scene){
         });
         niveauAlcool.animate(0.5);
 
-        setInterval(diminution, 1000/60);
       }
       this.ajouterNiveau = function(ajout){
         niveau+=ajout;
@@ -24,7 +23,7 @@ function NiveauAlcool(scene){
 
         niveauAlcool.animate(niveau/100);
       }
-      function diminution(){
+      this.diminution = function(){
         niveau-=pointsParSecondes/60;
         if(niveau <= 0){
           niveau = 0;
