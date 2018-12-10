@@ -11,6 +11,7 @@ var VueJeu = function () {
   var bouteilleEstCharger = false;
   var niveauAlcool
   var score;
+  var avancement;
   //vitesse du jeu
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
@@ -39,6 +40,8 @@ var VueJeu = function () {
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
     document.body.addEventListener("PARTIE_TERMINER", fin);
     route = new Route(scene,content);
+    avancement =10;
+    setInterval(augmenterVitesseJeu, 5000);
   }
 
   //Boucle de jeu
@@ -65,7 +68,10 @@ var VueJeu = function () {
         //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
-
+  function augmenterVitesseJeu(){
+    avancement*=2;
+    createjs.Ticker.setFPS((60*avancement);
+  }
   function arrangerCanvas() {
     content = document.getElementById("content");
 
