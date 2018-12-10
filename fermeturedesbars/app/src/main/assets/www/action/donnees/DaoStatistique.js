@@ -13,9 +13,10 @@ var DaoStatistique = function () {
       localStorage['statistiques'] = donnees;
     } else {
       statistique = [];
+      localStorage['statistiques'] = [];
       statistique['score'] = partie;
       statistique['pseudo'] = pseudo;
-      localStorage['statistiques'] = [statistique];
+      localStorage['statistiques'][0] = [statistique];
     }
 
   }
