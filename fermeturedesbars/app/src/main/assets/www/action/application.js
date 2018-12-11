@@ -4,7 +4,7 @@
 
   function initialiser() {
 
-    //this.vueApreciation = new VueApreciation();
+    this.vueApreciation = new VueApreciation();
     this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
     this.vueChoisirPseudo = new VueChoisirPseudo();
     this.vueFinMultijoueur = new VueFinMultijoueur();

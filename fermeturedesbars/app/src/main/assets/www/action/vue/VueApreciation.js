@@ -1,4 +1,4 @@
-var AjouterVueApreciation = function () {
+var VueApreciation = function () {
     var pageAjouterApreciation = document.getElementById("apreciation").innerHTML;
 
 
@@ -36,4 +36,3 @@ var AjouterVueApreciation = function () {
     }
 
 }
-
