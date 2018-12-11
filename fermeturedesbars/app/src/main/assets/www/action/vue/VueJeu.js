@@ -7,20 +7,20 @@ var VueJeu = function () {
   var route;
   var hammer;
   var joueur;
-
+  var gestionnaireObjets;
   var niveauAlcool
   var score;
   var avancement;
 
   //Verification des chargement d'objets
-  var obstacleEstCharger = false;
-  var bouteilleEstCharger = false;
-  var voitureEstCharger = false;
+  // var obstacleEstCharger = false;
+  // var bouteilleEstCharger = false;
+  // var voitureEstCharger = false;
 
-  //vitesse du jeu
-  var vitesseObjetRoute = 1;
-  var vitesseRoute = -1;
-  var vitesseVoiture = 3;
+  // //vitesse du jeu
+  // var vitesseObjetRoute = 1;
+   var vitesseRoute = -1;
+  // var vitesseVoiture = 3;
 
   //Machine d'etat pour verifier l'etat du joueur pour les anim
   var EtatJoueur = {
@@ -66,41 +66,41 @@ var VueJeu = function () {
   function rafraichirJeu(evenement) {// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
     augmenterVitesseJeu();
 
-    if (obstacleEstCharger) {
-      obstacle.mouvementObstacle(vitesseObjetRoute);
-    }
-    if (bouteilleEstCharger) {
-      bouteille.mouvementBouteille(vitesseObjetRoute);
-      verificationCollisionnementJoueurBouteille();
-    }
-    if (voitureEstCharger) {
-      voiture.mouvementVoiture(vitesseVoiture);
-      verificationCollisionnementJoueurVoiture();
-    }
-    
+    // if (obstacleEstCharger) {
+    //   obstacle.mouvementObstacle(vitesseObjetRoute);
+    // }
+    // if (bouteilleEstCharger) {
+    //   bouteille.mouvementBouteille(vitesseObjetRoute);
+    //   verificationCollisionnementJoueurBouteille();
+    // }
+    // if (voitureEstCharger) {
+    //   voiture.mouvementVoiture(vitesseVoiture);
+    //   verificationCollisionnementJoueurVoiture();
+    // }
+    gestionnaireObjets.verification();
     niveauAlcool.diminution();
     scene.update(evenement);
   }
 
-  //Verification de la collision avec le joueur et la voiture
-  function verificationCollisionnementJoueurVoiture() {
-    if (joueur.rectangleCollisionJoueur().intersects(voiture.rectangleCollisionVoiture())) {
-      console.log("COLLISIONNEMENT ! ");
-      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
-      etatCourantJoueur = EtatJoueur.estEcraser;
-      joueur.setEtatJoueur(etatCourantJoueur);
-    }
-  }
-
-  function verificationCollisionnementJoueurBouteille() {
-    if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
-      console.log("COLLISIONNEMENT ! ");
-      bouteille.repositionnerBouteille();
-      score.augmenterScore(10);
-      niveauAlcool.ajouterNiveau(10);
-      //RAJOUTER ICI L'AUGMENTATION DU SCORE
-    }
-  }
+  // //Verification de la collision avec le joueur et la voiture
+  // function verificationCollisionnementJoueurVoiture() {
+  //   if (joueur.rectangleCollisionJoueur().intersects(voiture.rectangleCollisionVoiture())) {
+  //     console.log("COLLISIONNEMENT ! ");
+  //     document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
+  //     etatCourantJoueur = EtatJoueur.estEcraser;
+  //     joueur.setEtatJoueur(etatCourantJoueur);
+  //   }
+  // }
+  //
+  // function verificationCollisionnementJoueurBouteille() {
+  //   if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
+  //     console.log("COLLISIONNEMENT ! ");
+  //     bouteille.repositionnerBouteille();
+  //     score.augmenterScore(10);
+  //     niveauAlcool.ajouterNiveau(10);
+  //     //RAJOUTER ICI L'AUGMENTATION DU SCORE
+  //   }
+  // }
 
   function augmenterVitesseJeu() {
     avancement += 0.5;
@@ -133,27 +133,30 @@ var VueJeu = function () {
     //niveauAlcool =new NiveauAlcool(scene);
 
     //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
-    voiture = new Voiture(scene, content, verifierVoitureCharger);
-    bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
-    obstacle = new Obstacle(scene, content, verifierObstacleCharger);
+    //voiture = new Voiture(scene, content, verifierVoitureCharger);
+    //bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
+    //obstacle = new Obstacle(scene, content, verifierObstacleCharger);
+    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, );
     score = new Score(scene);
-    niveauAlcool = new NiveauAlcool(scene,recevoirEtatJoueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+    niveauAlcool = new NiveauAlcool(scene);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
   }
-
-  //CallBack pour verifier si l'obstacle est charger
-  function verifierObstacleCharger() {
-    obstacleEstCharger = true;
-  }
-
-  //CallBack pour verifier si la bouteille est charger
-  function verifierBouteilleCharger() {
-    bouteilleEstCharger = true;
-  }
-
-  //CallBack pour veerifier si la voiture est charger
-  function verifierVoitureCharger() {
-    voitureEstCharger = true;
-  }
+  // des call back comme sa, sa va si on a juste un objets de chaque mais si on en a plusieurs c mieux
+  // si il gere leur propres variables
+  // //CallBack pour verifier si l'obstacle est charger
+  // function verifierObstacleCharger() {
+  //   obstacleEstCharger = true;
+  // }
+  //
+  // //CallBack pour verifier si la bouteille est charger
+  // function verifierBouteilleCharger() {
+  //   bouteilleEstCharger = true;
+  // }
+  //
+  // //CallBack pour veerifier si la voiture est charger
+  // function verifierVoitureCharger() {
+  //   voitureEstCharger = true;
+  // }
 
   //Stopper le ticker de la boucle de jeu
   function stopperJeu() {
@@ -164,17 +167,17 @@ var VueJeu = function () {
     return score.getScore();
   }
 
-  async function fin() {
-    joueur.setEtatJoueur(etatCourantJoueur);
+  async function fin(evenement) {
+    joueur.setEtatJoueur(evenement.detail['etatJoueur']);
     await attente(5000);
     stopperJeu();
     window.location.hash = "fin-solo";
   }
 
-  //CallBack pour recevoir l'etat du joueur
-  function recevoirEtatJoueur(etatJoueur){
-    etatCourantJoueur = etatJoueur;
-  }
+  // //CallBack pour recevoir l'etat du joueur
+  // function recevoirEtatJoueur(etatJoueur){
+  //   etatCourantJoueur = etatJoueur;
+  // }
 
   function attente(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

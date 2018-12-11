@@ -1,4 +1,4 @@
-var Obstacle = function(scene,content,envoyerObstacleCharger){
+var Obstacle = function(scene,content){
 
   var obstacle = this;
   var imgObstacle = new Image();
@@ -28,7 +28,11 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
   this.afficher = function () {
     scene.addChild(bitmapObstacle);
     repositionnerObstacle();
-    envoyerObstacleCharger();
+    estCharger = true;
+
+  }
+  this.isCharger = function(){
+    return estCharger;
   }
 
   this.mouvementObstacle = function(vitesseRoute){

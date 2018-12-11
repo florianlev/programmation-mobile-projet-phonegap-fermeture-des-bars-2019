@@ -1,4 +1,4 @@
-var Voiture = function(scene,content,envoyerVoitureCharger){
+var Voiture = function(scene,content){
   var voiture = this;
   var imgVoiture = new Image();
   var bitmapVoiture;
@@ -24,8 +24,11 @@ var Voiture = function(scene,content,envoyerVoitureCharger){
   this.afficher = function () {
     scene.addChild(bitmapVoiture);
     voiture.repositionnerVoiture();
-    envoyerVoitureCharger();
+    estCharger = true;
 
+  }
+  this.isCharger = function(){
+    return estCharger;
   }
 
   this.mouvementVoiture = function (vitesseRoute) {

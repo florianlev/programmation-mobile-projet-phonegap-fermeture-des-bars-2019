@@ -1,7 +1,8 @@
-var Bouteille = function (scene, content, envoyerBouteilleCharger) {
+var Bouteille = function (scene, content) {
   var bouteille = this;
   var imgBouteille = new Image();
   var bitmapBouteille;
+  var estCharger = false;
   bouteille.height = 20;
   bouteille.width = 20;
 
@@ -25,10 +26,12 @@ var Bouteille = function (scene, content, envoyerBouteilleCharger) {
   this.afficher = function () {
     scene.addChild(bitmapBouteille);
     bouteille.repositionnerBouteille();
-    envoyerBouteilleCharger();
+    estCharger = true;
 
   }
-
+  this.isCharger = function(){
+    return estCharger;
+  }
   this.mouvementBouteille = function (vitesseRoute) {
     bitmapBouteille.y -= vitesseRoute;
 

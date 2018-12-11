@@ -5,7 +5,7 @@ function NiveauAlcool(scene, envoyerEtatJoueur) {
   var pointsParSecondes;
 
   function initialiser() {
-    
+
     pointsParSecondes = 2;
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
@@ -33,8 +33,9 @@ function NiveauAlcool(scene, envoyerEtatJoueur) {
     if (niveau <= 0) {
       niveau = 0;
       //Envoie de l'etat enVomissement pour lancer l'annimation
-      envoyerEtatJoueur("estEnVomissement");
-      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
+      detail = [];
+      detail['etatJoueur'] = "estEnVomissement";
+      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER", {'detail':detail}));
     }
 
     niveauAlcool.animate(niveau / 100);
