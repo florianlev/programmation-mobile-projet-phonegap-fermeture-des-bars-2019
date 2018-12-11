@@ -10,7 +10,7 @@ function NiveauAlcool(scene, envoyerEtatJoueur) {
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
       easing: 'easeInOut',
-      duration: 1000 / 60,
+      duration: 10,
       color: '#0077CC',
       trailColor: '#eee',
       trailWidth: 45,

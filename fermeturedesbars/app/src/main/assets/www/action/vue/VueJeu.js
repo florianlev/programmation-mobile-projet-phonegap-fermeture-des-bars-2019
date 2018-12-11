@@ -163,6 +163,7 @@ var VueJeu = function () {
   //Stopper le ticker de la boucle de jeu
   function stopperJeu() {
     createjs.Ticker.off("tick", rafraichirJeu);
+    scene.clear();
   }
 
   this.getScore = function () {
@@ -171,6 +172,8 @@ var VueJeu = function () {
 
   async function fin(evenement) {
     if(!parteTerminer){
+      parteTerminer = true;
+      console.log("fin");
       joueur.setEtatJoueur(evenement.detail['etatJoueur']);
       await attente(5000);
       stopperJeu();
