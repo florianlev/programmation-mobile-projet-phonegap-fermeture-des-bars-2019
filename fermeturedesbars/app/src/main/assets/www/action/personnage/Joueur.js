@@ -4,8 +4,13 @@ function Joueur(scene) {
   var cercle;
   var distanceDoit;
   var fantome;
+  var animationCourante;
 
-  var IMAGE = "images/ivrogneMarche.png";
+  var IMAGEIVROGNOREMARCHE = "images/spriteSheetIvrogne.png";
+  var IMAGEIVROGNEVOMI = "images/ivrogneVomi.png";
+
+  var xCourant;
+  var yCourant;
 
   joueur.height = 20;
   joueur.width = 20;
@@ -19,9 +24,15 @@ function Joueur(scene) {
     cercle.x = 100;
     cercle.y = 100;
 
+
+
     imageIvrogne = new Image();
-    imageIvrogne.src = IMAGE;
+    imageIvrogne.src = IMAGEIVROGNOREMARCHE;
     imageIvrogne.onload = terminerChargement;
+
+    xCourant = 100;
+    yCourant = 100;
+    //imageIvrogneVomi.onload = terminerChargement;
 
     fantome = new createjs.Shape();
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
@@ -38,35 +49,56 @@ function Joueur(scene) {
     spriteIvrogne = new createjs.SpriteSheet(
       {
         images: [imageIvrogne],
-				frames: { "regX": 32, "height": 700, "count": 0, "regY": 32, "width": 478},
-				framerate: 12,
-				animations:
-					{
-              marche:
-              {
-                frames: [0,1,2,3,4,5,6]
-              }
-					}
+        frames: { "regX": 0, "height": 890, "count": 0, "regY": 0, "width": 480 },
+        framerate: 13,
+        animations:
+        {
+
+          marche : [0, 6, "marche"],
+          vomi : [7, 15, "vomi"]
+          /*marche:
+          {
+            frames: [0, 1, 2, 3, 4, 5, 6]
+          }*/
+
+        }
       });
 
 
-      animMarche = new createjs.Sprite(spriteIvrogne, "marche");
-      animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
-      animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
-      animMarche.x = 100;
-      animMarche.y = 100;
+    animMarche = new createjs.Sprite(spriteIvrogne, "marche");
+    animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
+    animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
 
+    animVomi = new createjs.Sprite(spriteIvrogne, "vomi");
+    animVomi.scaleX = (0.3 * content.offsetWidth) / 1920;
+    animVomi.scaleY = (0.15 * content.offsetHeight) / 938;
 
-      scene.addChild(animMarche);
+    /*animMarche.x = 100;
+    animMarche.y = 100;*/
+
+    animationCourante = animMarche;
+    //scene.addChild(animMarche);
+
+    gererAnimation(animationCourante);
+  }
+
+  function gererAnimation(animation) {
+    scene.removeChild(animationCourante);
+    animationCourante = animation;
+    animationCourante.x = xCourant;
+    animationCourante.y = yCourant;
+    scene.addChild(animationCourante);
   }
 
   this.setPosition = function (x, y) {
     //  cercle.set({x:position.x,y:position.y});
     differenceY = window.innerHeight / 2;
     y = y - differenceY;
-    if ((animMarche.x - x) < distanceDoit && (animMarche.x - x) > -distanceDoit && (animMarche.y - y) < distanceDoit && (animMarche.y - y) > -distanceDoit && y > 0) {
-      animMarche.x = x;
-      animMarche.y = y;
+    if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0) {
+      animationCourante.x = x;
+      animationCourante.y = y;
+      xCourant = x;
+      yCourant = y;
 
       fantome.x = x;
       fantome.y = y + differenceY;
@@ -76,7 +108,7 @@ function Joueur(scene) {
   this.rectangleCollisionJoueur = function () {
     //animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
     //console.log(cercle.getBounds());
-    return animMarche.getTransformedBounds();
+    return animationCourante.getTransformedBounds();
   }
 
   initialiser();
