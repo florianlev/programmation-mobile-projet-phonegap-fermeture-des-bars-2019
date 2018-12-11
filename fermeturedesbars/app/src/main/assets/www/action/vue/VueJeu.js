@@ -33,14 +33,14 @@ var VueJeu = function () {
 
     //Inistialisation du rafraichissement du jeu
     createjs.Ticker.addEventListener("tick", rafraichirJeu);
-    createjs.Ticker.setInterval(1000/60);
+    createjs.Ticker.setInterval(1000 / 60);
     createjs.Ticker.setFPS(60);
 
     //Initilialisation de la route
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
     document.body.addEventListener("PARTIE_TERMINER", fin);
-    route = new Route(scene,content);
-    avancement =10;
+    route = new Route(scene, content);
+    avancement = 10;
     //setInterval(augmenterVitesseJeu, 5000);
   }
 
@@ -59,20 +59,20 @@ var VueJeu = function () {
     scene.update(evenement);
   }
 
-  function verificationCollisionnementJoueurBouteille(){
+  function verificationCollisionnementJoueurBouteille() {
     if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
-        console.log("COLLISIONNEMENT ! ");
-        bouteille.repositionnerBouteille();
-        score.augmenterScore(10);
-        niveauAlcool.ajouterNiveau(10);
-        //RAJOUTER ICI L'AUGMENTATION DU SCORE
+      console.log("COLLISIONNEMENT ! ");
+      bouteille.repositionnerBouteille();
+      score.augmenterScore(10);
+      niveauAlcool.ajouterNiveau(10);
+      //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
-  function augmenterVitesseJeu(){
+  function augmenterVitesseJeu() {
     avancement += 0.5;
     vitesseRoute -= 0.001;
     route.raffraichirMatrice(vitesseRoute);
-    createjs.Ticker.setFPS((60*avancement));
+    createjs.Ticker.setFPS((60 * avancement));
   }
   function arrangerCanvas() {
     content = document.getElementById("content");
@@ -110,17 +110,22 @@ var VueJeu = function () {
     bouteilleEstCharger = true;
   }
 
- function stopperJeu()
-  {
+  function stopperJeu() {
     createjs.Ticker.off("tick", rafraichirJeu);
   }
 
-  this.getScore = function(){
+  this.getScore = function () {
     return score.getScore();
   }
-  function fin(){
+  async function fin() {
+    console.log("fin()");
+    await attente(5000);
     stopperJeu();
     window.location.hash = "fin-solo";
+  }
+
+  function attente(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
   initialiser();
 }
