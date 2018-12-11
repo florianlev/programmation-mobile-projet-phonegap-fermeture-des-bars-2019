@@ -78,7 +78,6 @@ function Joueur(scene) {
 
   //Gestion des animations en fonction des changement de l'etatCourant du personnage
   function gererAnimation(animation) {
-    console.log("gererAnimation()");
     scene.removeChild(animMarche);
     animationCourante = animation;
     animationCourante.x = xCourant;

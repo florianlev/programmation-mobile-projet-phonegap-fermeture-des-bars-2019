@@ -29,12 +29,13 @@ var Voiture = function(scene,content,envoyerVoitureCharger){
     bitmapVoiture.y -= vitesseRoute;
 
     //Si l'objet sort de la map on le repositionne
-    if (bitmapVoiture.y == -200) {
+    if (bitmapVoiture.y < -50) {
       voiture.repositionnerVoiture();
     }
   }
 
   this.repositionnerVoiture = function () {
+    console.log("repositionnerVoiture()");
     bitmapVoiture.y = content.offsetHeight;
     bitmapVoiture.x = getNombreHazard(10, content.offsetWidth);
   }

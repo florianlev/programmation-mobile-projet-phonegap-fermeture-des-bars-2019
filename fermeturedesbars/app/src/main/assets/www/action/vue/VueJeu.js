@@ -77,7 +77,7 @@ var VueJeu = function () {
       voiture.mouvementVoiture(vitesseVoiture);
       verificationCollisionnementJoueurVoiture();
     }
-    Z
+    
     niveauAlcool.diminution();
     scene.update(evenement);
   }
