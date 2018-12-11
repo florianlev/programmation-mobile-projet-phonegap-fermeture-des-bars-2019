@@ -5,7 +5,7 @@ function Route(scene,content) {
     var bitmap;
     var matrice;
     var paysage;
-
+   
 
     function initialiser() {
         imageRoute = document.getElementById('route');
@@ -18,6 +18,7 @@ function Route(scene,content) {
         chargementCompletArrierePlan.initEvent('chargementCompletArrierePlan', true, true);
 
         var acceleration = 1;
+       
 
         // a changer
         imageRoute.src = "images/route.png";
@@ -30,7 +31,9 @@ function Route(scene,content) {
             //imageRoute.width = imageRoute.width*scale;
             //imageRoute.height = imageRoute.height*scale;
 
-            paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,content.offsetWidth,content.offsetHeight).endStroke();
+            paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,imageRoute.naturalWidth,imageRoute.naturalHeight).endStroke();
+            paysageRoute.scaleX = content.offsetWidth / imageRoute.naturalWidth;
+            paysageRoute.scaleY = content.offsetHeight / imageRoute.naturalHeight;
             scene.addChild(paysageRoute);
             document.body.dispatchEvent(new CustomEvent("ROUTE_CHARGER"));
         }

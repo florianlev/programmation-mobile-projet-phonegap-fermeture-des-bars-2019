@@ -5,7 +5,7 @@ var Score = function(scene)
     var scoreText;
     function initialiser()
     {
-        score = 10;
+        score = 0;
         actualiserScore();
     }
 
