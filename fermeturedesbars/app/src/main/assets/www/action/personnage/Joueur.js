@@ -30,7 +30,7 @@ function Joueur(scene) {
     fantome.x = 100;
     fantome.y = window.innerHeight / 2 + 100;
 
-    scene.addChild(cercle);
+    //scene.addChild(cercle);
     scene.addChild(fantome);
   }
 
@@ -53,8 +53,8 @@ function Joueur(scene) {
       animMarche = new createjs.Sprite(spriteIvrogne, "marche");
       animMarche.scaleX = 0.3;
       animMarche.scaleY = 0.3;
-      animMarche.x = 300;
-      animMarche.y = 300;
+      animMarche.x = 100;
+      animMarche.y = 100;
 
 
       scene.addChild(animMarche);
@@ -64,9 +64,9 @@ function Joueur(scene) {
     //  cercle.set({x:position.x,y:position.y});
     differenceY = window.innerHeight / 2;
     y = y - differenceY;
-    if ((cercle.x - x) < distanceDoit && (cercle.x - x) > -distanceDoit && (cercle.y - y) < distanceDoit && (cercle.y - y) > -distanceDoit && y > 0) {
-      cercle.x = x;
-      cercle.y = y;
+    if ((animMarche.x - x) < distanceDoit && (animMarche.x - x) > -distanceDoit && (animMarche.y - y) < distanceDoit && (animMarche.y - y) > -distanceDoit && y > 0) {
+      animMarche.x = x;
+      animMarche.y = y;
 
       fantome.x = x;
       fantome.y = y + differenceY;
@@ -74,9 +74,9 @@ function Joueur(scene) {
   }
 
   this.rectangleCollisionJoueur = function () {
-    cercle.setBounds(cercle.x, cercle.y, joueur.height, joueur.width);
+    animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
     //console.log(cercle.getBounds());
-    return cercle.getBounds();
+    return animMarche.getBounds();
   }
 
   initialiser();
