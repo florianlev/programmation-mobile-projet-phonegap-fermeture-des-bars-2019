@@ -7,7 +7,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     estEcraser: "estEcraser",
     estEnVomissement: "estEnVomissement"
   }
-
+  var iterateurVerification = 0;
   //vitesse du jeu
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
@@ -24,23 +24,35 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     obstacles.push(new Obstacle(scene, content));
   }
   this.verification = function(){
-    for(iObstacles = 0; iObstacles < obstacles.length; iObstacles++){
-      if (obstacles[iObstacles]) {
-        obstacles[iObstacles].mouvementObstacle(vitesseObjetRoute);
-        verificationCollisionnementJoueurObjet(obstacles[iObstacles]);
+    switch (iterateurVerification) {
+
+    case 0:
+      for(iObstacles = 0; iObstacles < obstacles.length; iObstacles++){
+        if (obstacles[iObstacles]) {
+          obstacles[iObstacles].mouvementObstacle(vitesseObjetRoute);
+          verificationCollisionnementJoueurObjet(obstacles[iObstacles]);
+        }
       }
-    }
-    for(iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++){
-      if (bouteilles[iBouteilles]) {
-        bouteilles[iBouteilles].mouvementBouteille(vitesseObjetRoute);
-        verificationCollisionnementJoueurBouteille(bouteilles[iBouteilles]);
+      iterateurVerification++;
+      break;
+    case 1:
+      for(iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++){
+        if (bouteilles[iBouteilles]) {
+          bouteilles[iBouteilles].mouvementBouteille(vitesseObjetRoute);
+          verificationCollisionnementJoueurBouteille(bouteilles[iBouteilles]);
+        }
       }
-    }
-    for(iVoitures = 0; iVoitures < voitures.length; iVoitures++){
-      if (voitures[iVoitures]) {
-        voitures[iVoitures].mouvementVoiture(vitesseVoiture);
-        verificationCollisionnementJoueurObjet(voitures[iVoitures]);
+      iterateurVerification++;
+      break;
+    case 2:
+      for(iVoitures = 0; iVoitures < voitures.length; iVoitures++){
+        if (voitures[iVoitures]) {
+          voitures[iVoitures].mouvementVoiture(vitesseVoiture);
+          verificationCollisionnementJoueurObjet(voitures[iVoitures]);
+        }
       }
+      iterateurVerification = 0;
+      break;
     }
   }
   //Verification de la collision avec le joueur et la voiture

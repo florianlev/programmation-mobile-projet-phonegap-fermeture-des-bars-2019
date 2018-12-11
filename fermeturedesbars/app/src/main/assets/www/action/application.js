@@ -17,7 +17,7 @@
     console.log(localStorage['pseudo']);
 
     window.addEventListener("hashchange", this.naviguer);
-
+    window.location.hash = '#menu-principale';
     if (!localStorage['pseudo']) {
       window.location.hash = '#choisir-pseudo';
     }

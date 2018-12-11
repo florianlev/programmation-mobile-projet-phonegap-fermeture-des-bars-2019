@@ -11,7 +11,7 @@ var VueJeu = function () {
   var niveauAlcool
   var score;
   var avancement;
-
+  var parteTerminer;
   //Verification des chargement d'objets
   // var obstacleEstCharger = false;
   // var bouteilleEstCharger = false;
@@ -59,6 +59,8 @@ var VueJeu = function () {
     //Initilialisation de la route
     route = new Route(scene, content);
     avancement = 10;
+    vitesseRoute = -1;
+    parteTerminer = false
     //setInterval(augmenterVitesseJeu, 5000);
   }
 
@@ -168,10 +170,12 @@ var VueJeu = function () {
   }
 
   async function fin(evenement) {
-    joueur.setEtatJoueur(evenement.detail['etatJoueur']);
-    await attente(5000);
-    stopperJeu();
-    window.location.hash = "fin-solo";
+    if(!parteTerminer){
+      joueur.setEtatJoueur(evenement.detail['etatJoueur']);
+      await attente(5000);
+      stopperJeu();
+      window.location.hash = "fin-solo";
+    }
   }
 
   // //CallBack pour recevoir l'etat du joueur
