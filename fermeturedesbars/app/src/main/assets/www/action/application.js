@@ -50,6 +50,11 @@
       this.vueApreciation.afficher();
     } else if (window.location.hash.match(/^#statistique/)) {
       this.vueStatistique.afficher();
+    } else if (window.location.hash.match(/^#quitter/)) {
+      //rien ne marche ffs.
+      //device.exitApp();
+      //navigator.app.exitApp();
+      //cordova.plugins.exit();
     }
   }
 
