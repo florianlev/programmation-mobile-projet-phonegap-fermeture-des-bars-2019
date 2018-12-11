@@ -4,13 +4,19 @@ function Joueur(scene) {
   var cercle;
   var distanceDoit;
   var fantome;
+
   var animationCourante;
 
   var IMAGEIVROGNOREMARCHE = "images/spriteSheetIvrogne.png";
-  var IMAGEIVROGNEVOMI = "images/ivrogneVomi.png";
 
+  // positions courante pour les deplacements
   var xCourant;
   var yCourant;
+
+  //Variables d'animations
+  var animMarche;
+  var animEcraser;
+  var animVomi;
 
   joueur.height = 20;
   joueur.width = 20;
@@ -19,12 +25,6 @@ function Joueur(scene) {
   function initialiser() {
     // dessiner cercle
     distanceDoit = 80;
-    cercle = new createjs.Shape();
-    cercle.graphics.beginFill("red").drawCircle(0, 0, 50);
-    cercle.x = 100;
-    cercle.y = 100;
-
-
 
     imageIvrogne = new Image();
     imageIvrogne.src = IMAGEIVROGNOREMARCHE;
@@ -32,7 +32,6 @@ function Joueur(scene) {
 
     xCourant = 100;
     yCourant = 100;
-    //imageIvrogneVomi.onload = terminerChargement;
 
     fantome = new createjs.Shape();
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
@@ -41,7 +40,6 @@ function Joueur(scene) {
     fantome.x = 100;
     fantome.y = window.innerHeight / 2 + 100;
 
-    //scene.addChild(cercle);
     scene.addChild(fantome);
   }
 
@@ -54,14 +52,9 @@ function Joueur(scene) {
         animations:
         {
 
-          marche : [0, 6, "marche"],
-          vomi : [7, 15, "vomi"],
-          ecrasement : [16]
-          /*marche:
-          {
-            frames: [0, 1, 2, 3, 4, 5, 6]
-          }*/
-
+          marche: [0, 6, "marche"],
+          vomi: [7, 15, "vomi"],
+          ecrasement: [16]
         }
       });
 
@@ -78,26 +71,37 @@ function Joueur(scene) {
     animEcraser.scaleX = (0.3 * content.offsetWidth) / 1920;
     animEcraser.scaleY = (0.15 * content.offsetHeight) / 938;
 
-
-    /*animMarche.x = 100;
-    animMarche.y = 100;*/
-
     animationCourante = animMarche;
-    //scene.addChild(animMarche);
 
     gererAnimation(animationCourante);
   }
 
   function gererAnimation(animation) {
-    scene.removeChild(animationCourante);
+    console.log("gererAnimation()");
+    scene.removeChild(animMarche);
     animationCourante = animation;
     animationCourante.x = xCourant;
     animationCourante.y = yCourant;
     scene.addChild(animationCourante);
   }
 
+  this.setEtatJoueur = function (etatJoueur) {
+    switch (etatJoueur) {
+      case "enMarche":
+        animationCourante = animMarche;
+        break;
+      case "estEcraser":
+        animationCourante = animEcraser;
+        break;
+      case "estEnVomissement":
+        animationCourante = animVomi;
+        break;
+    }
+    gererAnimation(animationCourante);
+  }
+
   this.setPosition = function (x, y) {
-    //  cercle.set({x:position.x,y:position.y});
+
     differenceY = window.innerHeight / 2;
     y = y - differenceY;
     if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0) {
@@ -113,7 +117,7 @@ function Joueur(scene) {
 
   this.rectangleCollisionJoueur = function () {
     //animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
-    //console.log(cercle.getBounds());
+
     return animationCourante.getTransformedBounds();
   }
 

@@ -16,6 +16,15 @@ var VueJeu = function () {
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
 
+  //Machine d'etat pour verifier l'etat du joueur pour les anim
+  var EtatJoueur = {
+    enMarche: "enMarche",
+    estEcraser: "estEcraser",
+    estEnVomissement: "estEnVomissement"
+  }
+
+  var etatCourantJoueur;
+
   function initialiser() {
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
@@ -68,12 +77,14 @@ var VueJeu = function () {
       //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
+
   function augmenterVitesseJeu() {
     avancement += 0.5;
     vitesseRoute -= 0.001;
     route.raffraichirMatrice(vitesseRoute);
     createjs.Ticker.setFPS((60 * avancement));
   }
+
   function arrangerCanvas() {
     content = document.getElementById("content");
 
@@ -86,12 +97,14 @@ var VueJeu = function () {
       canvas.height = content.offsetHeight;
     }
   }
+
   function deplacement(evenement) {
     joueur.setPosition(evenement.center.x, evenement.center.y);
   }
 
   function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
     joueur = new Joueur(scene);
+    etatCourantJoueur = EtatJoueur.enMarche;
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
     bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
@@ -118,7 +131,8 @@ var VueJeu = function () {
     return score.getScore();
   }
   async function fin() {
-    console.log("fin()");
+    etatCourantJoueur = EtatJoueur.estEnVomissement;
+    joueur.setEtatJoueur(etatCourantJoueur);
     await attente(5000);
     stopperJeu();
     window.location.hash = "fin-solo";
