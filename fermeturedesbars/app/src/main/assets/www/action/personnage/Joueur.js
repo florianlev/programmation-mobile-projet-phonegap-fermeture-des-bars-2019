@@ -51,8 +51,8 @@ function Joueur(scene) {
 
 
       animMarche = new createjs.Sprite(spriteIvrogne, "marche");
-      animMarche.scaleX = 0.3;
-      animMarche.scaleY = 0.3;
+      animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
+      animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
       animMarche.x = 100;
       animMarche.y = 100;
 
