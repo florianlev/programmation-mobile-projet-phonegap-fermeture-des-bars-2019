@@ -1,20 +1,22 @@
-var VueApreciation = function () {
+var AjouterVueApreciation = (function(){
+    var pageAjouterApreciation = document.getElementById("apreciation").innerHTML;
 
-  var contenuPage;
+    return function(actionEnregistrerApreciation)
+    {
 
-  function initialiser() {
-    contenuPage = document.getElementById("apreciation").innerHTML;
-  }
+        this.afficher = function()
+        {
+            document.getElementsByTagName("body")[0].innerHTML = pageAjouterEquipe;
 
-  this.afficher = function () {
-    document.body.innerHTML = contenuPage;
-    var formulaireAjouter = document.getElementById("formulaireapreciation");
-    formulaireAjouter.addEventListener("submit",enregistrerEquipe);
-  }
-  var enregistrerEquipe = function(evenement)
-          {
+            var formulaireAjouter = document.getElementById("formulaireapreciation");
+            formulaireAjouter.addEventListener("submit",enregistrerApreciation);
 
-              evenement.preventDefault();
+        }
+
+        var enregistrerApreciation = function(evenement)
+        {
+
+            evenement.preventDefault();
 
               var nom = document.getElementById("nom").value;
               var courriel = document.getElementById("courriel").value;
@@ -25,17 +27,19 @@ var VueApreciation = function () {
               if(document.getElementById("oui").checked)
                     {
                         var aimer = document.getElementById("oui").value;
-                        alert(aimer);
+                      //  alert(aimer);
                     }
 
 		          else if(document.getElementById("non").checked)
                     {
                         var aimer = document.getElementById("non").value;
-                        alert(aimer);
+                      //  alert(aimer);
                     }
 
-              initialiser();
-          }
+            var equipe = new Equipe(nom, stade, historique, null);
 
+            actionEnregistrerApreciation();
+        }
 
-}
+    };
+})();
