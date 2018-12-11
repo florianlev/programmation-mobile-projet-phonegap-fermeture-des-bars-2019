@@ -4,7 +4,7 @@ var Voiture = function(scene,content,envoyerVoitureCharger){
   var bitmapVoiture;
   voiture.height = 20;
   voiture.width = 20;
-  
+
   function initialiser(){
     imgVoiture.src = "images/voiture.png";
     imgVoiture.onload = terminerChargement;
@@ -13,8 +13,11 @@ var Voiture = function(scene,content,envoyerVoitureCharger){
   function terminerChargement()
   {
     bitmapVoiture = new createjs.Bitmap(imgVoiture);
-    bitmapVoiture.scaleX = (0.2 * content.offsetWidth) / 1920; 
-    bitmapVoiture.scaleY = (0.05 * content.offsetHeight) / 938;
+    scale = (0.3 * content.offsetWidth) / 1920;
+    bitmapVoiture.scaleX = scale;
+    bitmapVoiture.scaleY = scale;
+    //bitmapVoiture.scaleX = (0.2 * content.offsetWidth) / 1920;
+    //bitmapVoiture.scaleY = (0.2 * content.offsetHeight) / 938;
     voiture.afficher();
   }
 
@@ -48,6 +51,6 @@ var Voiture = function(scene,content,envoyerVoitureCharger){
     bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
     return bitmapVoiture.getBounds();
   }
- 
+
   initialiser();
 }

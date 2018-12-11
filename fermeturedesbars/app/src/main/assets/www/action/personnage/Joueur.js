@@ -59,17 +59,24 @@ function Joueur(scene) {
       });
 
     //Pour les 3 anims on créer une sprite et on l'adapte en fonction de l'ecran
+    scale = (0.4 * content.offsetWidth) / 1920;
     animMarche = new createjs.Sprite(spriteIvrogne, "marche");
-    animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
-    animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
+    animMarche.scaleX = scale;
+    animMarche.scaleY = scale;
+    //animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
+    //animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
 
     animVomi = new createjs.Sprite(spriteIvrogne, "vomi");
-    animVomi.scaleX = (0.3 * content.offsetWidth) / 1920;
-    animVomi.scaleY = (0.15 * content.offsetHeight) / 938;
+    animVomi.scaleX = scale;
+    animVomi.scaleY = scale;
+    //animVomi.scaleX = (0.3 * content.offsetWidth) / 1920;
+    //animVomi.scaleY = (0.15 * content.offsetHeight) / 938;
 
     animEcraser = new createjs.Sprite(spriteIvrogne, "ecrasement");
-    animEcraser.scaleX = (0.3 * content.offsetWidth) / 1920;
-    animEcraser.scaleY = (0.15 * content.offsetHeight) / 938;
+    animEcraser.scaleX = scale;
+    animEcraser.scaleY = scale;
+    //animEcraser.scaleX = (0.3 * content.offsetWidth) / 1920;
+    //animEcraser.scaleY = (0.15 * content.offsetHeight) / 938;
 
     animationCourante = animMarche;
 
