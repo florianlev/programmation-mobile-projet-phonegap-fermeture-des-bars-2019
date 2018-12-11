@@ -38,11 +38,11 @@ function Joueur(scene) {
     spriteIvrogne = new createjs.SpriteSheet(
       {
         images: [imageIvrogne],
-				frames: { "regX": 0, "height": 700, "count": 64, "regY": 0, "width": 400},
-				framerate: 6,
+				frames: { "regX": 32, "height": 700, "count": 0, "regY": 32, "width": 400},
+				framerate: 12,
 				animations:
 					{
-						"marche": [0, 7]
+						"marche": [0,7, "marche"]
 					}
       });
 
