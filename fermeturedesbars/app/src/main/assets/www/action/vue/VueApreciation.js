@@ -36,7 +36,7 @@ var AjouterVueApreciation = (function(){
                       //  alert(aimer);
                     }
 
-            var equipe = new Equipe(nom, stade, historique, null);
+            
 
             actionEnregistrerApreciation();
         }
