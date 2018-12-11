@@ -132,7 +132,7 @@ var VueJeu = function () {
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
 
-    //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM
+    //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
     voiture = new Voiture(scene, content, verifierVoitureCharger);
     bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
     obstacle = new Obstacle(scene, content, verifierObstacleCharger);
@@ -155,6 +155,7 @@ var VueJeu = function () {
     voitureEstCharger = true;
   }
 
+  //Stopper le ticker de la boucle de jeu
   function stopperJeu() {
     createjs.Ticker.off("tick", rafraichirJeu);
   }
