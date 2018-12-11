@@ -6,7 +6,7 @@ var AjouterVueApreciation = (function(){
 
         this.afficher = function()
         {
-            document.getElementsByTagName("body")[0].innerHTML = pageAjouterEquipe;
+            document.getElementsByTagName("body")[0].innerHTML = pageAjouterApreciation;
 
             var formulaireAjouter = document.getElementById("formulaireapreciation");
             formulaireAjouter.addEventListener("submit",enregistrerApreciation);
