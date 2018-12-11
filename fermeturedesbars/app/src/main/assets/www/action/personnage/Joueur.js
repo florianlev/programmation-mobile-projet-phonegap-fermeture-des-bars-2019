@@ -74,9 +74,9 @@ function Joueur(scene) {
   }
 
   this.rectangleCollisionJoueur = function () {
-    animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
+    //animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
     //console.log(cercle.getBounds());
-    return animMarche.getBounds();
+    return animMarche.getTransformedBounds();
   }
 
   initialiser();
