@@ -17,8 +17,8 @@ var Obstacle = function(scene,content,envoyerObstacleCharger){
   function terminerChargement()
   {
     bitmapObstacle = new createjs.Bitmap(imgObstacle);
-    bitmapObstacle.scaleX = 0.5;
-    bitmapObstacle.scaleY = 0.5;
+    bitmapObstacle.scaleX = (0.8 * content.offsetWidth) / 1920;
+    bitmapObstacle.scaleY = (0.3 * content.offsetHeight) / 938;
     obstacle.afficher();
   }
 
