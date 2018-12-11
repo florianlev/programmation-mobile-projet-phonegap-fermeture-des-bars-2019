@@ -49,13 +49,14 @@ function Joueur(scene) {
     spriteIvrogne = new createjs.SpriteSheet(
       {
         images: [imageIvrogne],
-        frames: { "regX": 0, "height": 890, "count": 0, "regY": 0, "width": 480 },
+        frames: { "regX": 0, "height": 892, "count": 0, "regY": 0, "width": 480 },
         framerate: 13,
         animations:
         {
 
           marche : [0, 6, "marche"],
-          vomi : [7, 15, "vomi"]
+          vomi : [7, 15, "vomi"],
+          ecrasement : [16]
           /*marche:
           {
             frames: [0, 1, 2, 3, 4, 5, 6]
@@ -72,6 +73,11 @@ function Joueur(scene) {
     animVomi = new createjs.Sprite(spriteIvrogne, "vomi");
     animVomi.scaleX = (0.3 * content.offsetWidth) / 1920;
     animVomi.scaleY = (0.15 * content.offsetHeight) / 938;
+
+    animEcraser = new createjs.Sprite(spriteIvrogne, "ecrasement");
+    animEcraser.scaleX = (0.3 * content.offsetWidth) / 1920;
+    animEcraser.scaleY = (0.15 * content.offsetHeight) / 938;
+
 
     /*animMarche.x = 100;
     animMarche.y = 100;*/
