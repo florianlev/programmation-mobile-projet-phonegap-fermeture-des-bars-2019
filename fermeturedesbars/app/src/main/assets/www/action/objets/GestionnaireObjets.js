@@ -14,14 +14,24 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
   var vitesseVoiture = 3;
 
   function initialiser(){
+    setTimeout(function() {
     bouteilles.push(new Bouteille(scene, content));
+    }, getNombreHazard(0, 3000));
+    setTimeout(function() {
+    obstacles.push(new Obstacle(scene, content));
+    }, getNombreHazard(0, 3000));
+    setTimeout(function() {
+    voitures.push(new Voiture(scene, content));
+    }, getNombreHazard(0, 3000));
+    setTimeout(function() {
     bouteilles.push(new Bouteille(scene, content));
-
+    }, getNombreHazard(0, 3000));
+    setTimeout(function() {
     voitures.push(new Voiture(scene, content));
-    voitures.push(new Voiture(scene, content));
-
+    }, getNombreHazard(0, 3000));
+    setTimeout(function() {
     obstacles.push(new Obstacle(scene, content));
-    obstacles.push(new Obstacle(scene, content));
+    }, getNombreHazard(0, 3000));
   }
   this.verification = function(){
     switch (iterateurVerification) {
@@ -72,6 +82,9 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
       score.augmenterScore(10);
       niveauAlcool.ajouterNiveau(10);
     }
+  }
+  function getNombreHazard(min, max) {
+    return Math.random() * (max - min) + min;
   }
   initialiser();
 }

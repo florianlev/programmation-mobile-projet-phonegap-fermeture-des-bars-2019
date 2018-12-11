@@ -37,7 +37,7 @@ var Bouteille = function (scene, content) {
 
     //Si l'objet sort de la map on le repositionne
     if (bitmapBouteille.y == -200) {
-      bouteille.repositionnerBouteille();
+      setTimeout(this.repositionnerBouteille, getNombreHazard(0,3));
     }
   }
 

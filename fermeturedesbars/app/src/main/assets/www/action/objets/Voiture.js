@@ -32,11 +32,12 @@ var Voiture = function(scene,content){
   }
 
   this.mouvementVoiture = function (vitesseRoute) {
+
     bitmapVoiture.y -= vitesseRoute;
 
     //Si l'objet sort de la map on le repositionne
     if (bitmapVoiture.y < -50) {
-      voiture.repositionnerVoiture();
+      setTimeout(this.repositionnerVoiture, getNombreHazard(0,3));
     }
   }
 

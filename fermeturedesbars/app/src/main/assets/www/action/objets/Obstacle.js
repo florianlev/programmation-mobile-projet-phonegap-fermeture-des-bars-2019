@@ -37,11 +37,13 @@ var Obstacle = function(scene,content){
   }
 
   this.mouvementObstacle = function(vitesseRoute){
-    bitmapObstacle.y -= 1;
+    if(bitmapObstacle.y){
+      bitmapObstacle.y -= 1;
 
-    //Si l'objet sort de la map on le repositionne
-    if(bitmapObstacle.y == -200){
-      repositionnerObstacle();
+      //Si l'objet sort de la map on le repositionne
+      if(bitmapObstacle.y == -200){
+        setTimeout(repositionnerObstacle, getNombreHazard(0,3));
+      }
     }
   }
 
