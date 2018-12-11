@@ -109,10 +109,17 @@ var VueJeu = function () {
   function verifierBouteilleCharger() {
     bouteilleEstCharger = true;
   }
+
+ function stopperJeu()
+  {
+    createjs.Ticker.off("tick", rafraichirJeu);
+  }
+
   this.getScore = function(){
     return score.getScore();
   }
   function fin(){
+    stopperJeu();
     window.location.hash = "fin-solo";
   }
   initialiser();
