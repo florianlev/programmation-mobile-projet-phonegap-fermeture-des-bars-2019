@@ -18,9 +18,6 @@ function Joueur(scene) {
   var animEcraser;
   var animVomi;
 
-  joueur.height = 20;
-  joueur.width = 20;
-
 
   function initialiser() {
     // dessiner cercle
@@ -33,6 +30,7 @@ function Joueur(scene) {
     xCourant = 100;
     yCourant = 100;
 
+    //Pour le déplacement du personnage le tactile
     fantome = new createjs.Shape();
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
     fantome.graphics.beginFill("white").drawCircle(0, 0, 25);
@@ -44,6 +42,8 @@ function Joueur(scene) {
   }
 
   function terminerChargement() {
+
+    //Création de la spriteSheet
     spriteIvrogne = new createjs.SpriteSheet(
       {
         images: [imageIvrogne],
@@ -51,14 +51,14 @@ function Joueur(scene) {
         framerate: 13,
         animations:
         {
-
+          //Gestion des 3 animations de la feuille de sprite
           marche: [0, 6, "marche"],
           vomi: [7, 15, "vomi"],
           ecrasement: [16]
         }
       });
 
-
+    //Pour les 3 anims on créer une sprite et on l'adapte en fonction de l'ecran
     animMarche = new createjs.Sprite(spriteIvrogne, "marche");
     animMarche.scaleX = (0.3 * content.offsetWidth) / 1920;
     animMarche.scaleY = (0.15 * content.offsetHeight) / 938;
@@ -76,6 +76,7 @@ function Joueur(scene) {
     gererAnimation(animationCourante);
   }
 
+  //Gestion des animations en fonction des changement de l'etatCourant du personnage
   function gererAnimation(animation) {
     console.log("gererAnimation()");
     scene.removeChild(animMarche);
@@ -85,6 +86,7 @@ function Joueur(scene) {
     scene.addChild(animationCourante);
   }
 
+  //On set l'etat du joueur suivant la machine d'etat
   this.setEtatJoueur = function (etatJoueur) {
     switch (etatJoueur) {
       case "enMarche":
@@ -99,6 +101,7 @@ function Joueur(scene) {
     }
     gererAnimation(animationCourante);
   }
+
 
   this.setPosition = function (x, y) {
 
@@ -115,9 +118,8 @@ function Joueur(scene) {
     }
   }
 
+  //Retour de la collision du joueur
   this.rectangleCollisionJoueur = function () {
-    //animMarche.setBounds(animMarche.x, animMarche.y, joueur.height, joueur.width);
-
     return animationCourante.getTransformedBounds();
   }
 

@@ -7,14 +7,20 @@ var VueJeu = function () {
   var route;
   var hammer;
   var joueur;
-  var obstacleEstCharger = false;
-  var bouteilleEstCharger = false;
+
   var niveauAlcool
   var score;
   var avancement;
+
+  //Verification des chargement d'objets
+  var obstacleEstCharger = false;
+  var bouteilleEstCharger = false;
+  var voitureEstCharger = false;
+
   //vitesse du jeu
   var vitesseObjetRoute = 1;
   var vitesseRoute = -1;
+  var vitesseVoiture = 3;
 
   //Machine d'etat pour verifier l'etat du joueur pour les anim
   var EtatJoueur = {
@@ -32,6 +38,7 @@ var VueJeu = function () {
 
   this.afficher = function () {
     hammer = new Hammer(document.body);
+
     //Initialisaton du canvas
     document.body.innerHTML = contenuPage;
     canvas = document.getElementById("dessin");
@@ -45,9 +52,11 @@ var VueJeu = function () {
     createjs.Ticker.setInterval(1000 / 60);
     createjs.Ticker.setFPS(60);
 
-    //Initilialisation de la route
+    //Event PartieTerminer et RouteCharger
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
     document.body.addEventListener("PARTIE_TERMINER", fin);
+
+    //Initilialisation de la route
     route = new Route(scene, content);
     avancement = 10;
     //setInterval(augmenterVitesseJeu, 5000);
@@ -64,8 +73,23 @@ var VueJeu = function () {
       bouteille.mouvementBouteille(vitesseObjetRoute);
       verificationCollisionnementJoueurBouteille();
     }
+    if (voitureEstCharger) {
+      voiture.mouvementVoiture(vitesseVoiture);
+      verificationCollisionnementJoueurVoiture();
+    }
+    Z
     niveauAlcool.diminution();
     scene.update(evenement);
+  }
+
+  //Verification de la collision avec le joueur et la voiture
+  function verificationCollisionnementJoueurVoiture() {
+    if (joueur.rectangleCollisionJoueur().intersects(voiture.rectangleCollisionVoiture())) {
+      console.log("COLLISIONNEMENT ! ");
+      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
+      etatCourantJoueur = EtatJoueur.estEcraser;
+      joueur.setEtatJoueur(etatCourantJoueur);
+    }
   }
 
   function verificationCollisionnementJoueurBouteille() {
@@ -107,10 +131,13 @@ var VueJeu = function () {
     etatCourantJoueur = EtatJoueur.enMarche;
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
+
+    //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM
+    voiture = new Voiture(scene, content, verifierVoitureCharger);
     bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
     obstacle = new Obstacle(scene, content, verifierObstacleCharger);
     score = new Score(scene);
-    niveauAlcool = new NiveauAlcool(scene);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+    niveauAlcool = new NiveauAlcool(scene,recevoirEtatJoueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
   }
 
   //CallBack pour verifier si l'obstacle est charger
@@ -123,6 +150,11 @@ var VueJeu = function () {
     bouteilleEstCharger = true;
   }
 
+  //CallBack pour veerifier si la voiture est charger
+  function verifierVoitureCharger() {
+    voitureEstCharger = true;
+  }
+
   function stopperJeu() {
     createjs.Ticker.off("tick", rafraichirJeu);
   }
@@ -130,12 +162,17 @@ var VueJeu = function () {
   this.getScore = function () {
     return score.getScore();
   }
+
   async function fin() {
-    etatCourantJoueur = EtatJoueur.estEnVomissement;
     joueur.setEtatJoueur(etatCourantJoueur);
     await attente(5000);
     stopperJeu();
     window.location.hash = "fin-solo";
+  }
+
+  //CallBack pour recevoir l'etat du joueur
+  function recevoirEtatJoueur(etatJoueur){
+    etatCourantJoueur = etatJoueur;
   }
 
   function attente(ms) {

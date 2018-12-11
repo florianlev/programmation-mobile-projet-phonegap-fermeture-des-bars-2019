@@ -1,25 +1,51 @@
-var Voiture = function(scene){
+var Voiture = function(scene,content,envoyerVoitureCharger){
   var voiture = this;
   var imgVoiture = new Image();
-  var bitmapVoiture
+  var bitmapVoiture;
+  voiture.height = 20;
+  voiture.width = 20;
   
   function initialiser(){
     imgVoiture.src = "images/voiture.png";
     imgVoiture.onload = terminerChargement;
   }
+
   function terminerChargement()
   {
     bitmapVoiture = new createjs.Bitmap(imgVoiture);
-    bitmapVoiture.scaleX = 0.2;
-    bitmapVoiture.scaleY = 0.2;
+    bitmapVoiture.scaleX = (0.2 * content.offsetWidth) / 1920; 
+    bitmapVoiture.scaleY = (0.05 * content.offsetHeight) / 938;
     voiture.afficher();
   }
 
-
   this.afficher = function () {
     scene.addChild(bitmapVoiture);
-    bitmapVoiture.x = 200;
-    bitmapVoiture.y = 300;
+    voiture.repositionnerVoiture();
+    envoyerVoitureCharger();
+
+  }
+
+  this.mouvementVoiture = function (vitesseRoute) {
+    bitmapVoiture.y -= vitesseRoute;
+
+    //Si l'objet sort de la map on le repositionne
+    if (bitmapVoiture.y == -200) {
+      voiture.repositionnerVoiture();
+    }
+  }
+
+  this.repositionnerVoiture = function () {
+    bitmapVoiture.y = content.offsetHeight;
+    bitmapVoiture.x = getNombreHazard(10, content.offsetWidth);
+  }
+
+  function getNombreHazard(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  this.rectangleCollisionVoiture = function () {
+    bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
+    return bitmapVoiture.getBounds();
   }
  
   initialiser();
