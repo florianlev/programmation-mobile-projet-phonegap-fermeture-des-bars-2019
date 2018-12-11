@@ -50,7 +50,7 @@ var Voiture = function(scene,content){
     return Math.random() * (max - min) + min;
   }
 
-  this.rectangleCollisionVoiture = function () {
+  this.getCollision = function () {
     bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
     return bitmapVoiture.getBounds();
   }

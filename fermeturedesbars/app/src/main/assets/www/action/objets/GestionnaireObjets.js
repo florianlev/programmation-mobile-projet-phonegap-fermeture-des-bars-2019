@@ -27,6 +27,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     for(iObstacles = 0; iObstacles < obstacles.length; iObstacles++){
       if (obstacles[iObstacles]) {
         obstacles[iObstacles].mouvementObstacle(vitesseObjetRoute);
+        verificationCollisionnementJoueurObjet(obstacles[iObstacles]);
       }
     }
     for(iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++){
@@ -38,29 +39,26 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     for(iVoitures = 0; iVoitures < voitures.length; iVoitures++){
       if (voitures[iVoitures]) {
         voitures[iVoitures].mouvementVoiture(vitesseVoiture);
-        verificationCollisionnementJoueurVoiture(voitures[iVoitures]);
+        verificationCollisionnementJoueurObjet(voitures[iVoitures]);
       }
     }
   }
   //Verification de la collision avec le joueur et la voiture
-  function verificationCollisionnementJoueurVoiture(voiture) {
-    if (joueur.rectangleCollisionJoueur().intersects(voiture.rectangleCollisionVoiture())) {
+  function verificationCollisionnementJoueurObjet(objet) {
+    if (joueur.rectangleCollisionJoueur().intersects(objet.getCollision())) {
       //console.log("COLLISIONNEMENT ! ");
       detail = [];
       detail['etatJoueur'] = EtatJoueur.estEcraser;
       document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER", {'detail':detail}));
-      //etatCourantJoueur = EtatJoueur.estEcraser;
-      //joueur.setEtatJoueur(etatCourantJoueur);
     }
   }
 
   function verificationCollisionnementJoueurBouteille(bouteille) {
-    if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
+    if (joueur.rectangleCollisionJoueur().intersects(bouteille.getCollision())) {
       //console.log("COLLISIONNEMENT ! ");
       bouteille.repositionnerBouteille();
       score.augmenterScore(10);
       niveauAlcool.ajouterNiveau(10);
-      //RAJOUTER ICI L'AUGMENTATION DU SCORE
     }
   }
   initialiser();

@@ -3,7 +3,8 @@ var Obstacle = function(scene,content){
   var obstacle = this;
   var imgObstacle = new Image();
   var bitmapObstacle;
-
+  obstacle.height = 20;
+  obstacle.width = 20;
   this.estCharger = false;
 //possibiliter d'utiliser un manager d'objet pour socuper de la gestion de tout les objets
   function initialiser(){
@@ -52,7 +53,10 @@ var Obstacle = function(scene,content){
   function getNombreHazard(min, max) {
     return Math.random() * (max - min) + min;
   }
-
+  this.getCollision = function () {
+    bitmapObstacle.setBounds(bitmapObstacle.x, bitmapObstacle.y, obstacle.width, obstacle.height);
+    return bitmapObstacle.getBounds();
+  }
 
   initialiser();
 

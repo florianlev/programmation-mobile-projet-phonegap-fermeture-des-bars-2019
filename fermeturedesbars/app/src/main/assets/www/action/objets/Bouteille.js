@@ -50,7 +50,7 @@ var Bouteille = function (scene, content) {
     return Math.random() * (max - min) + min;
   }
 
-  this.rectangleCollisionBouteille = function () {
+  this.getCollision = function () {
     bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
     return bitmapBouteille.getBounds();
   }
