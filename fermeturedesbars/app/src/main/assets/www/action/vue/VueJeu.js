@@ -41,12 +41,12 @@ var VueJeu = function () {
     document.body.addEventListener("PARTIE_TERMINER", fin);
     route = new Route(scene,content);
     avancement =10;
-    setInterval(augmenterVitesseJeu, 5000);
+    //setInterval(augmenterVitesseJeu, 5000);
   }
 
   //Boucle de jeu
   function rafraichirJeu(evenement) {// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
-    route.raffraichirMatrice(vitesseRoute);
+    augmenterVitesseJeu();
 
     if (obstacleEstCharger) {
       obstacle.mouvementObstacle(vitesseObjetRoute);
@@ -69,7 +69,9 @@ var VueJeu = function () {
     }
   }
   function augmenterVitesseJeu(){
-    avancement*=2;
+    avancement += 0.5;
+    vitesseRoute -= 0.001;
+    route.raffraichirMatrice(vitesseRoute);
     createjs.Ticker.setFPS((60*avancement));
   }
   function arrangerCanvas() {
