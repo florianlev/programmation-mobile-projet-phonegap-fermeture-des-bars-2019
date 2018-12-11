@@ -70,7 +70,7 @@ var VueJeu = function () {
   }
   function augmenterVitesseJeu(){
     avancement*=2;
-    createjs.Ticker.setFPS((60*avancement);
+    createjs.Ticker.setFPS((60*avancement));
   }
   function arrangerCanvas() {
     content = document.getElementById("content");
