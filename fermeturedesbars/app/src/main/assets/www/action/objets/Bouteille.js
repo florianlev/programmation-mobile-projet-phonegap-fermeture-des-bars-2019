@@ -13,8 +13,9 @@ var Bouteille = function (scene, content, envoyerBouteilleCharger) {
 
   function terminerChargement() {
     bitmapBouteille = new createjs.Bitmap(imgBouteille);
-    bitmapBouteille.scaleX = 0.05;
-    bitmapBouteille.scaleY = 0.05;
+    bitmapBouteille.scaleX = (0.2 * content.offsetWidth) / 1920; 
+    bitmapBouteille.scaleY = (0.05 * content.offsetHeight) / 938;
+    console.log("scaleX: " + bitmapBouteille.scaleX + " scaleY: " + bitmapBouteille.scaleY); 
     bouteille.afficher();
   }
 
