@@ -28,5 +28,6 @@ var VueApreciation = function () {
 
         dao = new DaoApreciation();
         dao.envoyerFormulaire(nom, courriel, telephone, nas, commentaire, aimer);
+        window.location.hash ="";
     }
 }
