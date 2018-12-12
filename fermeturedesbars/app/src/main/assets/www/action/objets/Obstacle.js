@@ -53,6 +53,7 @@ var Obstacle = function(scene,content){
   function repositionnerObstacle(){
     bitmapObstacle.y = content.offsetHeight;
     bitmapObstacle.x = getNombreHazard(10,content.offsetWidth);
+    enAttenteDeplacement = false;
   }
 
   function getNombreHazard(min, max) {

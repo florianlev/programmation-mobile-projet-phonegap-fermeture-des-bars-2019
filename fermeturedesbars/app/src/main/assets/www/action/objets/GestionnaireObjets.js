@@ -74,7 +74,8 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
       bouteille.setEnAttenteDeplacement(true);
       //console.log("COLLISIONNEMENT ! ");
       console.log("hit, setTimeout");
-      setTimeout(bouteille.repositionnerBouteille, getNombreHazard(0,3000));
+
+      setTimeout(bouteille.repositionnerBouteille , getNombreHazard(0,3000));
       score.augmenterScore(10);
       niveauAlcool.ajouterNiveau(10);
     }

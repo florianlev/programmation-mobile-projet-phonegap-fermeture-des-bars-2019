@@ -32,20 +32,23 @@ var Voiture = function(scene,content){
   }
 
   this.mouvementVoiture = function (vitesseRoute) {
+    if(bitmapVoiture){
+      bitmapVoiture.y -= vitesseRoute;
 
-    bitmapVoiture.y -= vitesseRoute;
-
-    //Si l'objet sort de la map on le repositionne
-    if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
-      enAttenteDeplacement = true;
-      setTimeout(this.repositionnerVoiture, getNombreHazard(0,3000));
+      //Si l'objet sort de la map on le repositionne
+      if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
+        enAttenteDeplacement = true;
+        //console.log("voiture out");
+        setTimeout(this.repositionnerVoiture, getNombreHazard(0,3000));
+      }
     }
   }
 
   this.repositionnerVoiture = function () {
-    console.log("repositionnerVoiture()");
+    //console.log("repositionnerVoiture()"+ getNombreHazard(10, content.offsetWidth) + content.offsetHeight);
     bitmapVoiture.y = content.offsetHeight;
     bitmapVoiture.x = getNombreHazard(10, content.offsetWidth);
+    enAttenteDeplacement = false;
   }
 
   function getNombreHazard(min, max) {
