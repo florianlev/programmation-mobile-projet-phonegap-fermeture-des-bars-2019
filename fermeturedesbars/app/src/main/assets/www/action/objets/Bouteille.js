@@ -46,8 +46,10 @@ var Bouteille = function (scene, content) {
 
   this.repositionnerBouteille = function () {
     console.log("repositionnerBouteille");
-    bitmapBouteille.y = content.offsetHeight;
-    bitmapBouteille.x = getNombreHazard(10, content.offsetWidth);
+    limiteXDoite = content.offsetWidth * 0.7;
+    limiteXGauche = content.offsetWidth * 0.2;
+    bitmapBouteille.y = content.offsetHeight+50;
+    bitmapBouteille.x = getNombreHazard(limiteXGauche, limiteXDoite);
     enAttenteDeplacement = false;
   }
 

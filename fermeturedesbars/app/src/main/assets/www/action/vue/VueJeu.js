@@ -88,7 +88,7 @@ var VueJeu = function () {
   }
 
   function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
-    joueur = new Joueur(scene);
+    joueur = new Joueur(scene, content);
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
 

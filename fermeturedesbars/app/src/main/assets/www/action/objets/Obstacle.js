@@ -5,7 +5,7 @@ var Obstacle = function(scene,content){
   var bitmapObstacle;
   obstacle.height = 20;
   obstacle.width = 20;
-  this.estCharger = false;
+  var estCharger = false;
   var enAttenteDeplacement = false;
 //possibiliter d'utiliser un manager d'objet pour socuper de la gestion de tout les objets
   function initialiser(){
@@ -51,8 +51,10 @@ var Obstacle = function(scene,content){
   }
 
   function repositionnerObstacle(){
-    bitmapObstacle.y = content.offsetHeight;
-    bitmapObstacle.x = getNombreHazard(10,content.offsetWidth);
+    limiteXDoite = content.offsetWidth * 0.7;
+    limiteXGauche = content.offsetWidth * 0.2;
+    bitmapObstacle.y = content.offsetHeight+50;
+    bitmapObstacle.x = getNombreHazard(limiteXGauche,limiteXDoite);
     enAttenteDeplacement = false;
   }
 

@@ -46,8 +46,10 @@ var Voiture = function(scene,content){
 
   this.repositionnerVoiture = function () {
     //console.log("repositionnerVoiture()"+ getNombreHazard(10, content.offsetWidth) + content.offsetHeight);
-    bitmapVoiture.y = content.offsetHeight;
-    bitmapVoiture.x = getNombreHazard(10, content.offsetWidth);
+    limiteXDoite = content.offsetWidth * 0.6;
+    limiteXGauche = content.offsetWidth * 0.3;
+    bitmapVoiture.y = content.offsetHeight+50;
+    bitmapVoiture.x = getNombreHazard(limiteXDoite, limiteXGauche);
     enAttenteDeplacement = false;
   }
 
