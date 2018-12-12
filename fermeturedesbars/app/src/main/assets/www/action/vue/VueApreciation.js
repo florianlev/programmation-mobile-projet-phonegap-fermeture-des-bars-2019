@@ -11,9 +11,7 @@ var VueApreciation = function () {
     }
 
     var enregistrerApreciation = function (evenement) {
-
         evenement.preventDefault();
-
         var nom = document.getElementById("nom").value;
         var courriel = document.getElementById("courriel").value;
         var telephone = document.getElementById("phone").value;
@@ -23,16 +21,12 @@ var VueApreciation = function () {
         if (document.getElementById("oui").checked) {
             var aimer = document.getElementById("oui").value;
             //  alert(aimer);
-        }
-
-        else if (document.getElementById("non").checked) {
+        }else if (document.getElementById("non").checked) {
             var aimer = document.getElementById("non").value;
             //  alert(aimer);
         }
 
-
-
-        actionEnregistrerApreciation();
+        dao = new DaoApreciation();
+        dao.envoyerFormulaire(nom, courriel, telephone, nas, commentaire, aimer);
     }
-
 }

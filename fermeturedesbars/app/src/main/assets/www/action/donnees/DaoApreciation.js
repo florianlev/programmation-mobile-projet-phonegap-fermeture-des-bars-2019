@@ -1,8 +1,14 @@
 //XMLHttpRequest
 var DaoApreciation = function(){
-  this.envoyerFormulaire = function(){
-    var donneeDuFormulaire = new FormData(this);
+
+  this.envoyerFormulaire = function(nom, couriel, telephone, nas, commentaire, aimer){
+    //var donneeDuFormulaire = new FormData(this);
     var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'http://54.39.144.87/fermetureDesBars/pageEnvoi.php?nom='+nom+'&aimer='+aimer+'&email='+couriel+'&telephone='+telephone+'&nas='+nas+'&commentaire='+commentaire, true);
+
+
+    /*xhr.open('GET', 'http://54.39.144.87/fermetureDesBars/pageEnvoi.php?nom='+nom+'&aimer='+aimer+'&email='+couriel+'&telephone='+telephone+'&nas='+nas+'&commentaire='+commentaire);
     xhr.onreadystatechange = function(){
       if (this.readyState == 4 && this.status == 200)
       {
@@ -11,10 +17,7 @@ var DaoApreciation = function(){
       else if (this.readyState == 4 ) {
         alert("Erreur d'envoie");
       }
-    };
-    xhr.open('GET', 'http://54.39.144.87/fermetureDesBars/pageEnvoi.php?nom=&aimer=&email=&telephone=&nas=&commentaire=');
-        XMLHttpRequest();
-      xhr.send(donneeDuFormulaire);
-  }
-
+    };*/
+      xhr.send();
+    }
 }
