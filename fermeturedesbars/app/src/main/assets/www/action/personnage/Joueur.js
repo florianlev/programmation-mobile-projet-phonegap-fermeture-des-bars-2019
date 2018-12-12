@@ -4,7 +4,11 @@ function Joueur(scene) {
   var cercle;
   var distanceDoit;
   var fantome;
-
+  var EtatJoueur = {
+    enMarche: "enMarche",
+    estEcraser: "estEcraser",
+    estEnVomissement: "estEnVomissement"
+  }
   var animationCourante;
 
   var IMAGEIVROGNOREMARCHE = "images/spriteSheetIvrogne.png";
@@ -93,15 +97,15 @@ function Joueur(scene) {
   }
 
   //On set l'etat du joueur suivant la machine d'etat
-  this.setEtatJoueur = function (etatJoueur) {
+  this.setEtatJoueur = function(etatJoueur) {
     switch (etatJoueur) {
-      case "enMarche":
+      case EtatJoueur.enMarche:
         animationCourante = animMarche;
         break;
-      case "estEcraser":
+      case EtatJoueur.estEcraser:
         animationCourante = animEcraser;
         break;
-      case "estEnVomissement":
+      case EtatJoueur.estEnVomissement:
         animationCourante = animVomi;
         break;
     }
@@ -128,6 +132,14 @@ function Joueur(scene) {
   this.rectangleCollisionJoueur = function () {
     return animationCourante.getTransformedBounds();
   }
-
+  this.setEtatJoueurMarche = function(){
+    this.setEtatJoueur(EtatJoueur.enMarche);
+  }
+  this.setEtatJoueurEcraser = function(){
+    this.setEtatJoueur(EtatJoueur.estEcraser);
+  }
+  this.setEtatJoueurVomisement = function(){
+    this.setEtatJoueur(EtatJoueur.estEnVomissement);
+  }
   initialiser();
 }

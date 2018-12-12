@@ -15,12 +15,7 @@ var VueJeu = function () {
 
    var vitesseRoute = -1;
 
-  //Machine d'etat pour verifier l'etat du joueur pour les anim
-  var EtatJoueur = {
-    enMarche: "enMarche",
-    estEcraser: "estEcraser",
-    estEnVomissement: "estEnVomissement"
-  }
+
 
   var etatCourantJoueur;
 
@@ -94,14 +89,13 @@ var VueJeu = function () {
 
   function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
     joueur = new Joueur(scene);
-    etatCourantJoueur = EtatJoueur.enMarche;
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
 
     //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, );
     score = new Score(scene);
-    niveauAlcool = new NiveauAlcool(scene);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+    niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
   }
 
@@ -120,7 +114,6 @@ var VueJeu = function () {
     if(!parteTerminer){
       parteTerminer = true;
       console.log("fin");
-      joueur.setEtatJoueur(evenement.detail['etatJoueur']);
       await attente(5000);
       stopperJeu();
       window.location.hash = "fin-solo";

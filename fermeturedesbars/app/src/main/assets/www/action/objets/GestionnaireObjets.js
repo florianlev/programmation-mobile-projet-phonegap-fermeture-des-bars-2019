@@ -2,11 +2,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
-  var EtatJoueur = {
-    enMarche: "enMarche",
-    estEcraser: "estEcraser",
-    estEnVomissement: "estEnVomissement"
-  }
+
   var iterateurVerification = 0;
   //vitesse du jeu
   var vitesseObjetRoute = 1;
@@ -68,9 +64,8 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
   function verificationCollisionnementJoueurObjet(objet) {
     if (joueur.rectangleCollisionJoueur().intersects(objet.getCollision())) {
       //console.log("COLLISIONNEMENT ! ");
-      detail = [];
-      detail['etatJoueur'] = EtatJoueur.estEcraser;
-      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER", {'detail':detail}));
+      joueur.setEtatJoueurEcraser();
+      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
     }
   }
 
@@ -78,6 +73,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     if (joueur.rectangleCollisionJoueur().intersects(bouteille.getCollision()) && !bouteille.isEnAttenteDeplacment()) {
       bouteille.setEnAttenteDeplacement(true);
       //console.log("COLLISIONNEMENT ! ");
+      console.log("hit, setTimeout");
       setTimeout(bouteille.repositionnerBouteille, getNombreHazard(0,3000));
       score.augmenterScore(10);
       niveauAlcool.ajouterNiveau(10);

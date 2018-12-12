@@ -1,4 +1,4 @@
-function NiveauAlcool(scene, envoyerEtatJoueur) {
+function NiveauAlcool(scene, joueur) {
 
   var niveauAlcool;
   var niveau = 50;
@@ -33,9 +33,8 @@ function NiveauAlcool(scene, envoyerEtatJoueur) {
     if (niveau <= 0) {
       niveau = 0;
       //Envoie de l'etat enVomissement pour lancer l'annimation
-      detail = [];
-      detail['etatJoueur'] = "estEnVomissement";
-      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER", {'detail':detail}));
+      joueur.setEtatJoueurVomisement();
+      document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
     }
 
     niveauAlcool.animate(niveau / 100);

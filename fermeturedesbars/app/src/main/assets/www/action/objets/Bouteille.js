@@ -33,16 +33,19 @@ var Bouteille = function (scene, content) {
     return estCharger;
   }
   this.mouvementBouteille = function (vitesseRoute) {
-    bitmapBouteille.y -= vitesseRoute;
+    if(bitmapBouteille){
+      bitmapBouteille.y -= vitesseRoute;
 
-    //Si l'objet sort de la map on le repositionne
-    if (bitmapBouteille.y == -200 && !enAttenteDeplacement) {
-      enAttenteDeplacement = true;
-      setTimeout(this.repositionnerBouteille, getNombreHazard(0,3000));
+      //Si l'objet sort de la map on le repositionne
+      if (bitmapBouteille.y == -200 && !enAttenteDeplacement) {
+        enAttenteDeplacement = true;
+        setTimeout(this.repositionnerBouteille, getNombreHazard(0,3000));
+      }
     }
   }
 
   this.repositionnerBouteille = function () {
+    console.log("repositionnerBouteille");
     bitmapBouteille.y = content.offsetHeight;
     bitmapBouteille.x = getNombreHazard(10, content.offsetWidth);
   }
