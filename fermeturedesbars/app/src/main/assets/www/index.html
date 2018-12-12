@@ -45,7 +45,7 @@
   <script type="plain/text" id="menu-principale">
        <h1>Fermeture des bars</h1>
        <a href="#jeu">Solo</a>
-       <a href="#attente-multijoueur">Multijoueur</a>
+       <a href="#choix-room">Multijoueur</a>
        <a href="#statistique">Statistiques</a>
        <a href="#apreciation">Apreciation</a>
        <a href=""
@@ -61,6 +61,12 @@
     </form>
   </script>
 
+  <script type="plain/text" id="choix-room">
+    <h1>Fermeture Des Bars</h1>
+    <h2>Choix de la room</h2>
+    <a href="#creation-room">Créer une room</a>
+  </script>
+
   <script type="plain/text" id="attente-multijoueur">
     <h1>Fermeture Des Bars</h1>
     <h2>En attente de joueurs</h2>
@@ -70,7 +76,10 @@
   </script>
 
   <script type="plain/text" id="jeu-multijoueur">
-
+    <div id="content" class=" viewStack">
+      <div id="bar"></div>
+      <canvas id="dessin"></canvas>
+    </div>
   </script>
 
   <script type="plain/text" id="jeu">
@@ -171,6 +180,7 @@
   <script src="action/donnees/DaoApreciation.js"></script>
   <script src="action/donnees/DaoStatistique.js"></script>
   <script src="action/vue/VueAttenteMultijoueur.js"></script>
+  <script src="action/vue/VueChoixRoom.js"></script>
   <script src="action/vue/VueApreciation.js"></script>
   <script src="action/vue/VueChoisirPseudo.js"></script>
   <script src="action/vue/VueFinMultijoueur.js"></script>

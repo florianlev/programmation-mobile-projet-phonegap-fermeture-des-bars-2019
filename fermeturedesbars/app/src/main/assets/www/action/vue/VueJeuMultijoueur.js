@@ -26,7 +26,6 @@ var VueJeuMultijoueur = function () {
   }
 
   this.afficher = function () {
-    connexionNode = new ConnexionNode();
     hammer = new Hammer(document.body);
 
     //Initialisaton du canvas

@@ -1,7 +1,8 @@
 var http = require('http');
 var io = require('socket.io');
-
+var sockets;
 var nombreClients;
+var roomno = 1;
 
 function initialiser() {
     console.log("initialiser()");
@@ -14,12 +15,21 @@ function initialiser() {
 
     server.listen(2000);
 
-    var socket = io.listen(server);
-    socket.on('connection', gererConnexion);
+    sockets = io.listen(server);
+    sockets.on('connection', gererConnexion);
+    sockets.in('abc').emit('tata', 'SALUTT');
+
 }
 
 function gererConnexion(connexion) {
-    console.log(connexion);
-}
+    connexion.on('room', function (room) {
+        console.log("room : " + room);
+        //Utilisateur rejoin la room
+        connexion.join(room);
+    });
 
+}
 initialiser();
+
+
+
