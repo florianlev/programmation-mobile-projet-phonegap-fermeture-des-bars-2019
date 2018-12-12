@@ -12,15 +12,8 @@ var VueJeu = function () {
   var score;
   var avancement;
   var parteTerminer;
-  //Verification des chargement d'objets
-  // var obstacleEstCharger = false;
-  // var bouteilleEstCharger = false;
-  // var voitureEstCharger = false;
 
-  // //vitesse du jeu
-  // var vitesseObjetRoute = 1;
    var vitesseRoute = -1;
-  // var vitesseVoiture = 3;
 
   //Machine d'etat pour verifier l'etat du joueur pour les anim
   var EtatJoueur = {
@@ -58,57 +51,28 @@ var VueJeu = function () {
 
     //Initilialisation de la route
     route = new Route(scene, content);
-    avancement = 10;
+    avancement = 5;
     vitesseRoute = -1;
     parteTerminer = false
-    //setInterval(augmenterVitesseJeu, 5000);
+    setTimeout(boucleJeu, 60*avancement);
   }
-
-  //Boucle de jeu
-  function rafraichirJeu(evenement) {// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
-    augmenterVitesseJeu();
-
-    // if (obstacleEstCharger) {
-    //   obstacle.mouvementObstacle(vitesseObjetRoute);
-    // }
-    // if (bouteilleEstCharger) {
-    //   bouteille.mouvementBouteille(vitesseObjetRoute);
-    //   verificationCollisionnementJoueurBouteille();
-    // }
-    // if (voitureEstCharger) {
-    //   voiture.mouvementVoiture(vitesseVoiture);
-    //   verificationCollisionnementJoueurVoiture();
-    // }
+  function boucleJeu(){// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
     gestionnaireObjets.verification();
     niveauAlcool.diminution();
+    augmenterVitesseJeu();
+    if(!parteTerminer){
+      setTimeout(boucleJeu, 60*avancement);
+    }
+  }
+  //Boucle de jeu
+  function rafraichirJeu(evenement) {
     scene.update(evenement);
   }
 
-  // //Verification de la collision avec le joueur et la voiture
-  // function verificationCollisionnementJoueurVoiture() {
-  //   if (joueur.rectangleCollisionJoueur().intersects(voiture.rectangleCollisionVoiture())) {
-  //     console.log("COLLISIONNEMENT ! ");
-  //     document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
-  //     etatCourantJoueur = EtatJoueur.estEcraser;
-  //     joueur.setEtatJoueur(etatCourantJoueur);
-  //   }
-  // }
-  //
-  // function verificationCollisionnementJoueurBouteille() {
-  //   if (joueur.rectangleCollisionJoueur().intersects(bouteille.rectangleCollisionBouteille())) {
-  //     console.log("COLLISIONNEMENT ! ");
-  //     bouteille.repositionnerBouteille();
-  //     score.augmenterScore(10);
-  //     niveauAlcool.ajouterNiveau(10);
-  //     //RAJOUTER ICI L'AUGMENTATION DU SCORE
-  //   }
-  // }
-
   function augmenterVitesseJeu() {
-    avancement += 0.5;
+    avancement -= 0.5;
     vitesseRoute -= 0.001;
     route.raffraichirMatrice(vitesseRoute);
-    createjs.Ticker.setFPS((60 * avancement));
   }
 
   function arrangerCanvas() {
@@ -135,30 +99,12 @@ var VueJeu = function () {
     //niveauAlcool =new NiveauAlcool(scene);
 
     //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
-    //voiture = new Voiture(scene, content, verifierVoitureCharger);
-    //bouteille = new Bouteille(scene, content, verifierBouteilleCharger);
-    //obstacle = new Obstacle(scene, content, verifierObstacleCharger);
     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, );
     score = new Score(scene);
     niveauAlcool = new NiveauAlcool(scene);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
   }
-  // des call back comme sa, sa va si on a juste un objets de chaque mais si on en a plusieurs c mieux
-  // si il gere leur propres variables
-  // //CallBack pour verifier si l'obstacle est charger
-  // function verifierObstacleCharger() {
-  //   obstacleEstCharger = true;
-  // }
-  //
-  // //CallBack pour verifier si la bouteille est charger
-  // function verifierBouteilleCharger() {
-  //   bouteilleEstCharger = true;
-  // }
-  //
-  // //CallBack pour veerifier si la voiture est charger
-  // function verifierVoitureCharger() {
-  //   voitureEstCharger = true;
-  // }
+
 
   //Stopper le ticker de la boucle de jeu
   function stopperJeu() {
@@ -180,11 +126,6 @@ var VueJeu = function () {
       window.location.hash = "fin-solo";
     }
   }
-
-  // //CallBack pour recevoir l'etat du joueur
-  // function recevoirEtatJoueur(etatJoueur){
-  //   etatCourantJoueur = etatJoueur;
-  // }
 
   function attente(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

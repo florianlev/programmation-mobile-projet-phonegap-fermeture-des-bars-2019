@@ -4,7 +4,7 @@ var Voiture = function(scene,content){
   var bitmapVoiture;
   voiture.height = 20;
   voiture.width = 20;
-
+  var enAttenteDeplacement = false;
   function initialiser(){
     imgVoiture.src = "images/voiture.png";
     imgVoiture.onload = terminerChargement;
@@ -36,8 +36,9 @@ var Voiture = function(scene,content){
     bitmapVoiture.y -= vitesseRoute;
 
     //Si l'objet sort de la map on le repositionne
-    if (bitmapVoiture.y < -50) {
-      setTimeout(this.repositionnerVoiture, getNombreHazard(0,3));
+    if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
+      enAttenteDeplacement = true;
+      setTimeout(this.repositionnerVoiture, getNombreHazard(0,3000));
     }
   }
 
@@ -55,6 +56,8 @@ var Voiture = function(scene,content){
     bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
     return bitmapVoiture.getBounds();
   }
-
+  this.isEnAttenteDeplacment = function(){
+    return enAttenteDeplacement;
+  }
   initialiser();
 }

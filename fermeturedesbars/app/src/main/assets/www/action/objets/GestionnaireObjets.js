@@ -13,7 +13,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
   var vitesseRoute = -1;
   var vitesseVoiture = 3;
 
-  function initialiser(){
+  function initialiser(){//initialise les objets un par un avec un delais entre chaqun pour ne pas qu'ils arrive tous en meme temps
     setTimeout(function() {
     bouteilles.push(new Bouteille(scene, content));
     }, getNombreHazard(0, 3000));
@@ -34,11 +34,10 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
     }, getNombreHazard(0, 3000));
   }
   this.verification = function(){
-    switch (iterateurVerification) {
-
+    switch (iterateurVerification) {//verifie les 3 type d'objets mais il alterne pour reduire la charge a chaque interval
     case 0:
       for(iObstacles = 0; iObstacles < obstacles.length; iObstacles++){
-        if (obstacles[iObstacles]) {
+        if (obstacles[iObstacles] && !obstacles[iObstacles].isEnAttenteDeplacment()) {
           obstacles[iObstacles].mouvementObstacle(vitesseObjetRoute);
           verificationCollisionnementJoueurObjet(obstacles[iObstacles]);
         }
@@ -47,7 +46,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
       break;
     case 1:
       for(iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++){
-        if (bouteilles[iBouteilles]) {
+        if (bouteilles[iBouteilles] && !bouteilles[iBouteilles].isEnAttenteDeplacment()) {
           bouteilles[iBouteilles].mouvementBouteille(vitesseObjetRoute);
           verificationCollisionnementJoueurBouteille(bouteilles[iBouteilles]);
         }
@@ -56,7 +55,7 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
       break;
     case 2:
       for(iVoitures = 0; iVoitures < voitures.length; iVoitures++){
-        if (voitures[iVoitures]) {
+        if (voitures[iVoitures] && !voitures[iVoitures].isEnAttenteDeplacment()) {
           voitures[iVoitures].mouvementVoiture(vitesseVoiture);
           verificationCollisionnementJoueurObjet(voitures[iVoitures]);
         }
@@ -76,9 +75,10 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score){
   }
 
   function verificationCollisionnementJoueurBouteille(bouteille) {
-    if (joueur.rectangleCollisionJoueur().intersects(bouteille.getCollision())) {
+    if (joueur.rectangleCollisionJoueur().intersects(bouteille.getCollision()) && !bouteille.isEnAttenteDeplacment()) {
+      bouteille.setEnAttenteDeplacement(true);
       //console.log("COLLISIONNEMENT ! ");
-      bouteille.repositionnerBouteille();
+      setTimeout(bouteille.repositionnerBouteille, getNombreHazard(0,3000));
       score.augmenterScore(10);
       niveauAlcool.ajouterNiveau(10);
     }

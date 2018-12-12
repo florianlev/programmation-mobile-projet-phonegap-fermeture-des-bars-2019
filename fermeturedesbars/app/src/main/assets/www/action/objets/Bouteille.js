@@ -5,7 +5,7 @@ var Bouteille = function (scene, content) {
   var estCharger = false;
   bouteille.height = 20;
   bouteille.width = 20;
-
+  var enAttenteDeplacement = false;
   function initialiser() {
 
     imgBouteille.src = "images/beer.png";
@@ -36,8 +36,9 @@ var Bouteille = function (scene, content) {
     bitmapBouteille.y -= vitesseRoute;
 
     //Si l'objet sort de la map on le repositionne
-    if (bitmapBouteille.y == -200) {
-      setTimeout(this.repositionnerBouteille, getNombreHazard(0,3));
+    if (bitmapBouteille.y == -200 && !enAttenteDeplacement) {
+      enAttenteDeplacement = true;
+      setTimeout(this.repositionnerBouteille, getNombreHazard(0,3000));
     }
   }
 
@@ -54,7 +55,12 @@ var Bouteille = function (scene, content) {
     bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
     return bitmapBouteille.getBounds();
   }
-
-
+  this.isEnAttenteDeplacment = function(){
+    return enAttenteDeplacement;
+  }
+  this.setEnAttenteDeplacement = function(attente){
+    enAttenteDeplacement = attente;
+    bitmapBouteille.x = -200;
+  }
   initialiser();
 }

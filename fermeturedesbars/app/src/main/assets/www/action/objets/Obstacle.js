@@ -6,6 +6,7 @@ var Obstacle = function(scene,content){
   obstacle.height = 20;
   obstacle.width = 20;
   this.estCharger = false;
+  var enAttenteDeplacement = false;
 //possibiliter d'utiliser un manager d'objet pour socuper de la gestion de tout les objets
   function initialiser(){
 
@@ -37,12 +38,14 @@ var Obstacle = function(scene,content){
   }
 
   this.mouvementObstacle = function(vitesseRoute){
-    if(bitmapObstacle.y){
+    if(bitmapObstacle){
       bitmapObstacle.y -= 1;
 
       //Si l'objet sort de la map on le repositionne
-      if(bitmapObstacle.y == -200){
-        setTimeout(repositionnerObstacle, getNombreHazard(0,3));
+      if(bitmapObstacle.y == -200 && !enAttenteDeplacement){
+        enAttenteDeplacement = true;
+        setTimeout(repositionnerObstacle, getNombreHazard(0,3000));
+
       }
     }
   }
@@ -59,7 +62,9 @@ var Obstacle = function(scene,content){
     bitmapObstacle.setBounds(bitmapObstacle.x, bitmapObstacle.y, obstacle.width, obstacle.height);
     return bitmapObstacle.getBounds();
   }
-
+  this.isEnAttenteDeplacment = function(){
+    return enAttenteDeplacement;
+  }
   initialiser();
 
 }
