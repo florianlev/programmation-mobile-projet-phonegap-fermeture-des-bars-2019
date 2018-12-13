@@ -1,8 +1,8 @@
 var http = require('http');
-var io = require('socket.io');
-var sockets;
-var nombreClients;
-var roomno = 1;
+var socketIo = require('socket.io');
+
+
+const listeRooms = ['room1', 'room2', 'room3'];
 
 function initialiser() {
     console.log("initialiser()");
@@ -14,20 +14,30 @@ function initialiser() {
     });
 
     server.listen(2000);
+    io = socketIo.listen(server);
 
-    sockets = io.listen(server);
-    sockets.on('connection', gererConnexion);
-    sockets.in('abc').emit('tata', 'SALUTT');
+
+    io.on('connection', gererConnexion);
+    
 
 }
 
 function gererConnexion(connexion) {
-    connexion.on('room', function (room) {
-        console.log("room : " + room);
-        //Utilisateur rejoin la room
-        connexion.join(room);
-    });
+    console.log("Un joueur est connecté ! ");
 
+    connexion.on("joindre_room", (room) => {
+
+        if(listeRooms.includes(room)){
+            connexion.join(room);
+            console.log("Le joueur a rejoin la room : " + room);
+            io.in(room).emit('nouvel_utilisateur', "Nouveau a rejoin la room : " + room);
+
+        } else {
+            console.log("erreur la room n'existe pas");
+        }
+        });
+
+    
 }
 initialiser();
 
