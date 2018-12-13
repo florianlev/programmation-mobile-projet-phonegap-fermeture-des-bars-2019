@@ -4,8 +4,7 @@ function ConnexionNode() {
     function initialiser() {
         console.log("initialiserConnexionNode");
         connexion = io.connect('http://158.69.113.110:2000');
-        var room  = "room25";
-
+        var room  = "room1";
         connexion.on('connect', function () {
             console.log('connect');
             connexion.emit('joindre_room', room);

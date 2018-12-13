@@ -18,7 +18,7 @@ function initialiser() {
 
 
     io.on('connection', gererConnexion);
-    
+
 
 }
 
@@ -27,18 +27,23 @@ function gererConnexion(connexion) {
 
     connexion.on("joindre_room", (room) => {
 
-        if(listeRooms.includes(room)){
+        if (listeRooms.includes(room)) {
             connexion.join(room);
             console.log("Le joueur a rejoin la room : " + room);
             io.in(room).emit('nouvel_utilisateur', "Nouveau a rejoin la room : " + room);
+            //console.log(findRooms());
 
+            //Listage de room A VOIR
+            var nsp = io.of('/');
+            var rooms = nsp.adapter.rooms;
+            
+            console.log(rooms);
         } else {
             console.log("erreur la room n'existe pas");
         }
-        });
-
-    
+    });
 }
+
 initialiser();
 
 
