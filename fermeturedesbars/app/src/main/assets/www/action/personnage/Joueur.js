@@ -1,4 +1,4 @@
-function Joueur(scene) {
+function Joueur(scene, content) {
   var joueur = this;
   var positionCourante = { x: 0, y: 0 };
   var cercle;
@@ -31,7 +31,7 @@ function Joueur(scene) {
     imageIvrogne.src = IMAGEIVROGNOREMARCHE;
     imageIvrogne.onload = terminerChargement;
 
-    xCourant = 100;
+    xCourant = content.offsetWidth/2;
     yCourant = 100;
 
     //Pour le déplacement du personnage le tactile
@@ -39,7 +39,7 @@ function Joueur(scene) {
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
     fantome.graphics.beginFill("white").drawCircle(0, 0, 25);
     fantome.alpha = 0.5;
-    fantome.x = 100;
+    fantome.x = content.offsetWidth/2;
     fantome.y = window.innerHeight / 2 + 100;
 
     scene.addChild(fantome);
@@ -117,7 +117,9 @@ function Joueur(scene) {
 
     differenceY = window.innerHeight / 2;
     y = y - differenceY;
-    if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0) {
+    limiteXDoite = content.offsetWidth * 0.7;
+    limiteXGauche = content.offsetWidth * 0.2;
+    if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0 && x < limiteXDoite && x > limiteXGauche) {
       animationCourante.x = x;
       animationCourante.y = y;
       xCourant = x;

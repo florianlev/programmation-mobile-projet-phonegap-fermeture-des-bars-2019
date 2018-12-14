@@ -10,9 +10,11 @@
     this.vueFinMultijoueur = new VueFinMultijoueur();
     this.vueFinSolo = new VueFinSolo();
     this.vueJeu = new VueJeu();
+    this.vueChoixRoom = new VueChoixRoom();
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
+    this.connexionNode = new ConnexionNode();
 
     console.log(localStorage['pseudo']);
 
@@ -36,6 +38,9 @@
       this.vueMenuPrincipale.afficher();
     } else if (window.location.hash.match(/^#choisir-pseudo/)) {
       this.vueChoisirPseudo.afficher();
+    }else if (window.location.hash.match(/^#choix-room/)){
+      this.connexionNode.initierConnexion();
+      this.vueChoixRoom.afficher();
     } else if (window.location.hash.match(/^#attente-multijoueur/)) {
       this.vueAttenteMultijoueur.afficher();
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {

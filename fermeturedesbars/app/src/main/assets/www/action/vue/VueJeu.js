@@ -10,15 +10,11 @@ var VueJeu = function () {
   var gestionnaireObjets;
   var niveauAlcool
   var score;
-  var avancement;
+  var accelerationJeu;
   var parteTerminer;
-
-   var vitesseRoute = -1;
-
-
-
+  var vitesseRoute;
   var etatCourantJoueur;
-
+  var vitesseJeu;
   function initialiser() {
     //Affichage de la vue jeu
     contenuPage = document.getElementById("jeu").innerHTML;
@@ -44,30 +40,27 @@ var VueJeu = function () {
     document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
     document.body.addEventListener("PARTIE_TERMINER", fin);
 
-    //Initilialisation de la route
+    //Initilialisation de la route et des variables
     route = new Route(scene, content);
-    avancement = 5;
-    vitesseRoute = -1;
+    vitesseJeu = 3;
+    accelerationJeu = 0;
     parteTerminer = false
-    setTimeout(boucleJeu, 60*avancement);
+    vitesseRoute = vitesseJeu*-1;
   }
   function boucleJeu(){// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
     gestionnaireObjets.verification();
     niveauAlcool.diminution();
-    augmenterVitesseJeu();
+    route.raffraichirMatrice(vitesseRoute);
     if(!parteTerminer){
-      setTimeout(boucleJeu, 60*avancement);
+      setTimeout(boucleJeu, 20-accelerationJeu);
     }
+    //console.log(accelerationJeu);
   }
   //Boucle de jeu
   function rafraichirJeu(evenement) {
+    if( accelerationJeu < 21)
+      accelerationJeu += 0.02;
     scene.update(evenement);
-  }
-
-  function augmenterVitesseJeu() {
-    avancement -= 0.5;
-    vitesseRoute -= 0.001;
-    route.raffraichirMatrice(vitesseRoute);
   }
 
   function arrangerCanvas() {
@@ -88,15 +81,15 @@ var VueJeu = function () {
   }
 
   function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
-    joueur = new Joueur(scene);
+    joueur = new Joueur(scene, content);
     hammer.on('pan', deplacement);
     //niveauAlcool =new NiveauAlcool(scene);
 
     //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
-    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, );
     score = new Score(scene);
     niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
-    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
+    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score, vitesseJeu);
+    setTimeout(boucleJeu, 60*accelerationJeu);
   }
 
 
@@ -110,13 +103,14 @@ var VueJeu = function () {
     return score.getScore();
   }
 
-  async function fin(evenement) {
+  function fin(evenement) {
     if(!parteTerminer){
       parteTerminer = true;
       console.log("fin");
-      await attente(5000);
-      stopperJeu();
-      window.location.hash = "fin-solo";
+      setTimeout(function() {
+        stopperJeu();
+        window.location.hash = "fin-solo";
+    }, 5000);
     }
   }
 

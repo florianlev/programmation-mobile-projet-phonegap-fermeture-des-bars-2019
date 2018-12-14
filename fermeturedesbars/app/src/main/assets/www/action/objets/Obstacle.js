@@ -5,7 +5,7 @@ var Obstacle = function(scene,content){
   var bitmapObstacle;
   obstacle.height = 20;
   obstacle.width = 20;
-  this.estCharger = false;
+  var estCharger = false;
   var enAttenteDeplacement = false;
 //possibiliter d'utiliser un manager d'objet pour socuper de la gestion de tout les objets
   function initialiser(){
@@ -37,30 +37,38 @@ var Obstacle = function(scene,content){
     return estCharger;
   }
 
-  this.mouvementObstacle = function(vitesseRoute){
-    if(bitmapObstacle){
-      bitmapObstacle.y -= 1;
-
+  this.mouvement = function(vitesseRoute){
+    //console.log("bougerObstacle");
+    if(bitmapObstacle  && !enAttenteDeplacement){
+      bitmapObstacle.y -= vitesseRoute;
       //Si l'objet sort de la map on le repositionne
-      if(bitmapObstacle.y == -200 && !enAttenteDeplacement){
+      if(bitmapObstacle.y <= -200){
         enAttenteDeplacement = true;
-        setTimeout(repositionnerObstacle, getNombreHazard(0,3000));
+        console.log("timeout repositionnerObstacle");
+        setTimeout(repositionnerObstacle, getNombreHazard(0,10000));
 
       }
     }
   }
 
   function repositionnerObstacle(){
-    bitmapObstacle.y = content.offsetHeight;
-    bitmapObstacle.x = getNombreHazard(10,content.offsetWidth);
+    enAttenteDeplacement = false;
+    limiteXDoite = content.offsetWidth * 0.7;
+    limiteXGauche = content.offsetWidth * 0.2;
+    bitmapObstacle.y = content.offsetHeight+50;
+    bitmapObstacle.x = getNombreHazard(limiteXGauche,limiteXDoite);
   }
 
   function getNombreHazard(min, max) {
     return Math.random() * (max - min) + min;
   }
   this.getCollision = function () {
-    bitmapObstacle.setBounds(bitmapObstacle.x, bitmapObstacle.y, obstacle.width, obstacle.height);
-    return bitmapObstacle.getBounds();
+    if(bitmapObstacle){
+      bitmapObstacle.setBounds(bitmapObstacle.x+10, bitmapObstacle.y+10, obstacle.width-20, obstacle.height-20);
+      return bitmapObstacle.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;

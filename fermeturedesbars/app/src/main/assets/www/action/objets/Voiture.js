@@ -32,20 +32,25 @@ var Voiture = function(scene,content){
   }
 
   this.mouvementVoiture = function (vitesseRoute) {
+    if(bitmapVoiture){
+      bitmapVoiture.y -= vitesseRoute;
 
-    bitmapVoiture.y -= vitesseRoute;
-
-    //Si l'objet sort de la map on le repositionne
-    if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
-      enAttenteDeplacement = true;
-      setTimeout(this.repositionnerVoiture, getNombreHazard(0,3000));
+      //Si l'objet sort de la map on le repositionne
+      if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
+        enAttenteDeplacement = true;
+        //console.log("voiture out");
+        setTimeout(this.repositionnerVoiture, getNombreHazard(0,10000));
+      }
     }
   }
 
   this.repositionnerVoiture = function () {
-    console.log("repositionnerVoiture()");
-    bitmapVoiture.y = content.offsetHeight;
-    bitmapVoiture.x = getNombreHazard(10, content.offsetWidth);
+    //console.log("repositionnerVoiture()"+ getNombreHazard(10, content.offsetWidth) + content.offsetHeight);
+    limiteXDoite = content.offsetWidth * 0.6;
+    limiteXGauche = content.offsetWidth * 0.3;
+    bitmapVoiture.y = content.offsetHeight+50;
+    bitmapVoiture.x = getNombreHazard(limiteXDoite, limiteXGauche);
+    enAttenteDeplacement = false;
   }
 
   function getNombreHazard(min, max) {
@@ -53,8 +58,12 @@ var Voiture = function(scene,content){
   }
 
   this.getCollision = function () {
-    bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
-    return bitmapVoiture.getBounds();
+    if(bitmapVoiture){
+      bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
+      return bitmapVoiture.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;

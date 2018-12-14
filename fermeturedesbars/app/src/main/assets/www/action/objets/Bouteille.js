@@ -32,12 +32,13 @@ var Bouteille = function (scene, content) {
   this.isCharger = function(){
     return estCharger;
   }
-  this.mouvementBouteille = function (vitesseRoute) {
+  this.mouvement = function (vitesseRoute) {
+    //console.log("bougerBouteille");
     if(bitmapBouteille){
       bitmapBouteille.y -= vitesseRoute;
 
       //Si l'objet sort de la map on le repositionne
-      if (bitmapBouteille.y == -200 && !enAttenteDeplacement) {
+      if (bitmapBouteille.y <= -200 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         setTimeout(this.repositionnerBouteille, getNombreHazard(0,3000));
       }
@@ -46,8 +47,11 @@ var Bouteille = function (scene, content) {
 
   this.repositionnerBouteille = function () {
     console.log("repositionnerBouteille");
-    bitmapBouteille.y = content.offsetHeight;
-    bitmapBouteille.x = getNombreHazard(10, content.offsetWidth);
+    limiteXDoite = content.offsetWidth * 0.7;
+    limiteXGauche = content.offsetWidth * 0.2;
+    bitmapBouteille.y = content.offsetHeight+50;
+    bitmapBouteille.x = getNombreHazard(limiteXGauche, limiteXDoite);
+    enAttenteDeplacement = false;
   }
 
   function getNombreHazard(min, max) {
@@ -55,8 +59,12 @@ var Bouteille = function (scene, content) {
   }
 
   this.getCollision = function () {
-    bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
-    return bitmapBouteille.getBounds();
+    if(bitmapBouteille){
+      bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
+      return bitmapBouteille.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;

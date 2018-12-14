@@ -4,26 +4,28 @@
 <head>
   <title></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/menu.css">
   <style type="text/css">
-
     #dessin {
       margin: 0;
       padding: 0;
     }
-    #bar{
+
+    #bar {
       position: absolute;
       height: 50px;
       width: 100%;
       padding: 0px;
       margin: 0px;
       top: 0px;
-      left:0px;
+      left: 0px;
     }
+
     html,
     body {
       height: 100%;
@@ -37,19 +39,21 @@
       padding: 0;
       overflow: hidden;
     }
-
   </style>
 </head>
 
-<body>
+<body class="c-body">
   <script type="plain/text" id="menu-principale">
-       <h1>Fermeture des bars</h1>
-       <a href="#jeu">Solo</a>
-       <a href="#attente-multijoueur">Multijoueur</a>
-       <a href="#statistique">Statistiques</a>
-       <a href="#apreciation">Apreciation</a>
-       <a href=""
-
+   <div class="menu">
+   <h1 class="title">Fermeture des Bars</h1>
+<ul>
+ <a href="#jeu" class="lien jeu">jeu</a>
+ <a href="#choix-room" class="lien multijoueur">Multijoueur</a>
+ <a href="#statistique" class="lien statistiques">Statistiques</a>
+ <a href="#apreciation" class="lien apreciation">Apreciation</a>
+ <a href=""</a>
+</ul>
+</div>
   </script>
 
   <script type="plain/text" id="choisir-pseudo">
@@ -61,6 +65,22 @@
     </form>
   </script>
 
+  <script type="plain/text" id="choix-room">
+    <h1>Fermeture Des Bars</h1>
+    <h2>Choix de la room</h2>
+
+    <form id='formChoixRoom' class="col-lg-6">
+        <div class="form-group">
+            <label for="nom">Nom: </label>
+            <input id="nom" type="text" class="form-control">
+            <div class="button">
+              <input type="submit" value='Créer une Room'/>
+            </div>
+        </div>
+    </form>
+
+  </script>
+
   <script type="plain/text" id="attente-multijoueur">
     <h1>Fermeture Des Bars</h1>
     <h2>En attente de joueurs</h2>
@@ -70,7 +90,10 @@
   </script>
 
   <script type="plain/text" id="jeu-multijoueur">
-
+    <div id="content" class=" viewStack">
+      <div id="bar"></div>
+      <canvas id="dessin"></canvas>
+    </div>
   </script>
 
   <script type="plain/text" id="jeu">
@@ -139,8 +162,8 @@
             <label for="commentaire">Commentaire: </label>
             <textarea id="commentaire"  class="form-control"></textarea>
           </div>
-          <div class="button">
-          <button type="submit">Envoyer le formulaire</button>
+          <div class="form-group">
+          <button type="submit"class="pull-right btn btn-default">Envoyer le formulaire</button>
         </div>
       </form>
 
@@ -159,15 +182,19 @@
       </div>
 
   </script> Il y a une erreur dans le programme
+  <script src="lib/socket.io.js"></script>
   <script src="lib/hammer.min.js"></script>
   <script src="lib/easeljs.min.js"></script>
   <script src="lib/progressbar.min.js"></script>
+  <script src="ConnexionNode.js"></script>
+
   <script src="action/toile-de-fond/Route.js"></script>
   <script src="action/interface/niveauAlcool.js"></script>
   <script src="action/interface/Score.js"></script>
   <script src="action/donnees/DaoApreciation.js"></script>
   <script src="action/donnees/DaoStatistique.js"></script>
   <script src="action/vue/VueAttenteMultijoueur.js"></script>
+  <script src="action/vue/VueChoixRoom.js"></script>
   <script src="action/vue/VueApreciation.js"></script>
   <script src="action/vue/VueChoisirPseudo.js"></script>
   <script src="action/vue/VueFinMultijoueur.js"></script>

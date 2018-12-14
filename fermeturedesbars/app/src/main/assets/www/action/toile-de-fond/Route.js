@@ -5,7 +5,7 @@ function Route(scene,content) {
     var bitmap;
     var matrice;
     var paysage;
-   
+
 
     function initialiser() {
         imageRoute = document.getElementById('route');
@@ -16,20 +16,11 @@ function Route(scene,content) {
         imageRoute = new Image();
         var chargementCompletArrierePlan = document.createEvent('Event');
         chargementCompletArrierePlan.initEvent('chargementCompletArrierePlan', true, true);
-
-        var acceleration = 1;
-       
-
         // a changer
         imageRoute.src = "images/route.png";
 
         imageRoute.onload = function()
         {
-
-            //jai essayer d'arranger le scale de limage de backgroud sa fait rien
-            //scale = window.innerWidth/imageRoute.width;
-            //imageRoute.width = imageRoute.width*scale;
-            //imageRoute.height = imageRoute.height*scale;
 
             paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,imageRoute.naturalWidth,imageRoute.naturalHeight).endStroke();
             paysageRoute.scaleX = content.offsetWidth / imageRoute.naturalWidth;
