@@ -4,26 +4,27 @@
 <head>
   <title></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
   <style type="text/css">
-
     #dessin {
       margin: 0;
       padding: 0;
     }
-    #bar{
+
+    #bar {
       position: absolute;
       height: 50px;
       width: 100%;
       padding: 0px;
       margin: 0px;
       top: 0px;
-      left:0px;
+      left: 0px;
     }
+
     html,
     body {
       height: 100%;
@@ -37,7 +38,6 @@
       padding: 0;
       overflow: hidden;
     }
-
   </style>
 </head>
 
@@ -64,7 +64,17 @@
   <script type="plain/text" id="choix-room">
     <h1>Fermeture Des Bars</h1>
     <h2>Choix de la room</h2>
-    <a href="#creation-room">Créer une room</a>
+
+    <form id='formChoixRoom' class="col-lg-6">
+        <div class="form-group">
+            <label for="nom">Nom: </label>
+            <input id="nom" type="text" class="form-control">
+            <div class="button">
+              <input type="submit" value='Créer une Room'/>
+            </div>
+        </div>
+    </form>
+
   </script>
 
   <script type="plain/text" id="attente-multijoueur">
