@@ -44,7 +44,7 @@ var Obstacle = function(scene,content){
       //Si l'objet sort de la map on le repositionne
       if(bitmapObstacle.y == -200 && !enAttenteDeplacement){
         enAttenteDeplacement = true;
-        setTimeout(repositionnerObstacle, getNombreHazard(0,3000));
+        setTimeout(repositionnerObstacle, getNombreHazard(0,10000));
 
       }
     }
@@ -62,8 +62,12 @@ var Obstacle = function(scene,content){
     return Math.random() * (max - min) + min;
   }
   this.getCollision = function () {
-    bitmapObstacle.setBounds(bitmapObstacle.x, bitmapObstacle.y, obstacle.width, obstacle.height);
-    return bitmapObstacle.getBounds();
+    if(bitmapObstacle){
+      bitmapObstacle.setBounds(bitmapObstacle.x+10, bitmapObstacle.y+10, obstacle.width-20, obstacle.height-20);
+      return bitmapObstacle.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;

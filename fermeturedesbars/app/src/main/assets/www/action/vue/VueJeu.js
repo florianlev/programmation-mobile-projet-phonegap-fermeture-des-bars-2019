@@ -110,13 +110,14 @@ var VueJeu = function () {
     return score.getScore();
   }
 
-  async function fin(evenement) {
+  function fin(evenement) {
     if(!parteTerminer){
       parteTerminer = true;
       console.log("fin");
-      await attente(5000);
-      stopperJeu();
-      window.location.hash = "fin-solo";
+      setTimeout(function() {
+        stopperJeu();
+        window.location.hash = "fin-solo";
+    }, 5000);
     }
   }
 

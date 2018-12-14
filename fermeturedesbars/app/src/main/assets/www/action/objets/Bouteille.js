@@ -58,8 +58,12 @@ var Bouteille = function (scene, content) {
   }
 
   this.getCollision = function () {
-    bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
-    return bitmapBouteille.getBounds();
+    if(bitmapBouteille){
+      bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
+      return bitmapBouteille.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;

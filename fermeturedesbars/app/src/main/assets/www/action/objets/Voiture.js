@@ -39,7 +39,7 @@ var Voiture = function(scene,content){
       if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         //console.log("voiture out");
-        setTimeout(this.repositionnerVoiture, getNombreHazard(0,3000));
+        setTimeout(this.repositionnerVoiture, getNombreHazard(0,10000));
       }
     }
   }
@@ -58,8 +58,12 @@ var Voiture = function(scene,content){
   }
 
   this.getCollision = function () {
-    bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
-    return bitmapVoiture.getBounds();
+    if(bitmapVoiture){
+      bitmapVoiture.setBounds(bitmapVoiture.x, bitmapVoiture.y, voiture.width, voiture.height);
+      return bitmapVoiture.getBounds();
+    }else{
+      return null;
+    }
   }
   this.isEnAttenteDeplacment = function(){
     return enAttenteDeplacement;
