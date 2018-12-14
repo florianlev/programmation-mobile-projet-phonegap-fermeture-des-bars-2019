@@ -1,5 +1,6 @@
 var http = require('http');
 var socketIo = require('socket.io');
+Room = require('./Room.js');
 
 
 const listeRooms = ['room1', 'room2', 'room3'];
