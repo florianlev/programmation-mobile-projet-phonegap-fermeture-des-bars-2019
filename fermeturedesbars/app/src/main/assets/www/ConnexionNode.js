@@ -3,6 +3,10 @@ function ConnexionNode() {
     var connexion;
 
     function initialiser() {
+        
+    }
+
+    this.initierConnexion = function (){
         console.log("initialiserConnexionNode");
         connexion = io.connect('http://158.69.113.110:2000');
         var room  = "room3";

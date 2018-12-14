@@ -3,7 +3,7 @@ var VueChoixRoom = function () {
   var contenuPage = document.getElementById("choix-room").innerHTML;;
 
 
-  this.afficher = function () {
+  this.afficher = function (connexion) {
 
     document.getElementsByTagName("body")[0].innerHTML = contenuPage;
 
