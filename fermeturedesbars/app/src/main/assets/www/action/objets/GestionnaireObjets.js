@@ -9,14 +9,16 @@ var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score, v
   var vitesseVoiture = vitesseJeu*1.5;
 
   var nombreBouteille = 3;
-  var nombreObstacle = 5;
+  var nombreObstacle = 6;
   var nombreVoiture = 5;
 
   function initialiser(){//initialise les objets un par un avec un delais entre chaqun pour ne pas qu'ils arrive tous en meme temps
+    disperseurObstacle = 1;
     for(iObstacles = 0; iObstacles < nombreObstacle; iObstacles++){
       setTimeout(function(){
         obstacles.push(new Obstacle(scene, content));
-      },getNombreHazard(0, 10000));
+      },disperseurObstacle*1700);
+      disperseurObstacle++;
     }
 
     for(iBouteilles = 0; iBouteilles < nombreBouteille; iBouteilles++){

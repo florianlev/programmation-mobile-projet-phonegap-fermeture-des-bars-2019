@@ -39,11 +39,12 @@ var Obstacle = function(scene,content){
 
   this.mouvement = function(vitesseRoute){
     //console.log("bougerObstacle");
-    if(bitmapObstacle){
+    if(bitmapObstacle  && !enAttenteDeplacement){
       bitmapObstacle.y -= vitesseRoute;
       //Si l'objet sort de la map on le repositionne
-      if(bitmapObstacle.y == -200 && !enAttenteDeplacement){
+      if(bitmapObstacle.y <= -200){
         enAttenteDeplacement = true;
+        console.log("timeout repositionnerObstacle");
         setTimeout(repositionnerObstacle, getNombreHazard(0,10000));
 
       }
@@ -51,11 +52,11 @@ var Obstacle = function(scene,content){
   }
 
   function repositionnerObstacle(){
+    enAttenteDeplacement = false;
     limiteXDoite = content.offsetWidth * 0.7;
     limiteXGauche = content.offsetWidth * 0.2;
     bitmapObstacle.y = content.offsetHeight+50;
     bitmapObstacle.x = getNombreHazard(limiteXGauche,limiteXDoite);
-    enAttenteDeplacement = false;
   }
 
   function getNombreHazard(min, max) {

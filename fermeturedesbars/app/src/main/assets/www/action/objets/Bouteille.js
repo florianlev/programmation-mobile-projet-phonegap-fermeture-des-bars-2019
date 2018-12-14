@@ -38,7 +38,7 @@ var Bouteille = function (scene, content) {
       bitmapBouteille.y -= vitesseRoute;
 
       //Si l'objet sort de la map on le repositionne
-      if (bitmapBouteille.y == -200 && !enAttenteDeplacement) {
+      if (bitmapBouteille.y <= -200 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         setTimeout(this.repositionnerBouteille, getNombreHazard(0,3000));
       }
