@@ -9,6 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/menu.css">
   <style type="text/css">
     #dessin {
       margin: 0;
@@ -41,15 +42,18 @@
   </style>
 </head>
 
-<body>
+<body class="c-body">
   <script type="plain/text" id="menu-principale">
-       <h1>Fermeture des bars</h1>
-       <a href="#jeu">Solo</a>
-       <a href="#choix-room">Multijoueur</a>
-       <a href="#statistique">Statistiques</a>
-       <a href="#apreciation">Apreciation</a>
-       <a href=""
-
+   <div class="menu">
+   <h1 class="title">Fermeture des Bars</h1>
+<ul>
+ <a href="#jeu" class="lien jeu">jeu</a>
+ <a href="#choix-room" class="lien multijoueur">Multijoueur</a>
+ <a href="#statistique" class="lien statistiques">Statistiques</a>
+ <a href="#apreciation" class="lien apreciation">Apreciation</a>
+ <a href=""</a>
+</ul>
+</div>
   </script>
 
   <script type="plain/text" id="choisir-pseudo">
@@ -158,8 +162,8 @@
             <label for="commentaire">Commentaire: </label>
             <textarea id="commentaire"  class="form-control"></textarea>
           </div>
-          <div class="button">
-          <button type="submit">Envoyer le formulaire</button>
+          <div class="form-group">
+          <button type="submit"class="pull-right btn btn-default">Envoyer le formulaire</button>
         </div>
       </form>
 
