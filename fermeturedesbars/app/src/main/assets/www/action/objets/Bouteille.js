@@ -32,7 +32,8 @@ var Bouteille = function (scene, content) {
   this.isCharger = function(){
     return estCharger;
   }
-  this.mouvementBouteille = function (vitesseRoute) {
+  this.mouvement = function (vitesseRoute) {
+    //console.log("bougerBouteille");
     if(bitmapBouteille){
       bitmapBouteille.y -= vitesseRoute;
 

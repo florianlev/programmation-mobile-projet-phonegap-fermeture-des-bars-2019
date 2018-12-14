@@ -37,10 +37,10 @@ var Obstacle = function(scene,content){
     return estCharger;
   }
 
-  this.mouvementObstacle = function(vitesseRoute){
+  this.mouvement = function(vitesseRoute){
+    //console.log("bougerObstacle");
     if(bitmapObstacle){
-      bitmapObstacle.y -= 1;
-
+      bitmapObstacle.y -= vitesseRoute;
       //Si l'objet sort de la map on le repositionne
       if(bitmapObstacle.y == -200 && !enAttenteDeplacement){
         enAttenteDeplacement = true;
