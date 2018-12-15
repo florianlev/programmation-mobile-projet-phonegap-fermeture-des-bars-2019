@@ -8,6 +8,7 @@ var VueJeu = (function () {
     gererCollisionAvecBouteille,
     gererBouteilleSortieEcran,
     gererBouteilleVerteChargee) {
+
     var vueJeu = this;
     var canvas;
     var content;
@@ -56,8 +57,6 @@ var VueJeu = (function () {
       document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
       document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
       document.body.addEventListener("listebouteillechargee", gererListeBouteillesChargee);
-
-
 
 
       //Initilialisation de la route et des variables
@@ -134,7 +133,7 @@ var VueJeu = (function () {
       joueur.setPosition(evenement.center.x, evenement.center.y);
     }
 
-    function chargerJoueurEtObjet(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
+    function chargerJoueurEtObjet(evenement) {
       joueur = new Joueur(scene, content);
       hammer.on('pan', deplacerJoueur);
       //niveauAlcool =new NiveauAlcool(scene);

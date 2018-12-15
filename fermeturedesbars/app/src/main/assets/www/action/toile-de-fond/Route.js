@@ -24,18 +24,14 @@ function Route(scene, content, canvas) {
 
         imageRoute.onload = function () {
             var bmp = new createjs.Bitmap(imageRoute);
-            bmp.cache(0, 0, imageRoute.width, imageRoute.height, 0.38);
+            bmp.cache(0, 0, imageRoute.width, imageRoute.height,content.offsetWidth/ imageRoute.width);
             var bmp2 = new createjs.Bitmap(bmp.cacheCanvas);
 
             paysageRoute.graphics.beginBitmapFill(bmp2.image, "repeat", matriceRoute).drawRect(0, 0, content.offsetWidth,content.offsetHeight).endStroke();
-            /* paysageRoute.scaleX = content.offsetWidth / imageRoute.naturalWidth;
-            paysageRoute.scaleY = content.offsetHeight / imageRoute.naturalHeight;  */
+
             document.body.dispatchEvent(new CustomEvent("fondecranpret"));
             scene.addChild(paysageRoute);
-
         }
-
-
     }
 
     this.derouler = function (vitesseRoute) {
