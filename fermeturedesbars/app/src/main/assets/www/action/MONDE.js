@@ -1,0 +1,7 @@
+const MONDE = {
+    NOMBRE_BOUTEILLE : 5,
+    NOMBRE_OBSTACLE : 1,
+    NOMBRE_VOITURE :1,
+    VITESSE_JEU : 3,
+    VITESSE_VOITURE : 1.02
+};

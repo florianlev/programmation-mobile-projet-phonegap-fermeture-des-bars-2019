@@ -26,17 +26,16 @@ var Score = function(scene)
 
     }
 
-    this.augmenterScore = function(scoreAjoute)
+    this.setScore = function(nouveauScore)
     {
        // console.log("la fonction de augmentation est call + score: " + score);
-        score = score + scoreAjoute;
+        score = nouveauScore;
 
         actualiserScore();
 
     }
-    this.getScore = function(){
-      return score;
-    }
+
+
     initialiser();
 
 }

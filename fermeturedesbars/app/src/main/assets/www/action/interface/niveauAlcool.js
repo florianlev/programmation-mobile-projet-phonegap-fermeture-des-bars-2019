@@ -20,14 +20,8 @@ function NiveauAlcool(scene, joueur) {
     niveauAlcool.animate(0.5);
   }
 
-  this.ajouterNiveau = function (ajout) {
-    niveau += ajout;
-    if (niveau > 100) niveau = 100;
 
-    niveauAlcool.animate(niveau / 100);
-  }
-
-  this.diminution = function () {
+  this.demarrerDiminution = function () {
     niveau -= pointsParSecondes / 60;
 
     if (niveau <= 0) {
@@ -37,6 +31,11 @@ function NiveauAlcool(scene, joueur) {
       document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
     }
 
+    niveauAlcool.animate(niveau / 100);
+  }
+
+  this.modifierNiveauAlcool = function (nouveauNiveauAlcool) {
+    niveau = nouveauNiveauAlcool;
     niveauAlcool.animate(niveau / 100);
   }
 

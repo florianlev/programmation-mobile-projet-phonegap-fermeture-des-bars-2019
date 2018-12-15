@@ -1,109 +1,135 @@
-var GestionnaireObjets = function(scene, content, joueur, niveauAlcool, score, vitesseJeu){
+var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) {
+
+
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
 
   var iterateurVerification = 0;
   //vitesse du jeu
-  var vitesseObjetRoute = vitesseJeu*.4;//pourquoi 0.4 ?? c censer etre la meme chose que la route? non ?
-  var vitesseVoiture = vitesseJeu*1.5;
+  //var vitesseObjetRoute = MONDE.VITESSE_JEU * .4;//pourquoi 0.4 ?? c censer etre la meme chose que la route? non ?
 
-  var nombreBouteille = 3;
-  var nombreObstacle = 6;
-  var nombreVoiture = 5;
+  function initialiser() {//initialise les objets un par un avec un delais entre chaqun pour ne pas qu'ils arrive tous en meme temps
 
-  function initialiser(){//initialise les objets un par un avec un delais entre chaqun pour ne pas qu'ils arrive tous en meme temps
+    isListeBouteilleCharger = false;
     disperseurObstacle = 1;
-    for(iObstacles = 0; iObstacles < nombreObstacle; iObstacles++){
-      setTimeout(function(){
+
+    for (iObstacles = 0; iObstacles < MONDE.NOMBRE_OBSTACLE; iObstacles++) {
+      setTimeout(function () {
         obstacles.push(new Obstacle(scene, content));
-      },disperseurObstacle*1700);
+      }, disperseurObstacle * 1700);
       disperseurObstacle++;
     }
 
-    for(iBouteilles = 0; iBouteilles < nombreBouteille; iBouteilles++){
-      setTimeout(function(){
-        bouteilles.push(new Bouteille(scene, content));
-      },getNombreHazard(0, 10000));
+    for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
+      /*setTimeout(function () {
+        bouteilles.push(new Bouteille(scene, content, iBouteilles));
+      }, getNombreHazard(0, 10000));*/
+
+      bouteilles.push(new Bouteille(scene, content, iBouteilles));
     }
 
-    for(iVoitures = 0; iVoitures < nombreVoiture; iVoitures++){
-      setTimeout(function(){
+
+    for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
+      setTimeout(function () {
         voitures.push(new Voiture(scene, content));
-      },getNombreHazard(0, 10000));
+      }, getNombreHazard(0, 10000));
     }
   }
 
-  this.verification = function(){
-    deplacerObjets(bouteilles);
-    deplacerObjets(obstacles);
-    deplacerVoiture(voitures);
+  this.deplacerLesObjets = function (vitesse) {
+    deplacerObjets(bouteilles,vitesse);
+    deplacerObjets(obstacles,vitesse);
+    deplacerVoiture(voitures,vitesse);
+  }
+
+  this.testerCollision = function () {
+
     switch (iterateurVerification) {//verifie les 3 type d'objets mais il alterne pour reduire la charge a chaque interval
-    case 0:
-      for(iObstacles = 0; iObstacles < obstacles.length; iObstacles++){
-        if (obstacles[iObstacles] && !obstacles[iObstacles].isEnAttenteDeplacment()) {
-          verificationCollisionnementJoueurObjet(obstacles[iObstacles]);
+      case 0:
+        for (iObstacles = 0; iObstacles < obstacles.length; iObstacles++) {
+          if (obstacles[iObstacles] && !obstacles[iObstacles].isEnAttenteDeplacment()) {
+            testerCollisionObjet(obstacles[iObstacles]);
+          }
         }
-      }
-      iterateurVerification++;
-      break;
-    case 1:
-      for(iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++){
-        if (bouteilles[iBouteilles] && !bouteilles[iBouteilles].isEnAttenteDeplacment()) {
-          verificationCollisionnementJoueurBouteille(bouteilles[iBouteilles]);
+        iterateurVerification++;
+        break;
+      case 1:
+        for (iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++) {
+          if (bouteilles[iBouteilles] && !bouteilles[iBouteilles].isEnAttenteDeplacment()) {
+            testerCollisionBouteille(bouteilles[iBouteilles]);
+          }
         }
-      }
-      iterateurVerification++;
-      break;
-    case 2:
-      for(iVoitures = 0; iVoitures < voitures.length; iVoitures++){
-        if (voitures[iVoitures] && !voitures[iVoitures].isEnAttenteDeplacment()) {
-          verificationCollisionnementJoueurObjet(voitures[iVoitures]);
+        iterateurVerification++;
+        break;
+      case 2:
+        for (iVoitures = 0; iVoitures < voitures.length; iVoitures++) {
+          if (voitures[iVoitures] && !voitures[iVoitures].isEnAttenteDeplacment()) {
+            testerCollisionObjet(voitures[iVoitures]);
+          }
         }
-      }
-      iterateurVerification = 0;
-      break;
+        iterateurVerification = 0;
+        break;
     }
   }
   //Verification de la collision avec le joueur et la voiture
-  function verificationCollisionnementJoueurObjet(objet) {
-    collision = objet.getCollision();
-    if(collision){
-      if (joueur.rectangleCollisionJoueur().intersects(objet.getCollision(collision))) {
+  function testerCollisionObjet(objet) {
+    rectangleCollision = objet.getRectangleCollision();
+    if (rectangleCollision) {
+      if (joueur.getRectangleCollision().intersects(objet.getRectangleCollision(rectangleCollision))) {
         //console.log("COLLISIONNEMENT ! ");
         joueur.setEtatJoueurEcraser();
-        document.body.dispatchEvent(new CustomEvent("PARTIE_TERMINER"));
+        document.body.dispatchEvent(new CustomEvent("collisionavecobjet"));
       }
     }
   }
 
-  function verificationCollisionnementJoueurBouteille(bouteille) {
-    collision = bouteille.getCollision();
-    if(collision && !bouteille.isEnAttenteDeplacment()){
-      if (joueur.rectangleCollisionJoueur().intersects(collision)) {
+  function testerCollisionBouteille(bouteille) {
+    rectangleCollision = bouteille.getRectangleCollision();
+    if (rectangleCollision && !bouteille.isEnAttenteDeplacment()) {
+      if (joueur.getRectangleCollision().intersects(rectangleCollision)) {
         bouteille.setEnAttenteDeplacement(true);
-        //console.log("COLLISIONNEMENT ! ");
-        console.log("hit, setTimeout");
+        document.body.dispatchEvent(new CustomEvent("collisionavecbouteille", { detail: { idBouteille: bouteille.getId() } }));
 
-        setTimeout(bouteille.repositionnerBouteille , getNombreHazard(0,5000));
-        score.augmenterScore(10);
-        niveauAlcool.ajouterNiveau(10);
+        //console.log("COLLISIONNEMENT ! ");
+
+        /* setTimeout(bouteille.repositionnerBouteille , getNombreHazard(0,5000));  
+        
+ */
       }
     }
   }
   //deplace les objets contenu dans l'array(bouteille et obstacles)
-  function deplacerObjets(objets){
-      for(iObjets = 0; iObjets < objets.length; iObjets++){
-        objets[iObjets].mouvement(vitesseObjetRoute);
-      }
+  function deplacerObjets(objets,vitesse) {
+    for (iObjets = 0; iObjets < objets.length; iObjets++) {
+      objets[iObjets].mouvement(vitesse);
+    }
   }
-  function deplacerVoiture(vehicule){
-      for(iVehicule = 0; iVehicule < vehicule.length; iVehicule++){
-        vehicule[iVehicule].mouvementVoiture(vitesseVoiture);
-      }
+  function deplacerVoiture(vehicule,vitesse) {
+    for (iVehicule = 0; iVehicule < vehicule.length; iVehicule++) {
+      vehicule[iVehicule].mouvementVoiture(vitesse * MONDE.VITESSE_VOITURE);
+    }
   }
   function getNombreHazard(min, max) {
     return Math.random() * (max - min) + min;
   }
+
+  this.repositionnerBouteille = function (idBouteille) {
+    bouteilles[idBouteille].repositionnerBouteille();
+  }
+
+
+  this.afficherBouteilleDansLeTemps = function (idBouteille, delai) {
+    bouteilles[idBouteille].setDelaiAffichage(delai);
+    bouteilles[idBouteille].setDebutInterval(Date.now());
+  }
+
+  this.getListeBouteilles = function () {
+    return bouteilles;
+  }
+
+
+
+
   initialiser();
 }

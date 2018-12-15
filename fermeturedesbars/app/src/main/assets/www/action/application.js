@@ -9,7 +9,6 @@
     this.vueChoisirPseudo = new VueChoisirPseudo();
     this.vueFinMultijoueur = new VueFinMultijoueur();
     this.vueFinSolo = new VueFinSolo();
-    this.vueJeu = new VueJeu();
     this.vueChoixRoom = new VueChoixRoom();
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
@@ -46,7 +45,9 @@
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
     } else if (window.location.hash.match(/^#jeu/)) {
-      this.vueJeu.afficher();
+      this.jeu = new Jeu();
+      this.jeu.demarrerJeu();
+      //this.vueJeu.afficher();
     } else if (window.location.hash.match(/^#fin-multijoueur/)) {
       this.vueFinMultijoueur.afficher();
     } else if (window.location.hash.match(/^#fin-solo/)) {

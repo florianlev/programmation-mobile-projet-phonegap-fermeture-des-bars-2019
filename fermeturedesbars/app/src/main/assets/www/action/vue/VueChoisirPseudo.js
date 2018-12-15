@@ -6,6 +6,7 @@ var VueChoisirPseudo = function () {
   }
 
   this.afficher = function () {
+    console.log("VueChoisirPseudoAfficher");
     document.body.innerHTML = contenuPage;
     document.getElementById("formPseudo").addEventListener("submit", enregistrer);
   }

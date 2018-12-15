@@ -1,121 +1,194 @@
-var VueJeu = function () {
-  var vueJeu = this;
-  var contenuPage;
-  var canvas;
-  var content;
-  var scene;
-  var route;
-  var hammer;
-  var joueur;
-  var gestionnaireObjets;
-  var niveauAlcool
-  var score;
-  var accelerationJeu;
-  var parteTerminer;
-  var vitesseRoute;
-  var etatCourantJoueur;
-  var vitesseJeu;
-  function initialiser() {
-    //Affichage de la vue jeu
-    contenuPage = document.getElementById("jeu").innerHTML;
-  }
+var VueJeu = (function () {
 
-  this.afficher = function () {
-    hammer = new Hammer(document.body);
+  var contenuPage = document.getElementById("jeu").innerHTML;
 
-    //Initialisaton du canvas
-    document.body.innerHTML = contenuPage;
-    canvas = document.getElementById("dessin");
-    arrangerCanvas();
+  console.log("vueJeuInclude");
 
-    //Initialisation scene createJs
-    scene = new createjs.Stage(canvas);
+  return function (terminerJeu,
+    gererCollisionAvecBouteille,
+    gererBouteilleSortieEcran,
+    gererBouteilleVerteChargee) {
+    var vueJeu = this;
+    var canvas;
+    var content;
+    var scene;
+    var route;
+    var hammer;
+    var joueur;
+    var gestionnaireObjets;
+    var niveauAlcool
+    var score;
+    var accelerationJeu;
+    var vitesseRoute;
+    var etatCourantJoueur;
+    var boucleJeuRepeteur;
+    var debutInterval;
+    var delaiNouvelleBouteille;
+    var debutIntervalBouteille;
 
-    //Inistialisation du rafraichissement du jeu
-    createjs.Ticker.addEventListener("tick", rafraichirJeu);
-    createjs.Ticker.setInterval(1000 / 60);
-    createjs.Ticker.setFPS(60);
+    function initialiser() {
+      console.log("vueJeuInitialiser");
+      vitesseRoute = MONDE.VITESSE_JEU;
 
-    //Event PartieTerminer et RouteCharger
-    document.body.addEventListener("ROUTE_CHARGER", chargementObjets);
-    document.body.addEventListener("PARTIE_TERMINER", fin);
-
-    //Initilialisation de la route et des variables
-    route = new Route(scene, content);
-    vitesseJeu = 3;
-    accelerationJeu = 0;
-    parteTerminer = false
-    vitesseRoute = vitesseJeu*-1;
-  }
-  function boucleJeu(){// tout mettre ce qui necesite un untervale ice et augmenter sa vitesse tout les x secondes avec n autre objets
-    gestionnaireObjets.verification();
-    niveauAlcool.diminution();
-    route.raffraichirMatrice(vitesseRoute);
-    if(!parteTerminer){
-      setTimeout(boucleJeu, 20-accelerationJeu);
-    }
-    //console.log(accelerationJeu);
-  }
-  //Boucle de jeu
-  function rafraichirJeu(evenement) {
-    if( accelerationJeu < 21)
-      accelerationJeu += 0.02;
-    scene.update(evenement);
-  }
-
-  function arrangerCanvas() {
-    content = document.getElementById("content");
-
-    if (canvas.width < content.offsetWidth) {
-
-      canvas.width = content.offsetWidth;
     }
 
-    if (canvas.height < content.offsetHeight) {
-      canvas.height = content.offsetHeight;
+    this.afficher = function () {
+      console.log("vueJeuAfficher()");
+      hammer = new Hammer(document.body);
+
+      //Initialisaton du canvas
+      document.body.innerHTML = contenuPage;
+      canvas = document.getElementById("dessin");
+      arrangerCanvas();
+
+      //Initialisation scene createJs
+      scene = new createjs.Stage(canvas);
+
+      //Inistialisation du rafraichissement du jeu
+      //createjs.Ticker.addEventListener("tick", rafraichirJeu);
+      createjs.Ticker.setInterval(1000 / 60);
+      createjs.Ticker.setFPS(60);
+
+      //Event PartieTerminer et RouteCharger
+      document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
+      document.body.addEventListener("collisionavecobjet", terminerJeu);
+      document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
+      document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
+      document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
+      document.body.addEventListener("listebouteillechargee", gererListeBouteillesChargee);
+
+
+
+
+      //Initilialisation de la route et des variables
+      route = new Route(scene, content, canvas);
+      accelerationJeu = 0;
+
+
+      debutInterval = 0;
+      delaiNouvelleBouteille = [];
+      debutIntervalBouteille = [];
     }
-  }
 
-  function deplacement(evenement) {
-    joueur.setPosition(evenement.center.x, evenement.center.y);
-  }
+    //Boucle de jeu
+    function rafraichirJeu(evenement) {
 
-  function chargementObjets(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
-    joueur = new Joueur(scene, content);
-    hammer.on('pan', deplacement);
-    //niveauAlcool =new NiveauAlcool(scene);
-
-    //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
-    score = new Score(scene);
-    niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
-    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score, vitesseJeu);
-    setTimeout(boucleJeu, 60*accelerationJeu);
-  }
+      var nouvelInterval = Date.now();
 
 
-  //Stopper le ticker de la boucle de jeu
-  function stopperJeu() {
-    createjs.Ticker.off("tick", rafraichirJeu);
-    scene.clear();
-  }
 
-  this.getScore = function () {
-    return score.getScore();
-  }
+      //SI au premier instant du jeu on initialise le debut de l'interval a quelque chose
+      if (!debutInterval) {
+        debutInterval = Date.now();
+      }
 
-  function fin(evenement) {
-    if(!parteTerminer){
-      parteTerminer = true;
+      var listeBouteilles = gestionnaireObjets.getListeBouteilles();
+      for (indiceListeBouteilles = 0; indiceListeBouteilles < listeBouteilles.length; indiceListeBouteilles++) {
+        var delaiAffichage = listeBouteilles[indiceListeBouteilles].getDelaiAffichage();
+        if (delaiAffichage) {
+          if (nouvelInterval - listeBouteilles[indiceListeBouteilles].getDebutInterval() >= delaiAffichage) {
+            gestionnaireObjets.repositionnerBouteille(indiceListeBouteilles);
+            listeBouteilles[indiceListeBouteilles].setDelaiAffichage(0);
+            listeBouteilles[indiceListeBouteilles].setDebutInterval(0);
+          }
+        }
+      }
+
+      //On prend la mesure du temps maintenant
+
+      //Si le nouveau temps est plus grand que l'accelaration souhaiter par rapport au début de l'interval
+      if (nouvelInterval - debutInterval >= 20) {
+        vitesseRoute += 0.005;
+
+        debutInterval = nouvelInterval;
+      }/*else{
+        accelerationJeu += 1;
+        if(accelerationJeu >= 20){
+          accelerationJeu = 0;
+        }
+      } */
+      //Appliquer les déplacements
+      gestionnaireObjets.deplacerLesObjets(vitesseRoute);
+      gestionnaireObjets.testerCollision();
+      niveauAlcool.demarrerDiminution();
+
+      route.derouler(vitesseRoute);
+      scene.update(evenement);
+    }
+
+    function arrangerCanvas() {
+      console.log("vueJeuArrangerCanvas");
+      content = document.getElementById("content");
+
+      if (canvas.width < content.offsetWidth) {
+
+        canvas.width = content.offsetWidth;
+      }
+
+      if (canvas.height < content.offsetHeight) {
+        canvas.height = content.offsetHeight;
+      }
+    }
+
+    function deplacerJoueur(evenement) {
+      joueur.setPosition(evenement.center.x, evenement.center.y);
+    }
+
+    function chargerJoueurEtObjet(evenement) {//PROBLEME DE DUPICATION POUR TOUT CES ITEM SUR PC.... SEULEMENT SUR PC
+      joueur = new Joueur(scene, content);
+      hammer.on('pan', deplacerJoueur);
+      //niveauAlcool =new NiveauAlcool(scene);
+
+      //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
+      score = new Score(scene);
+      niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+      gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
+      //setTimeout(boucleJeu, 60 * accelerationJeu);
+      createjs.Ticker.addEventListener("tick", rafraichirJeu);
+      /* bouclerJeu(); */
+    }
+
+
+    //Stopper le ticker de la boucle de jeu
+    this.stopperJeu = function (finaliserJeu) {
+      setTimeout(function () {
+        createjs.Ticker.off("tick", rafraichirJeu);
+        scene.clear();
+        finaliserJeu();
+      }, 5000);
+
+    }
+
+
+    this.setScore = function (nouveauScore) {
+      score.setScore(nouveauScore);
+    }
+
+    this.ajouterBouteille = function (idBouteille, delai) {
+      gestionnaireObjets.afficherBouteilleDansLeTemps(idBouteille, delai);
+
+    }
+
+
+    this.setNiveauAlcool = function (nouveauNiveauAlcool) {
+      niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
+    }
+
+    this.detruire = function () {
       console.log("fin");
-      setTimeout(function() {
-        stopperJeu();
-        window.location.hash = "fin-solo";
-    }, 5000);
-    }
-  }
+      clearTimeout(boucleJeuRepeteur);
 
-  function attente(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function gererListeBouteillesChargee() {
+      gestionnaireObjets.setIsListeBouteilleCharger(true);
+    }
+
+    this.setDebutIntervalJeu = function (debutIntervalJeu) {
+      debutIntervalJeu
+    }
+
+    initialiser();
+
   }
-  initialiser();
-}
+})();

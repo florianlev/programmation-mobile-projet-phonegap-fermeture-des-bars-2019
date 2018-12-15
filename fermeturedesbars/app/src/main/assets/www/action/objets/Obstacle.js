@@ -62,7 +62,7 @@ var Obstacle = function(scene,content){
   function getNombreHazard(min, max) {
     return Math.random() * (max - min) + min;
   }
-  this.getCollision = function () {
+  this.getRectangleCollision = function () {
     if(bitmapObstacle){
       bitmapObstacle.setBounds(bitmapObstacle.x+10, bitmapObstacle.y+10, obstacle.width-20, obstacle.height-20);
       return bitmapObstacle.getBounds();
