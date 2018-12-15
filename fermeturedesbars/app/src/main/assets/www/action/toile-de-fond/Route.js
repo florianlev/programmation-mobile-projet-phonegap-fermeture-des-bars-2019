@@ -23,20 +23,17 @@ function Route(scene, content, canvas) {
         imageRoute.src = "images/route.png";
 
         imageRoute.onload = function () {
+/* 
+            var bmp = new createjs.Bitmap(imageRoute);
+            bmp.cache(0, 0, content.offsetWidth / imageRoute.naturalWidth, content.offsetHeight / imageRoute.naturalHeight, 0.2);
+            var bmp2 = new createjs.Bitmap(bmp.cacheCanvas); */
 
-            /* var bmp = new createjs.Bitmap(imageRoute);
-            bmp.cache(0, 0, imageRoute.width, imageRoute.height, 0.2);
-            var bmp2 = new createjs.Bitmap(bmp.cacheCanvas);
-            scene.addChild(bmp,bmp2); */
-
-            paysageRoute.graphics.beginBitmapFill(imageRoute,"repeat", matriceRoute).drawRect(0,0,imageRoute.naturalWidth,imageRoute.naturalHeight).endStroke();
+            paysageRoute.graphics.beginBitmapFill(imageRoute, "repeat", matriceRoute).drawRect(0, 0, imageRoute.naturalWidth, imageRoute.naturalHeight).endStroke();
             paysageRoute.scaleX = content.offsetWidth / imageRoute.naturalWidth;
             paysageRoute.scaleY = content.offsetHeight / imageRoute.naturalHeight; 
-            scene.addChild(paysageRoute);
+            //scene.addChild(paysageRoute);
             document.body.dispatchEvent(new CustomEvent("fondecranpret"));
-
-
-
+            scene.addChild(paysageRoute);
 
         }
 
