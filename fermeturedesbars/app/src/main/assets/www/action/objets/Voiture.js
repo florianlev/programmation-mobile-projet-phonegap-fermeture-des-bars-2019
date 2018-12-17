@@ -44,7 +44,7 @@ var Voiture = function (scene, content, idVoiture) {
 
   this.mouvementVoiture = function (vitesseRoute) {
     if (bitmapVoiture) {
-      bitmapVoiture.y -= vitesseRoute;
+      bitmapVoiture.y -= vitesseRoute + 3;
 
       //Si l'objet sort de la map on le repositionne
       if (bitmapVoiture.y < -50 && !enAttenteDeplacement) {

@@ -8,7 +8,7 @@ function ConnexionNode() {
 
     this.initierConnexion = function (){
         console.log("initialiserConnexionNode");
-        connexion = io.connect('http://158.69.113.110:2000');
+        connexion = io.connect('http://localhost:2000');
         var room  = "room3";
         connexion.on('connect', function () {
             console.log('connect');

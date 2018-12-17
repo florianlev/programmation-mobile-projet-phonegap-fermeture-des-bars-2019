@@ -45,7 +45,7 @@ var Jeu = function () {
         niveauAlcool = vueJeu.getNiveauAlcool();
 
         if (niveauAlcool >= 90) niveauAlcool = 100;
-        else niveauAlcool += 10;
+        else niveauAlcool += MONDE.POINTS_AUGMENTER_BIERE;
         
         vueJeu.setNiveauAlcool(niveauAlcool)
         console.log("grerCollisionAvecBoteille" + evenement.detail.idBouteille);
