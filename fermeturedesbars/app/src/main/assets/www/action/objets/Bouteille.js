@@ -45,9 +45,6 @@ var Bouteille = function (scene, content, idBouteille) {
 
   }
 
-  this.getId = function () {
-    return idBouteille;
-  }
 
   this.isCharger = function () {
     return estCharger;

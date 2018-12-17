@@ -4,13 +4,16 @@ var Jeu = function () {
     var score;
     var niveauAlcool;
     var compteurBouteilleVerteChargee;
+    var compteurObstacleCharge;
 
     function initialiser() {
         vueJeu = new VueJeu(terminerJeu,
             gererCollisionAvecBouteille,
             gererBouteilleSortieEcran,
             gererBouteilleVerteChargee,
-            gererNiveauAlcoolCharger);
+            gererNiveauAlcoolCharger,
+            gererObstacleCharge,
+            gererObstacleSortieEcran);
 
     }
 
@@ -58,6 +61,20 @@ var Jeu = function () {
                 vueJeu.ajouterBouteille(indiceBouteille, getNombreHazard(0, 5000));
             }
         }
+
+    }
+
+    function gererObstacleCharge(evenement){
+        compteurObstacleCharge++;
+        if (compteurObstacleCharge == MONDE.NOMBRE_OBSTACLE - 1) {
+            for (indiceObstacle = 0; indiceObstacle < MONDE.NOMBRE_OBSTACLE; indiceObstacle++) {
+                vueJeu.ajouterObstacle(indiceObstacle, getNombreHazard(0, 5000));
+            }
+        }
+    }
+
+    function gererObstacleSortieEcran(evenement){
+        vueJeu.ajouterObstacle(evenement.detail.idObstacle, getNombreHazard(0, 5000));
 
     }
 

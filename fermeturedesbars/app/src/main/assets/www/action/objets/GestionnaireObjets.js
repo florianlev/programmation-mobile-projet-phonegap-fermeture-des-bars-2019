@@ -15,10 +15,13 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     disperseurObstacle = 1;
 
     for (iObstacles = 0; iObstacles < MONDE.NOMBRE_OBSTACLE; iObstacles++) {
-      setTimeout(function () {
+      /*setTimeout(function () {
         obstacles.push(new Obstacle(scene, content));
       }, disperseurObstacle * 1700);
-      disperseurObstacle++;
+      disperseurObstacle++;*/
+
+      obstacles.push(new Obstacle(scene, content, iObstacles));
+
     }
 
     for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
@@ -118,18 +121,30 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     bouteilles[idBouteille].repositionnerBouteille();
   }
 
+  this.repositionnerObstacle = function(idObstacle){
+    console.log("repositionnerObstacle : " + idObstacle);
+    obstacles[idObstacle].repositionnerObstacle();
+  }
+
 
   this.afficherBouteilleDansLeTemps = function (idBouteille, delai) {
     bouteilles[idBouteille].setDelaiAffichage(delai);
     bouteilles[idBouteille].setDebutInterval(Date.now());
   }
 
+  this.afficherObstacleDansLeTemps = function(idObstacle, delai){
+    //console.log("afficherObstacleDansLeTemps" + idObstacle);
+    obstacles[idObstacle].setDelaiAffichage(delai);
+    obstacles[idObstacle].setDebutInterval(Date.now());
+  }
+
   this.getListeBouteilles = function () {
     return bouteilles;
   }
 
-
-
+  this.getListeObstacles = function (){
+    return obstacles;
+  }
 
   initialiser();
 }

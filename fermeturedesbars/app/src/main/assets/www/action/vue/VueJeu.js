@@ -8,7 +8,9 @@ var VueJeu = (function () {
     gererCollisionAvecBouteille,
     gererBouteilleSortieEcran,
     gererBouteilleVerteChargee,
-    gererNiveauAlcoolCharger) {
+    gererNiveauAlcoolCharger,
+    gererObstacleCharge,
+    gererObstacleSortieEcran) {
 
     var vueJeu = this;
     var canvas;
@@ -57,10 +59,11 @@ var VueJeu = (function () {
       document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
       document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
       document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
+      document.body.addEventListener("obstaclecharger", gererObstacleCharge);
+      document.body.addEventListener("obstaclesortieecran", gererObstacleSortieEcran);
+
       document.body.addEventListener("listebouteillechargee", gererListeBouteillesChargee);
       document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
-
-
       //Initilialisation de la route et des variables
       route = new Route(scene, content, canvas);
       accelerationJeu = 0;
@@ -91,6 +94,19 @@ var VueJeu = (function () {
             gestionnaireObjets.repositionnerBouteille(indiceListeBouteilles);
             listeBouteilles[indiceListeBouteilles].setDelaiAffichage(0);
             listeBouteilles[indiceListeBouteilles].setDebutInterval(0);
+          }
+        }
+      }
+
+
+      var listeObstacles = gestionnaireObjets.getListeObstacles();
+      for (indiceListeObstacles = 0; indiceListeObstacles < listeObstacles.length; indiceListeObstacles++) {
+        var delaiAffichage = listeObstacles[indiceListeObstacles].getDelaiAffichage();
+        if(delaiAffichage){
+          if (nouvelInterval - listeObstacles[indiceListeObstacles].getDebutInterval() >= delaiAffichage) {
+            gestionnaireObjets.repositionnerObstacle(indiceListeObstacles);
+            listeObstacles[indiceListeObstacles].setDelaiAffichage(0);
+            listeObstacles[indiceListeObstacles].setDebutInterval(0)
           }
         }
       }
@@ -145,9 +161,7 @@ var VueJeu = (function () {
       niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
       document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
       gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
-      //setTimeout(boucleJeu, 60 * accelerationJeu);
       createjs.Ticker.addEventListener("tick", rafraichirJeu);
-      /* bouclerJeu(); */
     }
 
 
@@ -175,6 +189,11 @@ var VueJeu = (function () {
 
     }
 
+    this.ajouterObstacle = function (idObstacle, delai){
+      console.log("ajouterObstacle" + idObstacle);
+      gestionnaireObjets.afficherObstacleDansLeTemps(idObstacle, delai);
+    }
+
 
     this.setNiveauAlcool = function (nouveauNiveauAlcool) {
       niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
@@ -190,6 +209,9 @@ var VueJeu = (function () {
       gestionnaireObjets.setIsListeBouteilleCharger(true);
     }
 
+    function gererListeObstaclesCharge(){
+      gestionnaireObjets.setIsListeObstacleCharger(true);
+    }
     this.setDebutIntervalJeu = function (debutIntervalJeu) {
       debutIntervalJeu
     }
