@@ -1,4 +1,4 @@
-function ConnexionNode() {
+function ConnexionNode(afficherNouvellesListeRoom) {
 
     var connexion;
 
@@ -31,9 +31,10 @@ function ConnexionNode() {
         connexion.emit('creer_room', nom);
     }
 
-    function recevoirNouvellesListeRoom(nouvelleListeRoom){
-        //listeParse= JSON.parse(nouvelleListeRoom);
-        console.log(nouvelleListeRoom);
+    function recevoirNouvellesListeRoom(nouvelleListeRoomJSON){
+        listeRoom = JSON.parse(nouvelleListeRoomJSON);
+        console.log(listeRoom);
+        afficherNouvellesListeRoom(listeRoom);
     }
 
     initialiser();

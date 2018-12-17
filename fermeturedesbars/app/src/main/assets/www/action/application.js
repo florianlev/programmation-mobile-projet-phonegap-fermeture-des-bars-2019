@@ -40,7 +40,7 @@
     } else if (window.location.hash.match(/^#choix-room/)) {
 
 
-      connexionNode = new ConnexionNode();
+      connexionNode = new ConnexionNode(afficherNouvellesListeRoom);
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
@@ -70,7 +70,12 @@
   }
 
   function envoyerCreationRoom(nomRoom){
-    connexionNode.creerUneRoom(nomRoom)
+    listeRoom = connexionNode.creerUneRoom(nomRoom);
+  }
+
+  function afficherNouvellesListeRoom(listeRoom){
+    this.vueChoixRoom.afficherListeRoom(listeRoom)
+
   }
 
   initialiser();

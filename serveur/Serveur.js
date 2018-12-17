@@ -1,6 +1,7 @@
 var http = require('http');
 var socketIo = require('socket.io');
 Room = require('./Room.js');
+Joueur = require('./Joueur.js');
 
 
 
@@ -8,6 +9,7 @@ var listeRoom = [];
 var listeJoueur = [];
 var listeConnexion = [];
 var nombreClients;
+var idRoom;
 
 
 function initialiser() {
@@ -22,7 +24,7 @@ function initialiser() {
     server.listen(2000);
     io = socketIo.listen(server);
 
-
+    idRoom = 0;
     io.on('connection', gererConnexion);
 
 
@@ -34,11 +36,13 @@ function gererConnexion(connexion) {
 
     connexion.id = nombreClients;
 
-    //joueur = new Joueur(connexion.id);
+    joueur = new Joueur(connexion.id);
 
     listeConnexion[connexion.id] = connexion;
-    //listeJoueur[connexion.id] = joueur;
-    //io.emit('nouvelleListeRoom',listeRoom);
+    listeJoueur[connexion.id] = joueur;
+
+    //Envoie de la liste des rooms
+    io.emit('nouvelleListeRoom',JSON.stringify(listeRoom));
 
 
     connexion.on("joindre_room", (room) => {
@@ -59,22 +63,21 @@ function gererConnexion(connexion) {
 
 }
 
+
 function creerRoom(nom) {
     console.log(nom);
-    var room = new Room(nom);
-    listeRoom[nom] = room;
+    var room = new Room(idRoom,nom);
+    listeRoom[idRoom] = room;
    //console.log(listeRoom);
 
     var listeRoomJson = JSON.stringify(listeRoom);
 
     console.log(listeRoomJson);
 
-    for (var idConnexion in listeConnexion) {
-        if (listeConnexion[idConnexion]) {
-            listeConnexion[idConnexion].emit('nouvelleListeRoom', listeRoom);
-        }
-    }
-    //io.emit('nouvelleListeRoom', listeRoom);
+    //mise a jour des liste de room
+    io.emit('nouvelleListeRoom', listeRoomJson);
+    idRoom++;
+
 }
 
 initialiser();
