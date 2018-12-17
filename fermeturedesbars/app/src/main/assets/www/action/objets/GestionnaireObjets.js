@@ -7,7 +7,6 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
 
   var iterateurVerification = 0;
   //vitesse du jeu
-  //var vitesseObjetRoute = MONDE.VITESSE_JEU * .4;//pourquoi 0.4 ?? c censer etre la meme chose que la route? non ?
 
   function initialiser() {//initialise les objets un par un avec un delais entre chaqun pour ne pas qu'ils arrive tous en meme temps
 
@@ -15,35 +14,24 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     disperseurObstacle = 1;
 
     for (iObstacles = 0; iObstacles < MONDE.NOMBRE_OBSTACLE; iObstacles++) {
-      /*setTimeout(function () {
-        obstacles.push(new Obstacle(scene, content));
-      }, disperseurObstacle * 1700);
-      disperseurObstacle++;*/
-
       obstacles.push(new Obstacle(scene, content, iObstacles));
-
     }
 
     for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
-      /*setTimeout(function () {
-        bouteilles.push(new Bouteille(scene, content, iBouteilles));
-      }, getNombreHazard(0, 10000));*/
-
       bouteilles.push(new Bouteille(scene, content, iBouteilles));
     }
 
-
     for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
-      setTimeout(function () {
-        voitures.push(new Voiture(scene, content));
-      }, getNombreHazard(0, 10000));
+
+      voitures.push(new Voiture(scene, content, iVoitures));
+
     }
   }
 
   this.deplacerLesObjets = function (vitesse) {
-    deplacerObjets(bouteilles,vitesse);
-    deplacerObjets(obstacles,vitesse);
-    deplacerVoiture(voitures,vitesse);
+    deplacerObjets(bouteilles, vitesse);
+    deplacerObjets(obstacles, vitesse);
+    deplacerVoiture(voitures, vitesse);
   }
 
   this.testerCollision = function () {
@@ -75,6 +63,7 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
         break;
     }
   }
+
   //Verification de la collision avec le joueur et la voiture
   function testerCollisionObjet(objet) {
     rectangleCollision = objet.getRectangleCollision();
@@ -93,22 +82,16 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
       if (joueur.getRectangleCollision().intersects(rectangleCollision)) {
         bouteille.setEnAttenteDeplacement(true);
         document.body.dispatchEvent(new CustomEvent("collisionavecbouteille", { detail: { idBouteille: bouteille.getId() } }));
-
-        //console.log("COLLISIONNEMENT ! ");
-
-        /* setTimeout(bouteille.repositionnerBouteille , getNombreHazard(0,5000));  
-        
- */
       }
     }
   }
   //deplace les objets contenu dans l'array(bouteille et obstacles)
-  function deplacerObjets(objets,vitesse) {
+  function deplacerObjets(objets, vitesse) {
     for (iObjets = 0; iObjets < objets.length; iObjets++) {
       objets[iObjets].mouvement(vitesse);
     }
   }
-  function deplacerVoiture(vehicule,vitesse) {
+  function deplacerVoiture(vehicule, vitesse) {
     for (iVehicule = 0; iVehicule < vehicule.length; iVehicule++) {
       vehicule[iVehicule].mouvementVoiture(vitesse * MONDE.VITESSE_VOITURE);
     }
@@ -121,9 +104,14 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     bouteilles[idBouteille].repositionnerBouteille();
   }
 
-  this.repositionnerObstacle = function(idObstacle){
+  this.repositionnerObstacle = function (idObstacle) {
     console.log("repositionnerObstacle : " + idObstacle);
     obstacles[idObstacle].repositionnerObstacle();
+  }
+
+  this.repositionnerVoiture = function (idVoiture) {
+    console.log("repositionnerObstacle : " + idVoiture);
+    voitures[idVoiture].repositionnerVoiture();
   }
 
 
@@ -132,18 +120,28 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     bouteilles[idBouteille].setDebutInterval(Date.now());
   }
 
-  this.afficherObstacleDansLeTemps = function(idObstacle, delai){
+  this.afficherObstacleDansLeTemps = function (idObstacle, delai) {
     //console.log("afficherObstacleDansLeTemps" + idObstacle);
     obstacles[idObstacle].setDelaiAffichage(delai);
     obstacles[idObstacle].setDebutInterval(Date.now());
+  }
+
+  this.afficherVoitureDansLeTemps = function (idVoiture, delai) {
+    console.log("afficherObstacleDansLeTemps" + idVoiture);
+    voitures[idVoiture].setDelaiAffichage(delai);
+    voitures[idVoiture].setDebutInterval(Date.now());
   }
 
   this.getListeBouteilles = function () {
     return bouteilles;
   }
 
-  this.getListeObstacles = function (){
+  this.getListeObstacles = function () {
     return obstacles;
+  }
+
+  this.getListeVoiture = function () {
+    return voitures;
   }
 
   initialiser();

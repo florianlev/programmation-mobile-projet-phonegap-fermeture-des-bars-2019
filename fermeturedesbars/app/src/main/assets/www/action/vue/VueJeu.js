@@ -10,7 +10,9 @@ var VueJeu = (function () {
     gererBouteilleVerteChargee,
     gererNiveauAlcoolCharger,
     gererObstacleCharge,
-    gererObstacleSortieEcran) {
+    gererObstacleSortieEcran,
+    gererVoitureChargee,
+    gererVoitureSortiEcran) {
 
     var vueJeu = this;
     var canvas;
@@ -61,6 +63,8 @@ var VueJeu = (function () {
       document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
       document.body.addEventListener("obstaclecharger", gererObstacleCharge);
       document.body.addEventListener("obstaclesortieecran", gererObstacleSortieEcran);
+      document.body.addEventListener("voiturechargee", gererVoitureChargee);
+      document.body.addEventListener("voituresortieecran", gererVoitureSortiEcran);
 
       document.body.addEventListener("listebouteillechargee", gererListeBouteillesChargee);
       document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
@@ -107,6 +111,18 @@ var VueJeu = (function () {
             gestionnaireObjets.repositionnerObstacle(indiceListeObstacles);
             listeObstacles[indiceListeObstacles].setDelaiAffichage(0);
             listeObstacles[indiceListeObstacles].setDebutInterval(0)
+          }
+        }
+      }
+
+      var listeVoiture = gestionnaireObjets.getListeVoiture();
+      for (indiceListeVoiture = 0; indiceListeVoiture < listeVoiture.length; indiceListeVoiture++) {
+        var delaiAffichage = listeVoiture[indiceListeVoiture].getDelaiAffichage();
+        if(delaiAffichage){
+          if (nouvelInterval - listeVoiture[indiceListeVoiture].getDebutInterval() >= delaiAffichage) {
+            gestionnaireObjets.repositionnerVoiture(indiceListeVoiture);
+            listeVoiture[indiceListeVoiture].setDelaiAffichage(0);
+            listeVoiture[indiceListeVoiture].setDebutInterval(0)
           }
         }
       }
@@ -192,6 +208,10 @@ var VueJeu = (function () {
     this.ajouterObstacle = function (idObstacle, delai){
       console.log("ajouterObstacle" + idObstacle);
       gestionnaireObjets.afficherObstacleDansLeTemps(idObstacle, delai);
+    }
+
+    this.ajouterVoiture = function(idVoiture, delai){
+      gestionnaireObjets.afficherVoitureDansLeTemps(idVoiture, delai);
     }
 
 

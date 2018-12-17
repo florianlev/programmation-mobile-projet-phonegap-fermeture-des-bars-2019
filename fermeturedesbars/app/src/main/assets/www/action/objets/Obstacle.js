@@ -116,10 +116,6 @@ var Obstacle = function (scene, content, idObstacle) {
     return Math.random() * (max - min) + min;
   }
 
-
-  this.isEnAttenteDeplacment = function () {
-    return enAttenteDeplacement;
-  }
   initialiser();
 
 }

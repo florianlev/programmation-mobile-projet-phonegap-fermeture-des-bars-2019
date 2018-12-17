@@ -51,7 +51,7 @@
     } else if (window.location.hash.match(/^#fin-multijoueur/)) {
       this.vueFinMultijoueur.afficher();
     } else if (window.location.hash.match(/^#fin-solo/)) {
-      this.vueFinSolo.afficher(this.vueJeu.getScore());
+      this.vueFinSolo.afficher(this.jeu.getScore());
     } else if (window.location.hash.match(/^#apreciation/)) {
       this.vueApreciation.afficher();
     } else if (window.location.hash.match(/^#statistique/)) {
