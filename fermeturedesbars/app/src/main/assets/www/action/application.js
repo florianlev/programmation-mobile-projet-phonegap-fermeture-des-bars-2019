@@ -2,6 +2,8 @@
 
   instance = this;
 
+  var connexionNode;
+
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
@@ -9,11 +11,9 @@
     this.vueChoisirPseudo = new VueChoisirPseudo();
     this.vueFinMultijoueur = new VueFinMultijoueur();
     this.vueFinSolo = new VueFinSolo();
-    this.vueChoixRoom = new VueChoixRoom();
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
-    this.connexionNode = new ConnexionNode();
 
     console.log(localStorage['pseudo']);
 
@@ -37,10 +37,15 @@
       this.vueMenuPrincipale.afficher();
     } else if (window.location.hash.match(/^#choisir-pseudo/)) {
       this.vueChoisirPseudo.afficher();
-    }else if (window.location.hash.match(/^#choix-room/)){
-      this.connexionNode.initierConnexion();
+    } else if (window.location.hash.match(/^#choix-room/)) {
+
+
+      connexionNode = new ConnexionNode();
+      this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
+      connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
-    } else if (window.location.hash.match(/^#attente-multijoueur/)) {
+
+    }  else if (window.location.hash.match(/^#attente-multijoueur/)) {
       this.vueAttenteMultijoueur.afficher();
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
@@ -62,6 +67,10 @@
       //navigator.app.exitApp();
       //cordova.plugins.exit();
     }
+  }
+
+  function envoyerCreationRoom(nomRoom){
+    connexionNode.creerUneRoom(nomRoom)
   }
 
   initialiser();

@@ -3,17 +3,17 @@ function ConnexionNode() {
     var connexion;
 
     function initialiser() {
-        
+        console.log("initialiserConnexionNode");
+        connexion = io.connect('http://localhost:2000');
     }
 
     this.initierConnexion = function (){
-        console.log("initialiserConnexionNode");
-        connexion = io.connect('http://localhost:2000');
-        var room  = "room3";
+        
         connexion.on('connect', function () {
             console.log('connect');
-            connexion.emit('joindre_room', room);
         });
+
+        connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
 
 
         connexion.on('tata', function(data){
@@ -24,6 +24,16 @@ function ConnexionNode() {
         connexion.on('nouvel_utilisateur', function(data){
             console.log(data);
         });
+    }
+
+    this.creerUneRoom = function(nom){
+        console.log("creerUneRoom");
+        connexion.emit('creer_room', nom);
+    }
+
+    function recevoirNouvellesListeRoom(nouvelleListeRoom){
+        //listeParse= JSON.parse(nouvelleListeRoom);
+        console.log(nouvelleListeRoom);
     }
 
     initialiser();

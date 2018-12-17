@@ -3,7 +3,12 @@ var socketIo = require('socket.io');
 Room = require('./Room.js');
 
 
-const listeRooms = ['room1', 'room2', 'room3'];
+
+var listeRoom = [];
+var listeJoueur = [];
+var listeConnexion = [];
+var nombreClients;
+
 
 function initialiser() {
     console.log("initialiser()");
@@ -25,6 +30,16 @@ function initialiser() {
 
 function gererConnexion(connexion) {
     console.log("Un joueur est connecté ! ");
+    nombreClients++;
+
+    connexion.id = nombreClients;
+
+    //joueur = new Joueur(connexion.id);
+
+    listeConnexion[connexion.id] = connexion;
+    //listeJoueur[connexion.id] = joueur;
+    //io.emit('nouvelleListeRoom',listeRoom);
+
 
     connexion.on("joindre_room", (room) => {
 
@@ -34,15 +49,32 @@ function gererConnexion(connexion) {
             io.in(room).emit('nouvel_utilisateur', "Nouveau a rejoin la room : " + room);
             //console.log(findRooms());
 
-            //Listage de room A VOIR
-            var nsp = io.of('/');
-            var rooms = nsp.adapter.rooms;
-            
-            console.log(rooms);
+
         } else {
             console.log("erreur la room n'existe pas");
         }
     });
+
+    connexion.on('creer_room', creerRoom);
+
+}
+
+function creerRoom(nom) {
+    console.log(nom);
+    var room = new Room(nom);
+    listeRoom[nom] = room;
+   //console.log(listeRoom);
+
+    var listeRoomJson = JSON.stringify(listeRoom);
+
+    console.log(listeRoomJson);
+
+    for (var idConnexion in listeConnexion) {
+        if (listeConnexion[idConnexion]) {
+            listeConnexion[idConnexion].emit('nouvelleListeRoom', listeRoom);
+        }
+    }
+    //io.emit('nouvelleListeRoom', listeRoom);
 }
 
 initialiser();
