@@ -42,7 +42,7 @@ function gererConnexion(connexion) {
     listeJoueur[connexion.id] = joueur;
 
     //Envoie de la liste des rooms
-    io.emit('nouvelleListeRoom',JSON.stringify(listeRoom));
+    connexion.emit('nouvelleListeRoom',JSON.stringify(listeRoom));
 
 
     connexion.on("joindre_room", (room) => {

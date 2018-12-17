@@ -13,8 +13,9 @@ var VueChoixRoom = (function () {
     }
 
     this.afficherListeRoom = function (listeRoom) {
+      document.getElementById('listeRoom').innerHTML = "";
       for (i = 0; i < listeRoom.length; i++) {
-        document.getElementById('listeRoom').innerHTML += "<a href='#'>"+ listeRoom[i].nom+"</a>";
+        document.getElementById('listeRoom').innerHTML += "<li><a href='#'>"+ listeRoom[i].nom+"</a></li>";
       }
     }
 
