@@ -35,6 +35,7 @@ var Jeu = function () {
     function terminerJeu() {
         vueJeu.stopperJeu(finaliserJeu);
 
+
     }
 
     function gererCollisionAvecBouteille(evenement) {
