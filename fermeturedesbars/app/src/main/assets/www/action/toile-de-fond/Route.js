@@ -28,9 +28,9 @@ function Route(scene, content, canvas) {
             var bmp2 = new createjs.Bitmap(bmp.cacheCanvas);
 
             paysageRoute.graphics.beginBitmapFill(bmp2.image, "repeat", matriceRoute).drawRect(0, 0, content.offsetWidth,content.offsetHeight).endStroke();
+            scene.addChild(paysageRoute);
 
             document.body.dispatchEvent(new CustomEvent("fondecranpret"));
-            scene.addChild(paysageRoute);
         }
     }
 

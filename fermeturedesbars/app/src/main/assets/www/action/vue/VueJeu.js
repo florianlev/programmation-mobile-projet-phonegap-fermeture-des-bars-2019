@@ -140,6 +140,7 @@ var VueJeu = (function () {
           accelerationJeu = 0;
         }
       } */
+      
       //Appliquer les déplacements
       gestionnaireObjets.deplacerLesObjets(vitesseRoute);
       gestionnaireObjets.testerCollision();
