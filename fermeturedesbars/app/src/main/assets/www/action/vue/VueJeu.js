@@ -7,7 +7,8 @@ var VueJeu = (function () {
   return function (terminerJeu,
     gererCollisionAvecBouteille,
     gererBouteilleSortieEcran,
-    gererBouteilleVerteChargee) {
+    gererBouteilleVerteChargee,
+    gererNiveauAlcoolCharger) {
 
     var vueJeu = this;
     var canvas;
@@ -57,6 +58,7 @@ var VueJeu = (function () {
       document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
       document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
       document.body.addEventListener("listebouteillechargee", gererListeBouteillesChargee);
+      document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
 
 
       //Initilialisation de la route et des variables
@@ -141,6 +143,7 @@ var VueJeu = (function () {
       //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
       score = new Score(scene);
       niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+      document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
       gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
       //setTimeout(boucleJeu, 60 * accelerationJeu);
       createjs.Ticker.addEventListener("tick", rafraichirJeu);
@@ -156,6 +159,10 @@ var VueJeu = (function () {
         finaliserJeu();
       }, 5000);
 
+    }
+
+    this.getNiveauAlcool = function(){
+      return niveauAlcool.getNivauAlcool();
     }
 
 

@@ -1,12 +1,12 @@
 function NiveauAlcool(scene, joueur) {
 
   var niveauAlcool;
-  var niveau = 50;
+  var niveau;
   var pointsParSecondes;
 
   function initialiser() {
 
-    pointsParSecondes = 1;
+    pointsParSecondes = 5;
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
       easing: 'easeInOut',
@@ -18,12 +18,16 @@ function NiveauAlcool(scene, joueur) {
     });
 
     niveauAlcool.animate(0.5);
+
+  }
+
+  this.getNivauAlcool = function(){
+    return niveau;
   }
 
 
   this.demarrerDiminution = function () {
     niveau -= pointsParSecondes / 60;
-
     if (niveau <= 0) {
       niveau = 0;
       //Envoie de l'etat enVomissement pour lancer l'annimation
@@ -35,6 +39,7 @@ function NiveauAlcool(scene, joueur) {
   }
 
   this.modifierNiveauAlcool = function (nouveauNiveauAlcool) {
+    console.log("modifierAlcool" + nouveauNiveauAlcool);
     niveau = nouveauNiveauAlcool;
     niveauAlcool.animate(niveau / 100);
   }
