@@ -4,15 +4,7 @@ var VueJeu = (function () {
 
   console.log("vueJeuInclude");
 
-  return function (terminerJeu,
-    gererCollisionAvecBouteille,
-    gererBouteilleSortieEcran,
-    gererBouteilleVerteChargee,
-    gererNiveauAlcoolCharger,
-    gererObstacleCharge,
-    gererObstacleSortieEcran,
-    gererVoitureChargee,
-    gererVoitureSortiEcran) {
+  return function () {
 
     var vueJeu = this;
     var canvas;
@@ -31,11 +23,12 @@ var VueJeu = (function () {
     var debutInterval;
     var delaiNouvelleBouteille;
     var debutIntervalBouteille;
+    var isJeuStopper;
 
     function initialiser() {
       console.log("vueJeuInitialiser");
       vitesseRoute = MONDE.VITESSE_JEU;
-
+      isJeuStopper = false;
     }
 
     this.afficher = function () {
@@ -56,16 +49,7 @@ var VueJeu = (function () {
       createjs.Ticker.setFPS(60);
 
       //Event PartieTerminer et RouteCharger
-      document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
-      document.body.addEventListener("collisionavecobjet", terminerJeu);
-      document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
-      document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
-      document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
-      document.body.addEventListener("obstaclecharger", gererObstacleCharge);
-      document.body.addEventListener("obstaclesortieecran", gererObstacleSortieEcran);
-      document.body.addEventListener("voiturechargee", gererVoitureChargee);
-      document.body.addEventListener("voituresortieecran", gererVoitureSortiEcran);
-      document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
+  
       //Initilialisation de la route et des variables
       route = new Route(scene, content, canvas);
       accelerationJeu = 0;
@@ -87,43 +71,9 @@ var VueJeu = (function () {
       if (!debutInterval) {
         debutInterval = Date.now();
       }
-
-      var listeBouteilles = gestionnaireObjets.getListeBouteilles();
-      for (indiceListeBouteilles = 0; indiceListeBouteilles < listeBouteilles.length; indiceListeBouteilles++) {
-        var delaiAffichage = listeBouteilles[indiceListeBouteilles].getDelaiAffichage();
-        if (delaiAffichage) {
-          if (nouvelInterval - listeBouteilles[indiceListeBouteilles].getDebutInterval() >= delaiAffichage) {
-            gestionnaireObjets.repositionnerBouteille(indiceListeBouteilles);
-            listeBouteilles[indiceListeBouteilles].setDelaiAffichage(0);
-            listeBouteilles[indiceListeBouteilles].setDebutInterval(0);
-          }
-        }
-      }
-
-
-      var listeObstacles = gestionnaireObjets.getListeObstacles();
-      for (indiceListeObstacles = 0; indiceListeObstacles < listeObstacles.length; indiceListeObstacles++) {
-        var delaiAffichage = listeObstacles[indiceListeObstacles].getDelaiAffichage();
-        if (delaiAffichage) {
-          if (nouvelInterval - listeObstacles[indiceListeObstacles].getDebutInterval() >= delaiAffichage) {
-            gestionnaireObjets.repositionnerObstacle(indiceListeObstacles);
-            listeObstacles[indiceListeObstacles].setDelaiAffichage(0);
-            listeObstacles[indiceListeObstacles].setDebutInterval(0)
-          }
-        }
-      }
-
-      var listeVoiture = gestionnaireObjets.getListeVoiture();
-      for (indiceListeVoiture = 0; indiceListeVoiture < listeVoiture.length; indiceListeVoiture++) {
-        var delaiAffichage = listeVoiture[indiceListeVoiture].getDelaiAffichage();
-        if (delaiAffichage) {
-          if (nouvelInterval - listeVoiture[indiceListeVoiture].getDebutInterval() >= delaiAffichage) {
-            gestionnaireObjets.repositionnerVoiture(indiceListeVoiture);
-            listeVoiture[indiceListeVoiture].setDelaiAffichage(0);
-            listeVoiture[indiceListeVoiture].setDebutInterval(0)
-          }
-        }
-      }
+      gestionnaireObjets.repositionnerObjets( Bouteille,nouvelInterval);
+      gestionnaireObjets.repositionnerObjets( Obstacle,nouvelInterval);
+      gestionnaireObjets.repositionnerObjets( Voiture,nouvelInterval);
 
       //On prend la mesure du temps maintenant
 
@@ -148,6 +98,8 @@ var VueJeu = (function () {
       scene.update(evenement);
     }
 
+    
+
     function arrangerCanvas() {
       console.log("vueJeuArrangerCanvas");
       content = document.getElementById("content");
@@ -163,10 +115,13 @@ var VueJeu = (function () {
     }
 
     function deplacerJoueur(evenement) {
-      joueur.setPosition(evenement.center.x, evenement.center.y);
+      if(joueur){
+        joueur.setPosition(evenement.center.x, evenement.center.y);
+
+      }
     }
 
-    function chargerJoueurEtObjet(evenement) {
+    this.chargerJoueurEtObjet = function(evenement) {
       joueur = new Joueur(scene, content);
       hammer.on('pan', deplacerJoueur);
       //niveauAlcool =new NiveauAlcool(scene);
@@ -183,22 +138,32 @@ var VueJeu = (function () {
     //Stopper le ticker de la boucle de jeu
     this.stopperJeu = function (finaliserJeu) {
       //TO DO : Probleme si on clique rapidment sur recommencer la partie sinon ça fonctionne
-      test = setTimeout(function () {
-        document.body.removeEventListener("fondecranpret", chargerJoueurEtObjet);
-        document.body.removeEventListener("collisionavecobjet", terminerJeu);
-        document.body.removeEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
-        document.body.removeEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
-        document.body.removeEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
-        document.body.removeEventListener("obstaclecharger", gererObstacleCharge);
-        document.body.removeEventListener("obstaclesortieecran", gererObstacleSortieEcran);
-        document.body.removeEventListener("voiturechargee", gererVoitureChargee);
-        document.body.removeEventListener("voituresortieecran", gererVoitureSortiEcran);
-        document.body.removeEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
-        document.body.innerHTML += '';
-        createjs.Ticker.off("tick", rafraichirJeu);
-        finaliserJeu();
-
-      }, 5000);
+      if(!isJeuStopper){
+        test = setTimeout(function () {
+          gestionnaireObjets.detruire();
+          createjs.Ticker.off("tick", rafraichirJeu);
+          canvas = null;
+          content = null;
+          scene= null;
+          route= null;
+          hammer= null;
+          joueur= null;
+          gestionnaireObjets= null;
+          niveauAlcool= null;
+          score= null;
+          accelerationJeu= null;
+          vitesseRoute= null;
+          etatCourantJoueur= null;
+          boucleJeuRepeteur= null;
+          debutInterval= null;
+          delaiNouvelleBouteille= null;
+          debutIntervalBouteille= null;
+          finaliserJeu();
+  
+        }, 5000);
+      }
+        
+      isJeuStopper = true;
 
 
     }

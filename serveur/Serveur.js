@@ -28,6 +28,7 @@ function initialiser() {
     io.on('connection', gererConnexion);
 
 
+
 }
 
 function gererConnexion(connexion) {

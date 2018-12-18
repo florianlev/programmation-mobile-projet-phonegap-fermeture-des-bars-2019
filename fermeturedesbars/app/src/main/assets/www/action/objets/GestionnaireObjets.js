@@ -96,22 +96,48 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
       vehicule[iVehicule].mouvementVoiture(vitesse * MONDE.VITESSE_VOITURE);
     }
   }
-  function getNombreHazard(min, max) {
-    return Math.random() * (max - min) + min;
-  }
 
-  this.repositionnerBouteille = function (idBouteille) {
+  function repositionnerBouteille(idBouteille) {
     bouteilles[idBouteille].repositionnerBouteille();
   }
 
-  this.repositionnerObstacle = function (idObstacle) {
+  function repositionnerObstacle (idObstacle) {
     console.log("repositionnerObstacle : " + idObstacle);
     obstacles[idObstacle].repositionnerObstacle();
   }
 
-  this.repositionnerVoiture = function (idVoiture) {
+  function repositionnerVoiture(idVoiture) {
     console.log("repositionnerObstacle : " + idVoiture);
     voitures[idVoiture].repositionnerVoiture();
+  }
+
+  this.repositionnerObjets = function(classe,nouvelInterval){
+
+    switch (classe.name){
+      case Bouteille.name:
+        listeObjets = bouteilles;
+        action = repositionnerBouteille;
+        break;
+      case Obstacle.name:
+        action = repositionnerObstacle;
+        listeObjets = obstacles;
+        break;
+      case Voiture.name:
+        action = repositionnerVoiture;
+        listeObjets = voitures;
+        break;
+    }
+
+    for (indiceListeObjets = 0; indiceListeObjets < listeObjets.length; indiceListeObjets++) {
+      var delaiAffichage = listeObjets[indiceListeObjets].getDelaiAffichage();
+      if (delaiAffichage) {
+        if (nouvelInterval - listeObjets[indiceListeObjets].getDebutInterval() >= delaiAffichage) {
+          action(indiceListeObjets);
+          listeObjets[indiceListeObjets].setDelaiAffichage(0);
+          listeObjets[indiceListeObjets].setDebutInterval(0);
+        }
+      }
+    }
   }
 
 
@@ -144,5 +170,19 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     return voitures;
   }
 
+  this.detruire = function()
+{
+  for (iObstacles = 0; iObstacles < obstacles.length; iObstacles++) {
+    obstacles[iObstacles] = null;
+
+  }
+  for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
+    bouteilles[iBouteilles] = null;
+  }
+
+  for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
+    voitures[iVoitures] = null;
+  }
+}
   initialiser();
 }

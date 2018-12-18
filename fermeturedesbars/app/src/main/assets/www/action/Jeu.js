@@ -1,5 +1,6 @@
 var Jeu = function () {
 
+    jeu = this;
     var vueJeu;
     var score;
     var niveauAlcool;
@@ -9,16 +10,23 @@ var Jeu = function () {
 
 
     function initialiser() {
-        vueJeu = new VueJeu(terminerJeu,
-            gererCollisionAvecBouteille,
-            gererBouteilleSortieEcran,
-            gererBouteilleVerteChargee,
-            gererNiveauAlcoolCharger,
-            gererObstacleCharge,
-            gererObstacleSortieEcran,
-            gererVoitureChargee,
-            gererVoitureSortiEcran);
+        vueJeu = new VueJeu();
 
+        document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
+        document.body.addEventListener("collisionavecobjet", terminerJeu);
+        document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
+        document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
+        document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
+        document.body.addEventListener("obstaclecharger", gererObstacleCharge);
+        document.body.addEventListener("obstaclesortieecran", gererObstacleSortieEcran);
+        document.body.addEventListener("voiturechargee", gererVoitureChargee);
+        document.body.addEventListener("voituresortieecran", gererVoitureSortiEcran);
+        document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
+
+    }
+
+    function chargerJoueurEtObjet(){
+        vueJeu.chargerJoueurEtObjet();
     }
 
 
@@ -46,7 +54,7 @@ var Jeu = function () {
 
         if (niveauAlcool >= 90) niveauAlcool = 100;
         else niveauAlcool += MONDE.POINTS_AUGMENTER_BIERE;
-        
+
         vueJeu.setNiveauAlcool(niveauAlcool)
         console.log("grerCollisionAvecBoteille" + evenement.detail.idBouteille);
 
@@ -68,11 +76,11 @@ var Jeu = function () {
         }
     }
 
-    this.getScore = function(){
+    this.getScore = function () {
         return score;
     }
 
-    function gererObstacleCharge(evenement){
+    function gererObstacleCharge(evenement) {
         compteurObstacleCharge++;
         if (compteurObstacleCharge == MONDE.NOMBRE_OBSTACLE - 1) {
             for (indiceObstacle = 0; indiceObstacle < MONDE.NOMBRE_OBSTACLE; indiceObstacle++) {
@@ -81,12 +89,12 @@ var Jeu = function () {
         }
     }
 
-    function gererObstacleSortieEcran(evenement){
+    function gererObstacleSortieEcran(evenement) {
         vueJeu.ajouterObstacle(evenement.detail.idObstacle, getNombreHazard(0, 5000));
 
     }
 
-    function gererVoitureChargee(evenement){
+    function gererVoitureChargee(evenement) {
         compteurVoitureCharge++;
         if (compteurVoitureCharge == MONDE.NOMBRE_VOITURE - 1) {
             for (indiceVoiture = 0; indiceVoiture < MONDE.NOMBRE_VOITURE; indiceVoiture++) {
@@ -95,7 +103,7 @@ var Jeu = function () {
         }
     }
 
-    function gererVoitureSortiEcran(evenement){
+    function gererVoitureSortiEcran(evenement) {
         console.log("gererVoitureSortiEcran" + evenement.detail.idVoiture);
         vueJeu.ajouterVoiture(evenement.detail.idVoiture, getNombreHazard(0, 5000));
 
@@ -110,7 +118,24 @@ var Jeu = function () {
         return Math.random() * (max - min) + min;
     }
 
+    function gererFinDejeu(evenement){
+        window.location.hash = "fin-solo";
+
+    }
+
     function finaliserJeu() {
+        
+        document.body.removeEventListener("fondecranpret", chargerJoueurEtObjet);
+        document.body.removeEventListener("collisionavecobjet", terminerJeu);
+        document.body.removeEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
+        document.body.removeEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
+        document.body.removeEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
+        document.body.removeEventListener("obstaclecharger", gererObstacleCharge);
+        document.body.removeEventListener("obstaclesortieecran", gererObstacleSortieEcran);
+        document.body.removeEventListener("voiturechargee", gererVoitureChargee);
+        document.body.removeEventListener("voituresortieecran", gererVoitureSortiEcran);
+        document.body.removeEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
+        document.body.innerHTML += '';
         window.location.hash = "fin-solo";
     }
     initialiser();
