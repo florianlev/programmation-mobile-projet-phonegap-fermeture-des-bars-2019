@@ -49,7 +49,7 @@ var VueJeu = (function () {
       createjs.Ticker.setFPS(60);
 
       //Event PartieTerminer et RouteCharger
-  
+
       //Initilialisation de la route et des variables
       route = new Route(scene, content, canvas);
       accelerationJeu = 0;
@@ -71,23 +71,18 @@ var VueJeu = (function () {
       if (!debutInterval) {
         debutInterval = Date.now();
       }
-      gestionnaireObjets.repositionnerObjets( Bouteille,nouvelInterval);
-      gestionnaireObjets.repositionnerObjets( Obstacle,nouvelInterval);
-      gestionnaireObjets.repositionnerObjets( Voiture,nouvelInterval);
+      
+      gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
+      gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
+      gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval);
 
-      //On prend la mesure du temps maintenant
 
       //Si le nouveau temps est plus grand que l'accelaration souhaiter par rapport au début de l'interval
       if (nouvelInterval - debutInterval >= 20) {
         vitesseRoute += 0.005;
 
         debutInterval = nouvelInterval;
-      }/*else{
-        accelerationJeu += 1;
-        if(accelerationJeu >= 20){
-          accelerationJeu = 0;
-        }
-      } */
+      }
 
       //Appliquer les déplacements
       gestionnaireObjets.deplacerLesObjets(vitesseRoute);
@@ -98,7 +93,7 @@ var VueJeu = (function () {
       scene.update(evenement);
     }
 
-    
+
 
     function arrangerCanvas() {
       console.log("vueJeuArrangerCanvas");
@@ -115,13 +110,13 @@ var VueJeu = (function () {
     }
 
     function deplacerJoueur(evenement) {
-      if(joueur){
+      if (joueur) {
         joueur.setPosition(evenement.center.x, evenement.center.y);
 
       }
     }
 
-    this.chargerJoueurEtObjet = function(evenement) {
+    this.chargerJoueurEtObjet = function (evenement) {
       joueur = new Joueur(scene, content);
       hammer.on('pan', deplacerJoueur);
       //niveauAlcool =new NiveauAlcool(scene);
@@ -138,31 +133,31 @@ var VueJeu = (function () {
     //Stopper le ticker de la boucle de jeu
     this.stopperJeu = function (finaliserJeu) {
       //TO DO : Probleme si on clique rapidment sur recommencer la partie sinon ça fonctionne
-      if(!isJeuStopper){
+      if (!isJeuStopper) {
         test = setTimeout(function () {
           gestionnaireObjets.detruire();
           createjs.Ticker.off("tick", rafraichirJeu);
           canvas = null;
           content = null;
-          scene= null;
-          route= null;
-          hammer= null;
-          joueur= null;
-          gestionnaireObjets= null;
-          niveauAlcool= null;
-          score= null;
-          accelerationJeu= null;
-          vitesseRoute= null;
-          etatCourantJoueur= null;
-          boucleJeuRepeteur= null;
-          debutInterval= null;
-          delaiNouvelleBouteille= null;
-          debutIntervalBouteille= null;
+          scene = null;
+          route = null;
+          hammer = null;
+          joueur = null;
+          gestionnaireObjets = null;
+          niveauAlcool = null;
+          score = null;
+          accelerationJeu = null;
+          vitesseRoute = null;
+          etatCourantJoueur = null;
+          boucleJeuRepeteur = null;
+          debutInterval = null;
+          delaiNouvelleBouteille = null;
+          debutIntervalBouteille = null;
           finaliserJeu();
-  
+
         }, 5000);
       }
-        
+
       isJeuStopper = true;
 
 

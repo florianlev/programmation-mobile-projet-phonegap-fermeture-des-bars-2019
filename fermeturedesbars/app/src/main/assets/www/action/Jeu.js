@@ -46,6 +46,8 @@ var Jeu = function () {
 
     }
 
+    
+
     function gererCollisionAvecBouteille(evenement) {
         console.log("gererCollisionBouteille");
         score += 10;
@@ -57,6 +59,8 @@ var Jeu = function () {
 
         vueJeu.setNiveauAlcool(niveauAlcool)
         console.log("grerCollisionAvecBoteille" + evenement.detail.idBouteille);
+
+        
 
         vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
     }
