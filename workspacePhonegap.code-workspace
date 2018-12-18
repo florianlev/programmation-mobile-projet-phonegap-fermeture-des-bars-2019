@@ -1,10 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "fermeturedesbars\\app\\src\\main\\assets\\www"
+			"path": "serveur"
 		},
 		{
-			"path": "serveur"
+			"path": "fermeturedesbars\\app\\src\\main\\assets\\www"
 		}
 	],
 	"settings": {}

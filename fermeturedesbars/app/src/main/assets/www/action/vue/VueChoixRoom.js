@@ -23,7 +23,6 @@ var VueChoixRoom = (function () {
     }
 
     function creerRoom(evenement) {
-      alert("coucou");
       evenement.preventDefault();
       var nom = document.getElementById("nom").value;
       window.location.hash = "#attente-multijoueur";

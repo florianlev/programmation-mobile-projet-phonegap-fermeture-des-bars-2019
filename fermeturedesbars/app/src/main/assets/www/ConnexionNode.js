@@ -1,6 +1,7 @@
 function ConnexionNode(afficherNouvellesListeRoom) {
 
     var connexion;
+    var idJoueurActuel;
 
     function initialiser() {
         console.log("initialiserConnexionNode");
@@ -28,13 +29,15 @@ function ConnexionNode(afficherNouvellesListeRoom) {
 
     this.creerUneRoom = function(nom){
         console.log("creerUneRoom");
-        connexion.emit('creer_room', nom);
+        connexion.emit('creer_room', {nomRoom :nom, idJoueur: idJoueurActuel});
     }
 
-    function recevoirNouvellesListeRoom(nouvelleListeRoomJSON){
-        listeRoom = JSON.parse(nouvelleListeRoomJSON);
+    function recevoirNouvellesListeRoom(donnees){
+        listeRoom = JSON.parse(donnees.listeRoom);
+        idJoueurActuel = donnees.idJoueur;
         console.log(listeRoom);
         afficherNouvellesListeRoom(listeRoom);
+        
     }
 
     initialiser();

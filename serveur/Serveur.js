@@ -8,7 +8,7 @@ Joueur = require('./Joueur.js');
 var listeRoom = [];
 var listeJoueur = [];
 var listeConnexion = [];
-var nombreClients;
+var nombreClients = 0;
 var idRoom;
 
 
@@ -33,19 +33,22 @@ function initialiser() {
 
 function gererConnexion(connexion) {
     console.log("Un joueur est connecté ! ");
-    nombreClients++;
+
 
     connexion.id = nombreClients;
 
     joueur = new Joueur(connexion.id);
 
-    listeConnexion[connexion.id] = connexion;
-    listeJoueur[connexion.id] = joueur;
-
+    console.log("id : " + connexion.id);
+    //listeConnexion[connexion.id] = connexion;
+    //listeJoueur[connexion.id] = joueur;
+    listeConnexion.push(connexion);
+    listeJoueur.push(joueur);
+    console.log(listeJoueur);
     //Envoie de la liste des rooms
-    connexion.emit('nouvelleListeRoom',JSON.stringify(listeRoom));
+    connexion.emit('nouvelleListeRoom', { listeRoom: JSON.stringify(listeRoom), idJoueur: joueur.id });
 
-
+    nombreClients++;
     connexion.on("joindre_room", (room) => {
 
         if (listeRooms.includes(room)) {
@@ -65,18 +68,34 @@ function gererConnexion(connexion) {
 }
 
 
-function creerRoom(nom) {
-    console.log(nom);
-    var room = new Room(idRoom,nom);
+function creerRoom(donnees) {
+    nomRoom = donnees.nomRoom;
+    idJoueur = donnees.idJoueur;
+    var room = new Room(idRoom, nomRoom);
     listeRoom[idRoom] = room;
-   //console.log(listeRoom);
+    console.log(listeConnexion);
+    room.setJoueurDansListeRoom(listeJoueur[idJoueur]);
+    room.setConnexionJoueurDansListeConnexion(listeConnexion[idJoueur]);
+    listeConnexion[idJoueur].join(room.nom);
+    console.log("Le joueur " + idJoueur + "a rejoin la room : " + room.nom);
+    listeJoueur.splice(idJoueur, 1);
+    listeConnexion.splice(idJoueur, 1);
+
+
 
     var listeRoomJson = JSON.stringify(listeRoom);
 
-    console.log(listeRoomJson);
+    //console.log(listeRoomJson);
 
     //mise a jour des liste de room
-    io.emit('nouvelleListeRoom', listeRoomJson);
+    //io.emit('nouvelleListeRoom', listeRoomJson);
+
+    if (listeConnexion) {
+        for (i = 0; i < listeConnexion.length; i++) {
+            listeConnexion[i].emit('nouvelleListeRoom', listeRoomJson);
+        }
+    }
+
     idRoom++;
 
 }
