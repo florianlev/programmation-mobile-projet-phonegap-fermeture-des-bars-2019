@@ -64,23 +64,19 @@
     } else if (window.location.hash.match(/^#statistique/)) {
       this.vueStatistique.afficher();
     } else if (window.location.hash.match(/^#quitter/)) {
-      //rien ne marche ffs.
-      //device.exitApp();
-      //navigator.app.exitApp();
-      //cordova.plugins.exit();
+
     }
   }
 
-  function myFunction(event){
-    console.log(event.data);
-  }
+ZZ
+
 
   function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
 
   function afficherNouvellesListeRoom(listeRoom) {
-    this.vueChoixRoom.afficherListeRoom(listeRoom,myFunction)
+    this.vueChoixRoom.afficherListeRoom(listeRoom)
 
   }
 
