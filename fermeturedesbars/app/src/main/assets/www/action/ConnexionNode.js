@@ -1,4 +1,4 @@
-function ConnexionNode(afficherNouvellesListeRoom) {
+function ConnexionNode(afficherNouvellesListeRoom, transmettreIdRoom) {
 
     var connexion;
     var idJoueurActuel;
@@ -13,18 +13,14 @@ function ConnexionNode(afficherNouvellesListeRoom) {
         connexion.on('connect', function () {
             console.log('connect');
         });
-
+        connexion.on('envoyerIdJoueur', function(idJoueur){
+            idJoueurActuel = idJoueur;
+        });
         connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
-
-
-        connexion.on('tata', function(data){
-            console.log('test');
-            console.log('Message: ', data);
+        connexion.on('envoyer_idRoom', function(idRoom){
+            transmettreIdRoom(idRoom);
         });
 
-        connexion.on('nouvel_utilisateur', function(data){
-            console.log(data);
-        });
     }
 
     this.creerUneRoom = function(nom){
@@ -32,15 +28,13 @@ function ConnexionNode(afficherNouvellesListeRoom) {
         connexion.emit('creer_room', {nomRoom :nom, idJoueur: idJoueurActuel});
     }
 
-    function recevoirNouvellesListeRoom(donnees){
-        listeRoom = JSON.parse(donnees.listeRoom);
-        idJoueurActuel = donnees.idJoueur;
-        console.log(listeRoom);
-        afficherNouvellesListeRoom(listeRoom),
+    function recevoirNouvellesListeRoom(listeRoom){
+        listeRoom = JSON.parse(listeRoom);
+        afficherNouvellesListeRoom(listeRoom);
     }
 
     this.rejoindreUneRoom = function(idRoom){
-        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: idJoueurActuel});
+        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: idJoueurActuel} );
     }
 
 

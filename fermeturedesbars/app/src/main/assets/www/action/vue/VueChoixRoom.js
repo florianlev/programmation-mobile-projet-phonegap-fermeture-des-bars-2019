@@ -16,7 +16,7 @@ var VueChoixRoom = (function () {
       document.getElementById('listeRoom').innerHTML = "";
       for (i = 0; i < listeRoom.length; i++) {
         //document.getElementById('listeRoom').innerHTML += '<a href="#" class="list-group-item list-group-item-action list-group-item-dark">'+listeRoom[i].nom+'</a>';
-        document.getElementById('listeRoom').innerHTML += "<tr><th class='text-left'>"+i+"</th><th href='#attente-multijoueur/"+listeRoom[i].id+"'>"+listeRoom[i].nom+"</a></th></tr>";
+        document.getElementById('listeRoom').innerHTML += "<tr><th class='text-left'>"+i+"</th><th class='text-left'><a href='#attente-multijoueur/"+listeRoom[i].id+"'>"+listeRoom[i].nom+"</a></th></tr>";
 
       }
     }
@@ -25,7 +25,7 @@ var VueChoixRoom = (function () {
     function creerRoom(evenement) {
       evenement.preventDefault();
       var nom = document.getElementById("nom").value;
-      window.location.hash = "#attente-multijoueur";
+      window.location.hash = "#attente";
       envoyerCreationRoom(nom);
     }
 

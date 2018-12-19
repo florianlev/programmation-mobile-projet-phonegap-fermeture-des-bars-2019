@@ -39,7 +39,8 @@
     } else if (window.location.hash.match(/^#choix-room/)) {
 
 
-      connexionNode = new ConnexionNode(afficherNouvellesListeRoom);
+      connexionNode = new ConnexionNode(afficherNouvellesListeRoom,
+                                        naviguerAttenteMultiJoueurAvecIdRoom);
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
@@ -75,7 +76,10 @@
 
   function afficherNouvellesListeRoom(listeRoom) {
     this.vueChoixRoom.afficherListeRoom(listeRoom)
+  }
 
+  function naviguerAttenteMultiJoueurAvecIdRoom(idRoom){
+    window.location.hash = "#attente-multijoueur/"+idRoom;
   }
 
 

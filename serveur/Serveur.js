@@ -40,8 +40,9 @@ function gererConnexion(nouvelleConnexion) {
     listeJoueur[nouvelleConnexion.id] = {joueur: nouveauJoueur, connexion:nouvelleConnexion};
 
     //Envoie de la liste des rooms
-    nouvelleConnexion.emit('nouvelleListeRoom', { listeRoom: JSON.stringify(listeRoom), idJoueur: nouvelleConnexion.id });
+    nouvelleConnexion.emit('nouvelleListeRoom', JSON.stringify(listeRoom));
 
+    nouvelleConnexion.emit('envoyerIdJoueur', nouvelleConnexion.id );
     nouvelleConnexion.on("joindre_room", (room) => {
 
         if (listeRooms.includes(room)) {
@@ -71,7 +72,6 @@ function creerRoom(donnees) {
 
     room.setJoueurDansListeRoom(listeJoueur[idJoueur]);
 
-    //listeConnexion[idJoueur].join(room.nom);
     listeJoueur[idJoueur].connexion.join(room.nom);
 
     console.log("Le joueur " + idJoueur + "a rejoin la room : " + room.nom);
@@ -82,21 +82,14 @@ function creerRoom(donnees) {
 
     var listeRoomJson = JSON.stringify(listeRoom);
 
-    //console.log(listeRoomJson);
 
-    //mise a jour des liste de room
-    io.emit('nouvelleListeRoom', {listeRoom: listeRoomJson, idJoueur: idJoueur});
+    io.emit('nouvelleListeRoom',listeRoomJson);
+    listeJoueur[idJoueur].connexion.emit('envoyer_idRoom', room.id);
 
     for (joueur in listeJoueur.connexion){
         console.log(joueur);
     }
 
-    /* if (listeConnexion) {
-        for (i = 0; i < listeConnexion.length; i++) {
-            listeConnexion[i].emit('nouvelleListeRoom', listeRoomJson);
-        }
-    }
- */
     idRoom++;
 
 }
