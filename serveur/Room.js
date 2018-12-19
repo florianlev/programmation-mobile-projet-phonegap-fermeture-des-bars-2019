@@ -3,7 +3,6 @@ function Room(id,nom) {
     room = this;
 
     var listeJoueurActif = [];
-    var listeConnexionActif = [];
 
     this.nom;
     this.id;
@@ -18,9 +17,6 @@ function Room(id,nom) {
         listeJoueurActif.push(joueur);
     }
 
-    this.setConnexionJoueurDansListeConnexion = function(connexion){
-        listeConnexionActif.push(connexion);
-    }
 
     initialiser();
 }

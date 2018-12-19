@@ -7,9 +7,9 @@ Joueur = require('./Joueur.js');
 
 var listeRoom = [];
 var listeJoueur = [];
-var listeConnexion = [];
-var nombreClients = 0;
+
 var idRoom;
+
 
 
 function initialiser() {
@@ -31,25 +31,18 @@ function initialiser() {
 
 }
 
-function gererConnexion(connexion) {
+function gererConnexion(nouvelleConnexion) {
     console.log("Un joueur est connecté ! ");
 
+    console.log(nouvelleConnexion.id);
 
-    connexion.id = nombreClients;
+    nouveauJoueur = new Joueur(nouvelleConnexion.id);
+    listeJoueur[nouvelleConnexion.id] = {joueur: nouveauJoueur, connexion:nouvelleConnexion};
 
-    joueur = new Joueur(connexion.id);
-
-    console.log("id : " + connexion.id);
-    //listeConnexion[connexion.id] = connexion;
-    //listeJoueur[connexion.id] = joueur;
-    listeConnexion.push(connexion);
-    listeJoueur.push(joueur);
-    console.log(listeJoueur);
     //Envoie de la liste des rooms
-    connexion.emit('nouvelleListeRoom', { listeRoom: JSON.stringify(listeRoom), idJoueur: joueur.id });
+    nouvelleConnexion.emit('nouvelleListeRoom', { listeRoom: JSON.stringify(listeRoom), idJoueur: nouvelleConnexion.id });
 
-    nombreClients++;
-    connexion.on("joindre_room", (room) => {
+    nouvelleConnexion.on("joindre_room", (room) => {
 
         if (listeRooms.includes(room)) {
             connexion.join(room);
@@ -63,7 +56,7 @@ function gererConnexion(connexion) {
         }
     });
 
-    connexion.on('creer_room', creerRoom);
+    nouvelleConnexion.on('creer_room', creerRoom);
 
 }
 
@@ -71,16 +64,20 @@ function gererConnexion(connexion) {
 function creerRoom(donnees) {
     nomRoom = donnees.nomRoom;
     idJoueur = donnees.idJoueur;
-    var room = new Room(idRoom, nomRoom);
-    listeRoom[idRoom] = room;
-    console.log(listeConnexion);
-    room.setJoueurDansListeRoom(listeJoueur[idJoueur]);
-    room.setConnexionJoueurDansListeConnexion(listeConnexion[idJoueur]);
-    listeConnexion[idJoueur].join(room.nom);
-    console.log("Le joueur " + idJoueur + "a rejoin la room : " + room.nom);
-    listeJoueur.splice(idJoueur, 1);
-    listeConnexion.splice(idJoueur, 1);
 
+    var room = new Room(idRoom, nomRoom);
+
+    listeRoom[idRoom] = room;
+
+    room.setJoueurDansListeRoom(listeJoueur[idJoueur]);
+
+    //listeConnexion[idJoueur].join(room.nom);
+    listeJoueur[idJoueur].connexion.join(room.nom);
+
+    console.log("Le joueur " + idJoueur + "a rejoin la room : " + room.nom);
+   /*  listeJoueur.splice(idJoueur, 1);
+    listeConnexion.splice(idJoueur, 1);
+ */
 
 
     var listeRoomJson = JSON.stringify(listeRoom);
@@ -88,14 +85,14 @@ function creerRoom(donnees) {
     //console.log(listeRoomJson);
 
     //mise a jour des liste de room
-    //io.emit('nouvelleListeRoom', listeRoomJson);
+    io.emit('nouvelleListeRoom', {listeRoom: listeRoomJson, idJoueur: idJoueur});
 
-    if (listeConnexion) {
+    /* if (listeConnexion) {
         for (i = 0; i < listeConnexion.length; i++) {
             listeConnexion[i].emit('nouvelleListeRoom', listeRoomJson);
         }
     }
-
+ */
     idRoom++;
 
 }
