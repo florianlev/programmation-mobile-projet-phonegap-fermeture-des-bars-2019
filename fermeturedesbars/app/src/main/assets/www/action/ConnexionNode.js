@@ -1,4 +1,5 @@
-function ConnexionNode(afficherNouvellesListeRoom, transmettreIdRoom) {
+function ConnexionNode(afficherNouvellesListeRoom, 
+                        transmettreIdRoom) {
 
     var connexion;
     var idJoueurActuel;
@@ -10,17 +11,23 @@ function ConnexionNode(afficherNouvellesListeRoom, transmettreIdRoom) {
 
     this.initierConnexion = function (){
         
-        connexion.on('connect', function () {
-            console.log('connect');
-        });
+        connexion.on('connect', etablirConnexion);
         connexion.on('envoyerIdJoueur', function(idJoueur){
             idJoueurActuel = idJoueur;
+            connexion.emit('envoyer_pseudo', {pseudo : localStorage['pseudo'], idJoueur : idJoueurActuel});
+
         });
         connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
         connexion.on('envoyer_idRoom', function(idRoom){
             transmettreIdRoom(idRoom);
         });
+        connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
 
+
+    }
+
+    function etablirConnexion(event){
+        console.log('etablirConnexion()');
     }
 
     this.creerUneRoom = function(nom){
@@ -37,6 +44,11 @@ function ConnexionNode(afficherNouvellesListeRoom, transmettreIdRoom) {
         connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: idJoueurActuel} );
     }
 
+    function recevoirListeJoueurRoom(listeJoueurRoomJSON){
+        console.log("recevoirListeJoueurRoom");
+        listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
+        console.log(listeJoueurRoom);
+    }
 
 
     initialiser();

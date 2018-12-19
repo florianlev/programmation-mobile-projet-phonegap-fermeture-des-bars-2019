@@ -73,7 +73,7 @@
 
 
   function envoyerCreationRoom(nomRoom) {
-    listeRoom = connexionNode.creerUneRoom(nomRoom);
+    connexionNode.creerUneRoom(nomRoom);
   }
 
   function afficherNouvellesListeRoom(listeRoom) {
@@ -81,6 +81,7 @@
   }
 
   function naviguerAttenteMultiJoueurAvecIdRoom(idRoom) {
+    console.log('naviguerAttenteMultiJoueurAvecIdRoom');
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 

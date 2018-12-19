@@ -3,6 +3,7 @@ function Joueur(id) {
     joueur = this;
 
     this.id;
+    this.pseudo;
     this.idRoom;
 
     function initialiser(){
