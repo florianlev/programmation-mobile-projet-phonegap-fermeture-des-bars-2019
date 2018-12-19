@@ -87,6 +87,10 @@ function creerRoom(donnees) {
     //mise a jour des liste de room
     io.emit('nouvelleListeRoom', {listeRoom: listeRoomJson, idJoueur: idJoueur});
 
+    for (joueur in listeJoueur.connexion){
+        console.log(joueur);
+    }
+
     /* if (listeConnexion) {
         for (i = 0; i < listeConnexion.length; i++) {
             listeConnexion[i].emit('nouvelleListeRoom', listeRoomJson);

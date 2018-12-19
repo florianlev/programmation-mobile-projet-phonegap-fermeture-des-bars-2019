@@ -1,17 +1,21 @@
-var VueAttenteMultijoueur = function () {
+var VueAttenteMultijoueur = (function () {
 
-  var contenuPage;
+  var contenuPage = document.getElementById("attente-multijoueur").innerHTML;;
 
-  function initialiser() {
-    
-    contenuPage = document.getElementById("attente-multijoueur").innerHTML;
+  return function (){
+
+    this.afficher = function () {
+
+      document.getElementsByTagName("body")[0].innerHTML  = contenuPage;
+    }
+
+    this.afficherListeJoueur = function (){
+
+    }
+
+
 
   }
+  
 
-  this.afficher = function () {
-
-    document.body.innerHTML = contenuPage;
-  }
-
-  initialiser();
-}
+})();

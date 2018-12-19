@@ -7,7 +7,6 @@
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
-    this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
     this.vueChoisirPseudo = new VueChoisirPseudo();
     this.vueFinMultijoueur = new VueFinMultijoueur();
     this.vueFinSolo = new VueFinSolo();
@@ -45,7 +44,19 @@
       connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
 
-    }  else if (window.location.hash.match(/^#attente-multijoueur/)) {
+    } else if (window.location.hash.match(/^#attente-multijoueur/)) {
+      var mesA = document.getElementsByTagName("a");
+      if (mesA.length > 0) {
+        for (i = 0; i < mesA.lenght; i++) {
+          if (mesA[i].nodeType === 1 && mesA[i].className === "elementRoom") {
+            mesA[i].onclick = function (e) {
+              alert(this.id);
+            };
+          }
+        }
+      }
+      this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
+
       this.vueAttenteMultijoueur.afficher();
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
@@ -69,14 +80,15 @@
     }
   }
 
-  function envoyerCreationRoom(nomRoom){
+  function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
 
-  function afficherNouvellesListeRoom(listeRoom){
+  function afficherNouvellesListeRoom(listeRoom) {
     this.vueChoixRoom.afficherListeRoom(listeRoom)
 
   }
+
 
   initialiser();
 
