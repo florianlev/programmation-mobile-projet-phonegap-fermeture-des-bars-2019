@@ -18,21 +18,29 @@ var VueFinSolo = function () {
 
     statistique = daoStatistique.recupererToutLesStatistique();
     meilleurScore = [];
+    //console.log(statistique);
     //cherche les 5 meilleur scores dans les statistique et les place dans meilleurScore;
+    //console.log(statistique.length);
     if(statistique.length > 5){
+      //console.log('in');
       for(iMeilleurScore = 0; iMeilleurScore < 5; iMeilleurScore++){
-        for(iStatistique = 0; iStatistique < statistique.lenght; iStatistique++){
+        //console.log('loop1');
+        for(iStatistique = 0; iStatistique < statistique.length; iStatistique++){
+          //console.log('loop2');
           if(statistique[iStatistique]){
+            //console.log('stat defined');
             if(!meilleurScore[iMeilleurScore]){
-              meilleurScore[iMeilleurScore] = statistique[iStatistique].score;
-              meilleurScore[id] = iStatistique; //set l'id de la statistique utiliser pour la suprimer lorseque on sait que ces la plus haute
-            }else if (meilleurScore[iMeilleurScore] < statistique[iStatistique.score]) {
-              meilleurScore[iMeilleurScore] = statistique[iStatistique].score;
-              meilleurScore[id] = iStatistique;
+              meilleurScore[iMeilleurScore] = statistique[iStatistique];
+              meilleurScore['id'] = iStatistique; //set l'id de la statistique utiliser pour la suprimer lorseque on sait que ces la plus haute
+              //console.log("defining");
+            }else if (meilleurScore[iMeilleurScore].score < statistique[iStatistique].score) {
+              meilleurScore[iMeilleurScore] = statistique[iStatistique];
+              meilleurScore['id'] = iStatistique;
+              //console.log("ishigher");
             }
           }
         }
-        delete(statistique[meilleurScore[id]]);// unset la variable
+        delete(statistique[meilleurScore['id']]);// unset la variable
       }
     }else{
       meilleurScore = statistique;
@@ -40,7 +48,7 @@ var VueFinSolo = function () {
     //ajoute le html des score dans la variable html
     html = "";
     for(iMeilleurScore = 0; iMeilleurScore < meilleurScore.length; iMeilleurScore++){
-        html += "<span><p>" + meilleurScore[iMeilleurScore].nom + "</p><p>" + meilleurScore[iMeilleurScore].score + "</p></span>";
+      html += "<div><p class='scores'>" + meilleurScore[iMeilleurScore].pseudo + " : </p><p class='score'>" + meilleurScore[iMeilleurScore].score + "</p></div>";
     }
     //affiche les meilleurs score sur la page
     listeScore = document.getElementById("liste-score");
