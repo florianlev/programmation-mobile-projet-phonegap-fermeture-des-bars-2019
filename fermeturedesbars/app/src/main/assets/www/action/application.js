@@ -45,16 +45,7 @@
       this.vueChoixRoom.afficher();
 
     } else if (window.location.hash.match(/^#attente-multijoueur/)) {
-      var mesA = document.getElementsByTagName("a");
-      if (mesA.length > 0) {
-        for (i = 0; i < mesA.lenght; i++) {
-          if (mesA[i].nodeType === 1 && mesA[i].className === "elementRoom") {
-            mesA[i].onclick = function (e) {
-              alert(this.id);
-            };
-          }
-        }
-      }
+      
       this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
 
       this.vueAttenteMultijoueur.afficher();
@@ -80,12 +71,16 @@
     }
   }
 
+  function myFunction(event){
+    console.log(event.data);
+  }
+
   function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
 
   function afficherNouvellesListeRoom(listeRoom) {
-    this.vueChoixRoom.afficherListeRoom(listeRoom)
+    this.vueChoixRoom.afficherListeRoom(listeRoom,myFunction)
 
   }
 
