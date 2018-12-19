@@ -4,8 +4,8 @@ var VueAttenteMultijoueur = (function () {
 
   return function (){
 
-    this.afficher = function () {
-
+    this.afficher = function (idRoom) {
+      console.log(idRoom);
       document.getElementsByTagName("body")[0].innerHTML  = contenuPage;
     }
 
@@ -16,6 +16,6 @@ var VueAttenteMultijoueur = (function () {
 
 
   }
-  
+
 
 })();

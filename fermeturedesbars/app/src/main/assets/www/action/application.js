@@ -44,11 +44,11 @@
       connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
 
-    } else if (window.location.hash.match(/^#attente-multijoueur/)) {
-      
+    } else if (window.location.hash.match(/^#attente-multijoueur\/([0-9])+/)) {
+      hash = window.location.hash.match(/^#attente-multijoueur\/([0-9])+/);
       this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
 
-      this.vueAttenteMultijoueur.afficher();
+      this.vueAttenteMultijoueur.afficher(hash[1]);
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
     } else if (window.location.hash.match(/^#jeu/)) {
@@ -67,8 +67,6 @@
 
     }
   }
-
-ZZ
 
 
   function envoyerCreationRoom(nomRoom) {
