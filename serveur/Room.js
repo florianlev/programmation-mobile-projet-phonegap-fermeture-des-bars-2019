@@ -18,7 +18,11 @@ function Room(id,nom) {
     }
 
     this.getListeJoueur = function(){
-        return listeJoueurActif;
+        var listeJoueur = [];
+        for(i=0;i < listeJoueurActif.length; i++){
+            listeJoueur.push(listeJoueurActif[i].joueur);
+        }
+        return listeJoueur;
     }
 
 
