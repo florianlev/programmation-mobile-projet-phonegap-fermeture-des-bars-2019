@@ -36,9 +36,14 @@ function ConnexionNode(afficherNouvellesListeRoom) {
         listeRoom = JSON.parse(donnees.listeRoom);
         idJoueurActuel = donnees.idJoueur;
         console.log(listeRoom);
-        afficherNouvellesListeRoom(listeRoom);
-        
+        afficherNouvellesListeRoom(listeRoom),
     }
+
+    this.rejoindreUneRoom = function(idRoom){
+        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: idJoueurActuel});
+    }
+
+
 
     initialiser();
 
