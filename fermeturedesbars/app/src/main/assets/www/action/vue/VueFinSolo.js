@@ -48,7 +48,7 @@ var VueFinSolo = function () {
     //ajoute le html des score dans la variable html
     html = "";
     for(iMeilleurScore = 0; iMeilleurScore < meilleurScore.length; iMeilleurScore++){
-      html += "<div><p class='scores'>" + meilleurScore[iMeilleurScore].pseudo + " : </p><p class='score'>" + meilleurScore[iMeilleurScore].score + "</p></div>";
+      html += "<div><p class='scores'>" + meilleurScore[iMeilleurScore].pseudo + " : " + meilleurScore[iMeilleurScore].score + "</p></div>";
     }
     //affiche les meilleurs score sur la page
     listeScore = document.getElementById("liste-score");
