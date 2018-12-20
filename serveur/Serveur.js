@@ -54,14 +54,12 @@ function recevoirPseudoJoueur(donnees) {
 function joindreRoom(donnees) {
     console.log('joindreRoom() :  ' + listeRoom[donnees.idRoom].nom);
     console.log("Le joueur " + listeJoueur[donnees.idJoueur].joueur.pseudo + " a rejoin la room : " + listeRoom[donnees.idRoom].nom);
-    for (indiceRoom = 0; indiceRoom < listeRoom.length; indiceRoom++) {
-        console.log(listeRoom[indiceRoom].id );
-        if(!listeRoom[indiceRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[indiceRoom].getListeJoueur().id  ){
-            console.log(donnees.idJoueur);
-            listeJoueur[donnees.idJoueur].connexion.join(listeRoom[indiceRoom].nom);
-            listeRoom[indiceRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);
-        }
+    if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
+        console.log(donnees.idJoueur);
+        listeJoueur[donnees.idJoueur].connexion.join(listeRoom[donnees.idRoom].nom);
+        listeRoom[donnees.idRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);
     }
+
 
     listeJoueurRoom = listeRoom[donnees.idRoom].getListeJoueur();
     listeJoueurActifRoomJson = JSON.stringify(listeJoueurRoom);
