@@ -111,7 +111,10 @@ var Bouteille = function (scene, content, idBouteille) {
   this.getDebutInterval= function(){
     return debutInterval;
   }
-
+  this.repositionnerManuellement = function(position){
+    bitmapbouteille.x = content.offsetWidth*position.x;
+    bitmapBouteille.y = content.offsetHeight*position.y;
+  }
 
   initialiser();
 }

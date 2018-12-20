@@ -27,7 +27,12 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
 
     }
   }
-
+  this.deplacerRepositionnerUnObjet = function(idObstacle, position){
+    obstacles[idObstacle].repositionnerManuellement(position);
+  }
+  this.deplacerRepositionnerUneBouteille = function(idBouteille, position){
+    bouteilles[idBouteille].repositionnerManuellement(position);
+  }
   this.deplacerLesObjets = function (vitesse) {
     deplacerObjets(bouteilles, vitesse);
     deplacerObjets(obstacles, vitesse);
