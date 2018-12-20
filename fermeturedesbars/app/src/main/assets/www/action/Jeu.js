@@ -7,13 +7,13 @@ var Jeu = function () {
     var compteurBouteilleVerteChargee;
     var compteurObstacleCharge;
     var compteurVoitureCharge;
-
+    var partieTerminer;
 
     function initialiser() {
         vueJeu = new VueJeu();
 
         document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
-        //document.body.addEventListener("collisionavecobjet", terminerJeu);
+        document.body.addEventListener("collisionavecobjet", terminerJeu);
         document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
         document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
         document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
@@ -32,7 +32,7 @@ var Jeu = function () {
 
 
     this.demarrerJeu = function () {
-
+        partieTerminer = false;
         vueJeu.afficher();
         score = 0;
         niveauAlcool = 100;
@@ -41,14 +41,15 @@ var Jeu = function () {
     }
 
     function terminerJeu() {
+      if(!partieTerminer)
         vueJeu.stopperJeu(finaliserJeu);
-
-
+      partieTerminer = true;
     }
 
 
 
     function gererCollisionAvecBouteille(evenement) {
+      if(!partieTerminer){
         console.log("gererCollisionBouteille");
         score += 10;
         vueJeu.setScore(score);
@@ -63,11 +64,13 @@ var Jeu = function () {
 
 
         vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
+      }
     }
 
     function gererBouteilleSortieEcran(evenement) {
+      if(!partieTerminer){
         vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
-
+      }
     }
 
     function gererBouteilleVerteChargee(evenement) {
@@ -94,8 +97,9 @@ var Jeu = function () {
     }
 
     function gererObstacleSortieEcran(evenement) {
+      if(!partieTerminer){
         vueJeu.ajouterObstacle(evenement.detail.idObstacle, getNombreHazard(0, 5000));
-
+      }
     }
 
     function gererVoitureChargee(evenement) {
@@ -108,9 +112,10 @@ var Jeu = function () {
     }
 
     function gererVoitureSortiEcran(evenement) {
+      if(!partieTerminer){
         console.log("gererVoitureSortiEcran" + evenement.detail.idVoiture);
         vueJeu.ajouterVoiture(evenement.detail.idVoiture, getNombreHazard(0, 5000));
-
+      }
     }
 
     function gererNiveauAlcoolCharger(evenement) {

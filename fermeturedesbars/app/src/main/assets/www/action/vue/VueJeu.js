@@ -156,7 +156,7 @@ var VueJeu = (function () {
           debutIntervalBouteille = null;
           finaliserJeu();
 
-        }, 5000);
+        }, 2000);
       }
 
       isJeuStopper = true;

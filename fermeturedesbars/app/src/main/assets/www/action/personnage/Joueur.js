@@ -4,6 +4,7 @@ function Joueur(scene, content) {
   var cercle;
   var distanceDoit;
   var fantome;
+  var partieTerminer;
   var EtatJoueur = {
     enMarche: "enMarche",
     estEcraser: "estEcraser",
@@ -26,7 +27,7 @@ function Joueur(scene, content) {
   function initialiser() {
     // dessiner cercle
     distanceDoit = 80;
-
+    partieTerminer = false;
     imageIvrogne = new Image();
     imageIvrogne.src = IMAGEIVROGNOREMARCHE;
     imageIvrogne.onload = terminerChargement;
@@ -98,16 +99,20 @@ function Joueur(scene, content) {
 
   //On set l'etat du joueur suivant la machine d'etat
   this.setEtatJoueur = function (etatJoueur) {
-    switch (etatJoueur) {
-      case EtatJoueur.enMarche:
-        animationCourante = animMarche;
-        break;
-      case EtatJoueur.estEcraser:
-        animationCourante = animEcraser;
-        break;
-      case EtatJoueur.estEnVomissement:
-        animationCourante = animVomi;
-        break;
+    if(!partieTerminer){
+      switch (etatJoueur) {
+        case EtatJoueur.enMarche:
+          animationCourante = animMarche;
+          break;
+        case EtatJoueur.estEcraser:
+          animationCourante = animEcraser;
+          partieTerminer = true;
+          break;
+        case EtatJoueur.estEnVomissement:
+          animationCourante = animVomi;
+          partieTerminer = true;
+          break;
+      }
     }
     gererAnimation(animationCourante);
   }

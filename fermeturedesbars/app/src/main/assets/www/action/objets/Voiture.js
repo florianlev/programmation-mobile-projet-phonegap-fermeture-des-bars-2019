@@ -22,7 +22,7 @@ var Voiture = function (scene, content, idVoiture) {
 
   function terminerChargement() {
     bitmapVoiture = new createjs.Bitmap(imgVoiture);
-    scale = (0.3 * content.offsetWidth) / 1920;
+    scale = (1.1 * content.offsetWidth) / 1920;
     bitmapVoiture.scaleX = scale;
     bitmapVoiture.scaleY = scale;
     //bitmapVoiture.scaleX = (0.2 * content.offsetWidth) / 1920;

@@ -22,13 +22,13 @@ var Bouteille = function (scene, content, idBouteille) {
 
   function terminerChargement() {
     bitmapBouteille = new createjs.Bitmap(imgBouteille);
-    scale = (0.2 * content.offsetWidth) / 1920;
+    scale = (0.7 * content.offsetWidth) / 1920;
     bitmapBouteille.scaleX = scale;
     bitmapBouteille.scaleY = scale;
 
 
     //initialiser bitmapbouteille hors de l'ecran
-    
+
 
     //bitmapBouteille.scaleX = (0.2 * content.offsetWidth) / 1920;
     //bitmapBouteille.scaleY = (0.05 * content.offsetHeight) / 938;
