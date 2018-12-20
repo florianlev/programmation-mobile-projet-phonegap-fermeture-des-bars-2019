@@ -113,25 +113,30 @@ function Joueur(scene, content) {
           partieTerminer = true;
           break;
       }
+      gererAnimation(animationCourante);
     }
-    gererAnimation(animationCourante);
   }
 
-
+  this.monterEnY = function(vitesse){
+    animationCourante.y -= vitesse;
+    xCourant -= vitesse;
+    fantome.y += vitesse*5;
+  }
   this.setPosition = function (x, y) {
-
+    if(!partieTerminer){
     differenceY = window.innerHeight / 2;
-    y = y - differenceY;
-    limiteXDoite = content.offsetWidth * 0.7;
-    limiteXGauche = content.offsetWidth * 0.2;
-    if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0 && x < limiteXDoite && x > limiteXGauche) {
-      animationCourante.x = x;
-      animationCourante.y = y;
-      xCourant = x;
-      yCourant = y;
+      y = y - differenceY;
+      limiteXDoite = content.offsetWidth * 0.7;
+      limiteXGauche = content.offsetWidth * 0.2;
+      if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0 && x < limiteXDoite && x > limiteXGauche) {
+        animationCourante.x = x;
+        animationCourante.y = y;
+        xCourant = x;
+        yCourant = y;
 
-      fantome.x = x;
-      fantome.y = y + differenceY;
+        fantome.x = x;
+        fantome.y = y + differenceY;
+      }
     }
   }
 
