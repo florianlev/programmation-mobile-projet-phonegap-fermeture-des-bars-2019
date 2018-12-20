@@ -3,7 +3,11 @@
   instance = this;
 
   var connexionNode;
-
+  var chanson = new Howl({
+    src: ['sons/bensound-badass.mp3'],
+    volume : 0.3,
+    loop: true
+  });
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
@@ -30,6 +34,10 @@
     console.log("HEIGHT" + window.innerHeight);
     this.naviguer();
 
+    chanson.rate(1.0);
+    chanson.once('load', function(){
+      chanson.play();
+    });
   }
   naviguer = function (event) {
     if (!window.location.hash || (window.location.hash.match(/^#menu-principale/))) {
@@ -73,7 +81,7 @@
 
 
   function envoyerCreationRoom(nomRoom) {
-    connexionNode.creerUneRoom(nomRoom);
+    listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
 
   function afficherNouvellesListeRoom(listeRoom) {
@@ -81,7 +89,6 @@
   }
 
   function naviguerAttenteMultiJoueurAvecIdRoom(idRoom) {
-    console.log('naviguerAttenteMultiJoueurAvecIdRoom');
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 
