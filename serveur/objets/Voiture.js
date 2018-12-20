@@ -1,4 +1,4 @@
-var Voiture = function (scene, content, idVoiture) {
+var Voiture = function ( idVoiture, event) {
 
   var voiture = this;
   var imgVoiture = new Image();
@@ -9,7 +9,7 @@ var Voiture = function (scene, content, idVoiture) {
   voiture.x = 0;
   require('./../JEU.js');
   var enAttenteDeplacement = false;
-
+  var eventEmiter = new event.EventEmitter();
   var delaiAffichage;
   var debutInterval;
 
@@ -36,7 +36,7 @@ var Voiture = function (scene, content, idVoiture) {
         enAttenteDeplacement = true;
         //console.log("voiture out");
         //document.body.dispatchEvent(new CustomEvent("voituresortieecran", { detail: { idVoiture: voiture.getId() } }));
-
+        eventEmiter.emit("voituresortieecran", voiture.getId());
         //setTimeout(this.repositionnerVoiture, getNombreHazard(0,10000));
       }
 
@@ -88,3 +88,4 @@ var Voiture = function (scene, content, idVoiture) {
 
   initialiser();
 }
+module.exports = Voiture;

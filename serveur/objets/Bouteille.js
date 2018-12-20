@@ -36,7 +36,7 @@ var Bouteille = function (idBouteille) {
       if (bouteille.y <= -200 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         //document.body.dispatchEvent(new CustomEvent("bouteillesortieecran", { detail : {idBouteille: bouteille.getId() } }));
-
+        eventEmiter.emit("bouteillesortieecran", bouteille.getId());
     }
   }
 
@@ -84,3 +84,4 @@ var Bouteille = function (idBouteille) {
 
   initialiser();
 }
+module.exports = Bouteille;

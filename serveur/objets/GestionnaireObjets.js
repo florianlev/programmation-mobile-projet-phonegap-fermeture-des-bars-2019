@@ -1,4 +1,4 @@
-var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) {
+var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
   Bouteille = require('./Bouteille.js');
   Obstacle = require('./Obstacle.js');
   Voiture = require('./Voiture.js');
@@ -136,3 +136,4 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
 }
   initialiser();
 }
+module.exports = GestionnaireObjets;

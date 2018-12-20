@@ -1,4 +1,4 @@
-var Obstacle = function (idObstacle) {
+var Obstacle = function (idObstacle, event) {
 
   var obstacle = this;
   var imgObstacle = new Image();
@@ -42,7 +42,7 @@ var Obstacle = function (idObstacle) {
         enAttenteDeplacement = true;
         //console.log("idObstacle" + idObstacle);
         //document.body.dispatchEvent(new CustomEvent("obstaclesortieecran", { detail: { idObstacle: obstacle.getId() } }));
-
+        eventEmiter.emit("obstaclesortieecran", obstacle.getId());
       }
 
   }
@@ -92,3 +92,4 @@ var Obstacle = function (idObstacle) {
   initialiser();
 
 }
+module.exports = Obstacle;
