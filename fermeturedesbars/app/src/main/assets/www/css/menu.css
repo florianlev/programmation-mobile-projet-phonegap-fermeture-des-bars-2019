@@ -2,6 +2,10 @@
 .c-body {
   color: #FFFFFF;
   background: #2C3E50;
+  background-size: contain;
+  background-repeat: no-repeat;
+   background-image: url(../images/route.png);
+
 
 }
 
@@ -37,6 +41,13 @@
     outline-offset: 25px;
     text-shadow: #427388 1px 1px 2px;
   }
+}
+.centrer{
+   text-align: center;
+   display:block;
+    font-size:14px;
+    color: #000000;
+    font-weight: 900;
 }
 
 .jeu {
