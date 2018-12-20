@@ -58,7 +58,7 @@ function Joueur(scene, content) {
         {
           //Gestion des 3 animations de la feuille de sprite
           marche: [0, 6, "marche"],
-          vomi: [7, 15, "vomi"],
+          vomi: [8, 15, "vomi"],
           ecrasement: [16]
         }
       });

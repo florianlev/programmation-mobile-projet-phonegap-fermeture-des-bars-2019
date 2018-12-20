@@ -3,11 +3,7 @@
   instance = this;
 
   var connexionNode;
-  var chanson = new Howl({
-    src: ['sons/bensound-badass.mp3'],
-    volume: 0.3,
-    loop: true
-  });
+  
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
