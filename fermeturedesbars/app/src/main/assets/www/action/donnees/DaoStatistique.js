@@ -1,24 +1,25 @@
 var DaoStatistique = function () {
 
   this.recupererToutLesStatistique = function () {
-    return localStorage['statistiques'];
+    return JSON.parse(localStorage['statistique']);
   }
 
-  this.ajouterPartie = function (partie, pseudo) {//ne fonctionne pas.... ?
-    if (localStorage['statistiques']) {
-      donnees = localStorage['statistiques'];
-      donnees[donnees.length] = [];
-      donnees[donnees.length]['score'] = partie;
-      donnees[donnees.length]['pseudo'] = pseudo;
-      localStorage['statistiques'] = donnees;
-    } else {
-      statistique = [];
-      localStorage['statistiques'] = [];
-      statistique['score'] = partie;
-      statistique['pseudo'] = pseudo;
-      localStorage['statistiques'][0] = [statistique];
-    }
+  this.ajouterPartie = function (partie, pseudo) {
+    //console.log(partie + pseudo);
+    score = {"score":partie, "pseudo":pseudo};
+    //console.log(score);
 
+    if(!localStorage['statistique']){
+      statistique = [];
+      statistique[0] = score;
+      localStorage['statistique'] = JSON.stringify(statistique);
+    }else{
+
+      statistique = JSON.parse(localStorage['statistique']);
+      //console.log(statistique[0]);
+      statistique[statistique.length] = score;
+      localStorage['statistique'] = JSON.stringify(statistique);
+    }
   }
 
 }

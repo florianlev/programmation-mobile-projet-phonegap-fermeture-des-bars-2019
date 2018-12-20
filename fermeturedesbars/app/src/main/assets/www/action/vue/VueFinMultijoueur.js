@@ -5,16 +5,17 @@ var VueFinMultijoueur = function () {
     contenuPage = document.getElementById("fin-multijoueur").innerHTML;
   }
 
-  this.afficher = function (local, autre) {
+  this.afficher = function (pseudoLocal, scoreLocal, pseudoAutre, scoreAutre) {
     document.body.innerHTML = contenuPage;
     daoStatistique = new DaoStatistique();
     //ajoute au table des score le resultat de la partie
-    daoStatistique.ajouterPartie(local);
+    daoStatistique.ajouterPartie(scoreLocal, pseudoLocal);
+    daoStatistique.ajouterPartie(pseudoAutre, scoreAutre);
     //ajoute le score des deux joueur a l'ecan
     tagScorePartie = document.getElementById("score-joueurs");
     htmlScorePartie = "";
-    htmlScorePartie += "<span><p>" + local.nom + "</p><p>" + local.score + "</p></span>";
-    htmlScorePartie += "<span><p>" + autre.nom + "</p><p>" + autre.score + "</p></span>";
+    htmlScorePartie += "<span><p>" + local.pseudo + "</p><p>" + local.score + "</p></span>";
+    htmlScorePartie += "<span><p>" + autre.pseudo + "</p><p>" + autre.score + "</p></span>";
 
     tagScorePartie.innerHTML = htmlScorePartie;
 

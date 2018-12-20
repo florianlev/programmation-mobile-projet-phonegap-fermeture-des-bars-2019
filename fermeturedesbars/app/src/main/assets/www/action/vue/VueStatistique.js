@@ -13,8 +13,8 @@ var VueStatistique = function () {
     donnees = daoStatistique.recupererToutLesStatistique();
     html = "";
 
-    for (i = 0; i < donnees.lenght; i++) {
-      html += "<span><p>" + donnes[i].nom + "</p><p>" + donnees[i].score + "</p></span>";
+    for (i = 0; i < donnees.length; i++) {
+      html += "<div><p>" + donnees[i].pseudo + " : " + donnees[i].score + "</p></div>";
     }
 
     conteneur.innerHTML = html;

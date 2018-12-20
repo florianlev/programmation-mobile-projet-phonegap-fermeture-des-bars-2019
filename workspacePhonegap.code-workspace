@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "serveur"
+		},
+		{
 			"path": "fermeturedesbars\\app\\src\\main\\assets\\www"
 		}
 	],

@@ -4,6 +4,7 @@ function Joueur(scene, content) {
   var cercle;
   var distanceDoit;
   var fantome;
+  var partieTerminer;
   var EtatJoueur = {
     enMarche: "enMarche",
     estEcraser: "estEcraser",
@@ -26,12 +27,12 @@ function Joueur(scene, content) {
   function initialiser() {
     // dessiner cercle
     distanceDoit = 80;
-
+    partieTerminer = false;
     imageIvrogne = new Image();
     imageIvrogne.src = IMAGEIVROGNOREMARCHE;
     imageIvrogne.onload = terminerChargement;
 
-    xCourant = content.offsetWidth/2;
+    xCourant = content.offsetWidth / 2;
     yCourant = 100;
 
     //Pour le déplacement du personnage le tactile
@@ -39,7 +40,7 @@ function Joueur(scene, content) {
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
     fantome.graphics.beginFill("white").drawCircle(0, 0, 25);
     fantome.alpha = 0.5;
-    fantome.x = content.offsetWidth/2;
+    fantome.x = content.offsetWidth / 2;
     fantome.y = window.innerHeight / 2 + 100;
 
     scene.addChild(fantome);
@@ -97,17 +98,21 @@ function Joueur(scene, content) {
   }
 
   //On set l'etat du joueur suivant la machine d'etat
-  this.setEtatJoueur = function(etatJoueur) {
-    switch (etatJoueur) {
-      case EtatJoueur.enMarche:
-        animationCourante = animMarche;
-        break;
-      case EtatJoueur.estEcraser:
-        animationCourante = animEcraser;
-        break;
-      case EtatJoueur.estEnVomissement:
-        animationCourante = animVomi;
-        break;
+  this.setEtatJoueur = function (etatJoueur) {
+    if(!partieTerminer){
+      switch (etatJoueur) {
+        case EtatJoueur.enMarche:
+          animationCourante = animMarche;
+          break;
+        case EtatJoueur.estEcraser:
+          animationCourante = animEcraser;
+          partieTerminer = true;
+          break;
+        case EtatJoueur.estEnVomissement:
+          animationCourante = animVomi;
+          partieTerminer = true;
+          break;
+      }
     }
     gererAnimation(animationCourante);
   }
@@ -131,16 +136,16 @@ function Joueur(scene, content) {
   }
 
   //Retour de la collision du joueur
-  this.rectangleCollisionJoueur = function () {
+  this.getRectangleCollision = function () {
     return animationCourante.getTransformedBounds();
   }
-  this.setEtatJoueurMarche = function(){
+  this.setEtatJoueurMarche = function () {
     this.setEtatJoueur(EtatJoueur.enMarche);
   }
-  this.setEtatJoueurEcraser = function(){
+  this.setEtatJoueurEcraser = function () {
     this.setEtatJoueur(EtatJoueur.estEcraser);
   }
-  this.setEtatJoueurVomisement = function(){
+  this.setEtatJoueurVomisement = function () {
     this.setEtatJoueur(EtatJoueur.estEnVomissement);
   }
   initialiser();
