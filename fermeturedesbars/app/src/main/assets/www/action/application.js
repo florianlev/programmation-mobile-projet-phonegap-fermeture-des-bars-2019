@@ -5,7 +5,7 @@
   var connexionNode;
   var chanson = new Howl({
     src: ['sons/bensound-badass.mp3'],
-    volume : 0.3,
+    volume: 0.3,
     loop: true
   });
   function initialiser() {
@@ -35,7 +35,7 @@
     this.naviguer();
 
     chanson.rate(1.0);
-    chanson.once('load', function(){
+    chanson.once('load', function () {
       chanson.play();
     });
   }
@@ -48,7 +48,9 @@
 
 
       connexionNode = new ConnexionNode(afficherNouvellesListeRoom,
-        naviguerAttenteMultiJoueurAvecIdRoom);
+        naviguerAttenteMultiJoueurAvecIdRoom,
+        afficherListeJoueur);
+
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
       this.vueChoixRoom.afficher();
@@ -58,7 +60,7 @@
       this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
       idRoom = hash[1];
       connexionNode.rejoindreUneRoom(idRoom);
-      this.vueAttenteMultijoueur.afficher(idRoom);
+      this.vueAttenteMultijoueur.afficher();
 
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
@@ -90,6 +92,12 @@
 
   function naviguerAttenteMultiJoueurAvecIdRoom(idRoom) {
     window.location.hash = "#attente-multijoueur/" + idRoom;
+  }
+
+
+  function afficherListeJoueur(listeJoueur){
+    
+    this.vueAttenteMultijoueur.afficherListeJoueur(listeJoueur)
   }
 
 

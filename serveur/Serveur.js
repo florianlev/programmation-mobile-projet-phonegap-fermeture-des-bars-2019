@@ -52,18 +52,17 @@ function recevoirPseudoJoueur(donnees) {
 }
 
 function joindreRoom(donnees) {
-    console.log('joindreRoom() :  ' + listeRoom[donnees.idRoom].nom);
     console.log("Le joueur " + listeJoueur[donnees.idJoueur].joueur.pseudo + " a rejoin la room : " + listeRoom[donnees.idRoom].nom);
     if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
-        console.log(donnees.idJoueur);
         listeJoueur[donnees.idJoueur].connexion.join(listeRoom[donnees.idRoom].nom);
         listeRoom[donnees.idRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);
+        //envoyer la liste de tout le monde au joueur venant de se connecter
+
     }
-
-
     listeJoueurRoom = listeRoom[donnees.idRoom].getListeJoueur();
     listeJoueurActifRoomJson = JSON.stringify(listeJoueurRoom);
     io.to(listeRoom[donnees.idRoom].nom).emit('envoie_listeJoueur_room', listeJoueurActifRoomJson);
+
 }
 
 function creerRoom(donnees) {

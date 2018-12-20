@@ -1,5 +1,6 @@
 function ConnexionNode(afficherNouvellesListeRoom, 
-                        transmettreIdRoom) {
+                        transmettreIdRoom,
+                        afficherListeJoueur) {
 
     var connexion;
     var idJoueurActuel;
@@ -22,7 +23,6 @@ function ConnexionNode(afficherNouvellesListeRoom,
             transmettreIdRoom(idRoom);
         });
         connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
-
 
     }
 
@@ -47,8 +47,23 @@ function ConnexionNode(afficherNouvellesListeRoom,
     function recevoirListeJoueurRoom(listeJoueurRoomJSON){
         console.log("recevoirListeJoueurRoom");
         listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
-        console.log(listeJoueurRoom);
+        var joueur;
+        var nJoueur;
+
+        afficherListeJoueur(listeJoueurRoom);
+        /* if (listeJoueurRoom[1]){
+            joueur = listeJoueurRoom[1];
+            nJoueur = 2;
+            afficherListeJoueur(listeJoueurRoom[0],1);
+        }
+        else{
+            joueur = listeJoueurRoom[0];
+            nJoueur = 1;
+            afficherListeJoueur(joueur,nJoueur);
+
+        } */
     }
+
 
 
     initialiser();

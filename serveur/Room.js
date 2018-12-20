@@ -25,6 +25,14 @@ function Room(id,nom) {
         return listeJoueur;
     }
 
+    this.getListeJoueurConnexion = function(){
+        var listeJoueurConnexion = [];
+        for(i=0;i < listeJoueurActif.length; i++){
+            listeJoueurConnexion.push(listeJoueurActif[i].connexion);
+        }
+        return listeJoueurConnexion;
+    }
+
 
     initialiser();
 }
