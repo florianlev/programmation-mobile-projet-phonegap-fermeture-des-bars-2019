@@ -4,7 +4,11 @@
   background: #2C3E50;
   background-size: contain;
   background-repeat: no-repeat;
-   background-image: url(../images/route.png);
+  background-image: url(../images/route.png);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-size: 100%;
 
 
 }
