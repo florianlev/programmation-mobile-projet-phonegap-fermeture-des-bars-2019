@@ -15,6 +15,8 @@ function Joueur(id) {
 
     }
 
+    
+
     initialiser();
 }
 

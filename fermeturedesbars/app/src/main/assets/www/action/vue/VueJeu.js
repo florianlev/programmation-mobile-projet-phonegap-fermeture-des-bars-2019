@@ -90,6 +90,9 @@ var VueJeu = (function () {
 
       route.derouler(vitesseRoute);
       scene.update(evenement);
+      if(isJeuStopper){
+        joueur.monterEnY(vitesseRoute);
+      }
     }
 
 
@@ -111,7 +114,7 @@ var VueJeu = (function () {
     }
 
     function deplacerJoueur(evenement) {
-      if (joueur) {
+      if (joueur && !isJeuStopper) {
         joueur.setPosition(evenement.center.x, evenement.center.y);
 
       }
@@ -135,6 +138,7 @@ var VueJeu = (function () {
     this.stopperJeu = function (finaliserJeu) {
       //TO DO : Probleme si on clique rapidment sur recommencer la partie sinon ça fonctionne
       if (!isJeuStopper) {
+        vitesseRoute = MONDE.VITESSE_JEU * scaleVitesse;
         test = setTimeout(function () {
           gestionnaireObjets.detruire();
           createjs.Ticker.off("tick", rafraichirJeu);
