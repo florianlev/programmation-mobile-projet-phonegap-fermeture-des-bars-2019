@@ -1,6 +1,7 @@
 var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) {
-
-
+  Bouteille = require('./Bouteille.js');
+  Obstacle = require('./Obstacle.js');
+  Voiture = require('./Voiture.js');
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
@@ -34,57 +35,6 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
     deplacerVoiture(voitures, vitesse);
   }
 
-  this.testerCollision = function () {
-
-    switch (iterateurVerification) {//verifie les 3 type d'objets mais il alterne pour reduire la charge a chaque interval
-      case 0:
-        for (iObstacles = 0; iObstacles < obstacles.length; iObstacles++) {
-          if (obstacles[iObstacles] && !obstacles[iObstacles].isEnAttenteDeplacment()) {
-            testerCollisionObjet(obstacles[iObstacles]);
-          }
-        }
-        iterateurVerification++;
-        break;
-      case 1:
-        for (iBouteilles = 0; iBouteilles < bouteilles.length; iBouteilles++) {
-          if (bouteilles[iBouteilles] && !bouteilles[iBouteilles].isEnAttenteDeplacment()) {
-            testerCollisionBouteille(bouteilles[iBouteilles]);
-          }
-        }
-        iterateurVerification++;
-        break;
-      case 2:
-        for (iVoitures = 0; iVoitures < voitures.length; iVoitures++) {
-          if (voitures[iVoitures] && !voitures[iVoitures].isEnAttenteDeplacment()) {
-            testerCollisionObjet(voitures[iVoitures]);
-          }
-        }
-        iterateurVerification = 0;
-        break;
-    }
-  }
-
-  //Verification de la collision avec le joueur et la voiture
-  function testerCollisionObjet(objet) {
-    rectangleCollision = objet.getRectangleCollision();
-    if (rectangleCollision) {
-      if (joueur.getRectangleCollision().intersects(objet.getRectangleCollision(rectangleCollision))) {
-        //console.log("COLLISIONNEMENT ! ");
-        joueur.setEtatJoueurEcraser();
-        document.body.dispatchEvent(new CustomEvent("collisionavecobjet"));
-      }
-    }
-  }
-
-  function testerCollisionBouteille(bouteille) {
-    rectangleCollision = bouteille.getRectangleCollision();
-    if (rectangleCollision && !bouteille.isEnAttenteDeplacment()) {
-      if (joueur.getRectangleCollision().intersects(rectangleCollision)) {
-        bouteille.setEnAttenteDeplacement(true);
-        document.body.dispatchEvent(new CustomEvent("collisionavecbouteille", { detail: { idBouteille: bouteille.getId() } }));
-      }
-    }
-  }
   //deplace les objets contenu dans l'array(bouteille et obstacles)
   function deplacerObjets(objets, vitesse) {
     for (iObjets = 0; iObjets < objets.length; iObjets++) {
@@ -98,17 +48,17 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
   }
 
   function repositionnerBouteille(idBouteille) {
-    bouteilles[idBouteille].repositionnerBouteille();
+    return bouteilles[idBouteille].repositionnerBouteille();
   }
 
   function repositionnerObstacle (idObstacle) {
     console.log("repositionnerObstacle : " + idObstacle);
-    obstacles[idObstacle].repositionnerObstacle();
+    return obstacles[idObstacle].repositionnerObstacle();
   }
 
   function repositionnerVoiture(idVoiture) {
     console.log("repositionnerObstacle : " + idVoiture);
-    voitures[idVoiture].repositionnerVoiture();
+    return voitures[idVoiture].repositionnerVoiture();
   }
 
   this.repositionnerObjets = function(classe,nouvelInterval){

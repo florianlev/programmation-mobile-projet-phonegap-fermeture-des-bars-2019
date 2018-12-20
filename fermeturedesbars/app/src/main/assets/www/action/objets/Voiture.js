@@ -87,7 +87,10 @@ var Voiture = function (scene, content, idVoiture) {
   this.isEnAttenteDeplacment = function () {
     return enAttenteDeplacement;
   }
-
+  this.repositionnerManuellement = function(position){
+    bitmapVoiture.x = content.offsetWidth*position.x;
+    bitmapVoiture.y = content.offsetHeight*position.y;
+  }
   this.setEnAttenteDeplacement = function (attente) {
     enAttenteDeplacement = attente;
     bitmapVoiture.x = -200;

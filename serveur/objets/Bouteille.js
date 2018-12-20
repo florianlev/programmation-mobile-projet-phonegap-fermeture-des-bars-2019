@@ -28,7 +28,6 @@ var Bouteille = function (idBouteille) {
   }
   this.mouvement = function (vitesseRoute) {
     //console.log("bougerBouteille");
-    if (bitmapBouteille) {
       bouteille.y -= vitesseRoute;
 
       //Si l'objet sort de la map on le repositionne
@@ -37,7 +36,7 @@ var Bouteille = function (idBouteille) {
       if (bouteille.y <= -200 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         //document.body.dispatchEvent(new CustomEvent("bouteillesortieecran", { detail : {idBouteille: bouteille.getId() } }));
-      }
+
     }
   }
 
@@ -55,15 +54,6 @@ var Bouteille = function (idBouteille) {
     return Math.random() * (max - min) + min;
   }
 
-  /*this.getRectangleCollision = function () { // on fait quoi avec sa ? c le client qui nous le dit ?
-    if (bitmapBouteille) {
-      bitmapBouteille.setBounds(bitmapBouteille.x, bitmapBouteille.y, bouteille.width, bouteille.height);
-      return bitmapBouteille.getBounds();
-    } else {
-      return null;
-    }
-  }*/
-
   this.getId = function(){
     return idBouteille;
   }
@@ -72,7 +62,7 @@ var Bouteille = function (idBouteille) {
   }
   this.setEnAttenteDeplacement = function (attente) {
     enAttenteDeplacement = attente;
-    bitmapBouteille.x = -200;
+    bouteille.x = -200;
   }
 
   this.setDelaiAffichage = function (nouveauDelaiAffichage) {

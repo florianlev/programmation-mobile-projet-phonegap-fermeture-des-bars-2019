@@ -33,6 +33,9 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
   this.deplacerRepositionnerUneBouteille = function(idBouteille, position){
     bouteilles[idBouteille].repositionnerManuellement(position);
   }
+  this.deplacerRepositionnerUneBouteille = function(idVoiture, position){
+    voitures[idVoiture].repositionnerManuellement(position);
+  }
   this.deplacerLesObjets = function (vitesse) {
     deplacerObjets(bouteilles, vitesse);
     deplacerObjets(obstacles, vitesse);

@@ -35,7 +35,6 @@ var Obstacle = function (idObstacle) {
   this.mouvement = function (vitesseRoute) {
     //console.log("bougerObstacle");
 
-    if (bitmapObstacle) {
       obstacle.y -= vitesseRoute;
       //Si l'objet sort de la map on le repositionne
 
@@ -45,7 +44,7 @@ var Obstacle = function (idObstacle) {
         //document.body.dispatchEvent(new CustomEvent("obstaclesortieecran", { detail: { idObstacle: obstacle.getId() } }));
 
       }
-    }
+
   }
 
   this.repositionnerObstacle = function() {
@@ -58,15 +57,6 @@ var Obstacle = function (idObstacle) {
     return ratio;
   }
 
-  /*this.getRectangleCollision = function () {// on fait quoi avec sa ? c le client qui nous le dit ?
-    if (bitmapObstacle) {
-      bitmapObstacle.setBounds(bitmapObstacle.x + 10, bitmapObstacle.y + 10, obstacle.width - 20, obstacle.height - 20);
-      return bitmapObstacle.getBounds();
-    } else {
-      return null;
-    }
-  }*/
-
   this.getId = function () {
     return idObstacle;
   }
@@ -76,7 +66,7 @@ var Obstacle = function (idObstacle) {
   }
   this.setEnAttenteDeplacement = function (attente) {
     enAttenteDeplacement = attente;
-    bitmapObstacle.x = -200;
+    obstacle.x = -200;
   }
 
   this.setDelaiAffichage = function (nouveauDelaiAffichage) {
