@@ -27,7 +27,6 @@ var VueJeu = (function () {
 
     function initialiser() {
       console.log("vueJeuInitialiser");
-      vitesseRoute = MONDE.VITESSE_JEU;
       isJeuStopper = false;
     }
 
@@ -71,7 +70,7 @@ var VueJeu = (function () {
       if (!debutInterval) {
         debutInterval = Date.now();
       }
-      
+
       gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
       gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
       gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval);
@@ -98,6 +97,8 @@ var VueJeu = (function () {
     function arrangerCanvas() {
       console.log("vueJeuArrangerCanvas");
       content = document.getElementById("content");
+      scaleVitesse = content.offsetWidth/1920;
+      vitesseRoute = MONDE.VITESSE_JEU * scaleVitesse;
 
       if (canvas.width < content.offsetWidth) {
 

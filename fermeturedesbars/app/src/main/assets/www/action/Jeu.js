@@ -13,7 +13,7 @@ var Jeu = function () {
         vueJeu = new VueJeu();
 
         document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
-        document.body.addEventListener("collisionavecobjet", terminerJeu);
+        //document.body.addEventListener("collisionavecobjet", terminerJeu);
         document.body.addEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
         document.body.addEventListener("bouteillesortieecran", gererBouteilleSortieEcran);
         document.body.addEventListener("bouteillevertechargee", gererBouteilleVerteChargee);
@@ -46,7 +46,7 @@ var Jeu = function () {
 
     }
 
-    
+
 
     function gererCollisionAvecBouteille(evenement) {
         console.log("gererCollisionBouteille");
@@ -60,7 +60,7 @@ var Jeu = function () {
         vueJeu.setNiveauAlcool(niveauAlcool)
         console.log("grerCollisionAvecBoteille" + evenement.detail.idBouteille);
 
-        
+
 
         vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
     }
@@ -128,7 +128,7 @@ var Jeu = function () {
     }
 
     function finaliserJeu() {
-        
+
         document.body.removeEventListener("fondecranpret", chargerJoueurEtObjet);
         document.body.removeEventListener("collisionavecobjet", terminerJeu);
         document.body.removeEventListener("collisionavecbouteille", gererCollisionAvecBouteille);
