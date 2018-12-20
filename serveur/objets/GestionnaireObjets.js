@@ -15,16 +15,16 @@ var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
     disperseurObstacle = 1;
 
     for (iObstacles = 0; iObstacles < MONDE.NOMBRE_OBSTACLE; iObstacles++) {
-      obstacles.push(new Obstacle(scene, content, iObstacles));
+      obstacles.push(new Obstacle(iObstacles, event));
     }
 
     for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
-      bouteilles.push(new Bouteille(scene, content, iBouteilles));
+      bouteilles.push(new Bouteille(iBouteilles, event));
     }
 
     for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
 
-      voitures.push(new Voiture(scene, content, iVoitures));
+      voitures.push(new Voiture(iVoitures, event));
 
     }
   }
