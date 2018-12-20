@@ -1,14 +1,12 @@
 var Obstacle = function (idObstacle, event) {
 
   var obstacle = this;
-  var imgObstacle = new Image();
-  var bitmapObstacle;
   obstacle.height = 20;
   obstacle.width = 20;
   obstacle.y = 0;
   obstacle.x = 0;
   var estCharger = false;
-  var eventEmiter = new event.EventEmitter();
+  var eventEmiter = new event.EventEmitter;
 
   var enAttenteDeplacement = false;
 

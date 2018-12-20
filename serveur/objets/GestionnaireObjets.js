@@ -1,7 +1,8 @@
-var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
+var GestionnaireObjets = function (event) {
   Bouteille = require('./Bouteille.js');
   Obstacle = require('./Obstacle.js');
   Voiture = require('./Voiture.js');
+  require('./../JEU.js');
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
@@ -14,15 +15,15 @@ var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
     isListeBouteilleCharger = false;
     disperseurObstacle = 1;
 
-    for (iObstacles = 0; iObstacles < MONDE.NOMBRE_OBSTACLE; iObstacles++) {
+    for (iObstacles = 0; iObstacles < global.JEU.NOMBRE_OBSTACLE; iObstacles++) {
       obstacles.push(new Obstacle(iObstacles, event));
     }
 
-    for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
+    for (iBouteilles = 0; iBouteilles < global.JEU.NOMBRE_BOUTEILLE; iBouteilles++) {
       bouteilles.push(new Bouteille(iBouteilles, event));
     }
 
-    for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
+    for (iVoitures = 0; iVoitures < global.JEU.NOMBRE_VOITURE; iVoitures++) {
 
       voitures.push(new Voiture(iVoitures, event));
 
@@ -43,7 +44,7 @@ var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
   }
   function deplacerVoiture(vehicule, vitesse) {
     for (iVehicule = 0; iVehicule < vehicule.length; iVehicule++) {
-      vehicule[iVehicule].mouvementVoiture(vitesse * MONDE.VITESSE_VOITURE);
+      vehicule[iVehicule].mouvementVoiture(vitesse * global.JEU.VITESSE_VOITURE);
     }
   }
 
@@ -126,11 +127,11 @@ var GestionnaireObjets = function (joueur, niveauAlcool, score, event) {
     obstacles[iObstacles] = null;
 
   }
-  for (iBouteilles = 0; iBouteilles < MONDE.NOMBRE_BOUTEILLE; iBouteilles++) {
+  for (iBouteilles = 0; iBouteilles < global.JEU.NOMBRE_BOUTEILLE; iBouteilles++) {
     bouteilles[iBouteilles] = null;
   }
 
-  for (iVoitures = 0; iVoitures < MONDE.NOMBRE_VOITURE; iVoitures++) {
+  for (iVoitures = 0; iVoitures < global.JEU.NOMBRE_VOITURE; iVoitures++) {
     voitures[iVoitures] = null;
   }
 }

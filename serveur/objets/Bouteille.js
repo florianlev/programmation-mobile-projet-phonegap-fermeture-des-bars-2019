@@ -8,7 +8,7 @@ var Bouteille = function (idBouteille, event) {
   var delaiAffichage;
   var enAttenteDeplacement = false;
   var debutInterval;
-  var eventEmiter = new event.EventEmitter();
+  var eventEmiter = new event.EventEmitter;
   require('./../JEU.js');
   function initialiser() {
 

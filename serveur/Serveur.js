@@ -2,12 +2,13 @@ var http = require('http');
 var socketIo = require('socket.io');
 Room = require('./Room.js');
 Joueur = require('./Joueur.js');
-
-
+GestionnaireObjets = require('./objets/GestionnaireObjets.js');
+var event = require('events');
+var emiter = new event.EventEmitter;
 
 var listeRoom = [];
 var listeJoueur = [];
-
+var gestionnaireObjets = new GestionnaireObjets(event);
 var idRoom;
 
 
@@ -27,7 +28,9 @@ function initialiser() {
     idRoom = 0;
     io.on('connection', gererConnexion);
 
-
+    emiter.on('bouteillesortieecran',gererBouteilleSortieEcran);
+    emiter.on('obstaclesortieecran',gererObstacleSortieEcran);
+    emiter.on('voituresortieecran',gererVoitureSortiEcran);
 
 }
 
@@ -44,8 +47,17 @@ function gererConnexion(nouvelleConnexion) {
     nouvelleConnexion.on('creer_room', creerRoom);
     nouvelleConnexion.on('envoyer_pseudo', recevoirPseudoJoueur);
 
-}
 
+}
+function gererBouteilleSortieEcran(idBouteille){
+  position = gestionnaireObjets.repositionnerBouteille(idBouteille);
+}
+function gererObstacleSortieEcran(idObstacle){
+  position = gestionnaireObjets.repositionnerObstacle(idObstacle);
+}
+function gererVoitureSortiEcran(idVoiture){
+  position = gestionnaireObjets.repositionnerVoiture(idVoiture);
+}
 function recevoirPseudoJoueur(donnees) {
     console.log('Arrivée de : ' + donnees.pseudo);
     listeJoueur[donnees.idJoueur].joueur.pseudo = donnees.pseudo;
@@ -87,6 +99,3 @@ function creerRoom(donnees) {
 }
 
 initialiser();
-
-
-

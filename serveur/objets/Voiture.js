@@ -1,15 +1,13 @@
 var Voiture = function ( idVoiture, event) {
 
   var voiture = this;
-  var imgVoiture = new Image();
-  var bitmapVoiture;
   voiture.height = 20;
   voiture.width = 20;
   voiture.y = 0;
   voiture.x = 0;
   require('./../JEU.js');
   var enAttenteDeplacement = false;
-  var eventEmiter = new event.EventEmitter();
+  var eventEmiter = new event.EventEmitter;
   var delaiAffichage;
   var debutInterval;
 
