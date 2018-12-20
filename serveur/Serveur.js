@@ -61,6 +61,9 @@ function gererVoitureSortiEcran(idVoiture){
 function recevoirPseudoJoueur(donnees) {
     console.log('Arrivée de : ' + donnees.pseudo);
     listeJoueur[donnees.idJoueur].joueur.pseudo = donnees.pseudo;
+    // envoie de la classe du joueur au client 
+
+    listeJoueur[donnees.idJoueur].connexion.emit('envoyer_joueur', listeJoueur[donnees.idJoueur].joueur);
 }
 
 function joindreRoom(donnees) {

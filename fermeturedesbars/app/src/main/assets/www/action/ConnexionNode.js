@@ -1,5 +1,6 @@
 function ConnexionNode(afficherNouvellesListeRoom, 
                         transmettreIdRoom,
+                        creerJoueur,
                         afficherListeJoueur) {
 
     var connexion;
@@ -16,8 +17,8 @@ function ConnexionNode(afficherNouvellesListeRoom,
         connexion.on('envoyerIdJoueur', function(idJoueur){
             idJoueurActuel = idJoueur;
             connexion.emit('envoyer_pseudo', {pseudo : localStorage['pseudo'], idJoueur : idJoueurActuel});
-
         });
+        connexion.on('envoyer_joueur', recevoirJoueur);
         connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
         connexion.on('envoyer_idRoom', function(idRoom){
             transmettreIdRoom(idRoom);
@@ -28,6 +29,10 @@ function ConnexionNode(afficherNouvellesListeRoom,
 
     function etablirConnexion(event){
         console.log('etablirConnexion()');
+    }
+
+    function recevoirJoueur(joueur){
+        creerJoueur(joueur);
     }
 
     this.creerUneRoom = function(nom){

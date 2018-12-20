@@ -1,4 +1,4 @@
-var Jeu = function () {
+var Jeu = function (joueur) {
 
     jeu = this;
     var vueJeu;
@@ -26,7 +26,7 @@ var Jeu = function () {
     }
 
     function chargerJoueurEtObjet(){
-        vueJeu.chargerJoueurEtObjet();
+        vueJeu.chargerJoueurEtObjet(joueur);
     }
 
 

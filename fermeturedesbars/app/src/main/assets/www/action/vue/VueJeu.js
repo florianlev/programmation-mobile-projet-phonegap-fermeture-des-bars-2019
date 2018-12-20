@@ -90,7 +90,7 @@ var VueJeu = (function () {
 
       route.derouler(vitesseRoute);
       scene.update(evenement);
-      if(isJeuStopper){
+      if (isJeuStopper) {
         joueur.monterEnY(vitesseRoute);
       }
     }
@@ -100,7 +100,7 @@ var VueJeu = (function () {
     function arrangerCanvas() {
       console.log("vueJeuArrangerCanvas");
       content = document.getElementById("content");
-      scaleVitesse = content.offsetWidth/1920;
+      scaleVitesse = content.offsetWidth / 1920;
       vitesseRoute = MONDE.VITESSE_JEU * scaleVitesse;
 
       if (canvas.width < content.offsetWidth) {
@@ -120,14 +120,18 @@ var VueJeu = (function () {
       }
     }
 
-    this.chargerJoueurEtObjet = function (evenement) {
-      joueur = new Joueur(scene, content);
+    this.chargerJoueurEtObjet = function (nouveauJoueur) {
+      //joueur = new Joueur(scene, content);
+      joueur = nouveauJoueur;
+      joueur.setContent(content);
+      joueur.setScene(scene);
+      joueur.afficher();
       hammer.on('pan', deplacerJoueur);
       //niveauAlcool =new NiveauAlcool(scene);
 
       //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
       score = new Score(scene);
-      niveauAlcool = new NiveauAlcool(scene, joueur);//LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+      niveauAlcool = new NiveauAlcool(scene, joueur); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
       document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
       gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
       createjs.Ticker.addEventListener("tick", rafraichirJeu);

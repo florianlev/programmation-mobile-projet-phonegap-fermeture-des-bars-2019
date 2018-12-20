@@ -3,6 +3,7 @@
   instance = this;
 
   var connexionNode;
+  var joueurActuel;
   
   function initialiser() {
 
@@ -45,6 +46,7 @@
 
       connexionNode = new ConnexionNode(afficherNouvellesListeRoom,
         naviguerAttenteMultiJoueurAvecIdRoom,
+        creerJoueurMultijoueur,
         afficherListeJoueur);
 
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
@@ -60,21 +62,35 @@
 
     } else if (window.location.hash.match(/^#jeu-multijoueur/)) {
       this.vueJeuMultijoueur.afficher();
+
     } else if (window.location.hash.match(/^#jeu/)) {
-      this.jeu = new Jeu();
+      joueur = new Joueur();
+      this.jeu = new Jeu(joueur);
       this.jeu.demarrerJeu();
       //this.vueJeu.afficher();
+
     } else if (window.location.hash.match(/^#fin-multijoueur/)) {
       this.vueFinMultijoueur.afficher();
+
     } else if (window.location.hash.match(/^#fin-solo/)) {
       this.vueFinSolo.afficher(this.jeu.getScore());
+
     } else if (window.location.hash.match(/^#apreciation/)) {
       this.vueApreciation.afficher();
+
     } else if (window.location.hash.match(/^#statistique/)) {
       this.vueStatistique.afficher();
+      
     } else if (window.location.hash.match(/^#quitter/)) {
 
     }
+  }
+
+  function creerJoueurMultijoueur(nouveauJoueur){
+    console.log('creerJoueurMulti');
+    joueurActuel = new Joueur();
+    joueurActuel.setId(nouveauJoueur.id);
+    joueurActuel.setPseudo(nouveauJoueur.pseudo);
   }
 
 
