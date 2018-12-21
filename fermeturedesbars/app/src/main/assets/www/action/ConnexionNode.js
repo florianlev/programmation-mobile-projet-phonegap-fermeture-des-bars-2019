@@ -131,7 +131,8 @@ function ConnexionNode() {
         connexion.emit('envoyer_positions_et_niveau_alcool', {
             positions: evenement.detail.positions,
             niveauAlcool: evenement.detail.niveauAlcool,
-            idJoueur: idJoueurActuel
+            idJoueur: idJoueurActuel,
+            isJoueurMort: evenement.detail.isJoueurMort
         });
     }
 
@@ -140,7 +141,8 @@ function ConnexionNode() {
             detail: {
                 positions: donnees.positions,
                 niveauAlcool : donnees.niveauAlcool,
-                idJoueur: donnees.idJoueur
+                idJoueur: donnees.idJoueur,
+                isJoueurMort:donnees.isJoueurMort
             }
         }));
     }

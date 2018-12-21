@@ -102,7 +102,8 @@ var VueJeuMultijoueur = (function () {
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
                 detail: {
                     positions: positions,
-                    niveauAlcool: niveauAlcoolJoueurActuel.getNivauAlcool()
+                    niveauAlcool: niveauAlcoolJoueurActuel.getNivauAlcool(),
+                    isJoueurMort: joueurActuel.isJoueurMort()
                 }
             }));
             for(iJoueur = 0; iJoueur < listeJoueur.length; iJoueur++){
@@ -127,7 +128,11 @@ var VueJeuMultijoueur = (function () {
               //console.log(donnees.detail.positions.x);
               //console.log(donnees.detail.positions.x* content.offsetWidth);
               positions = {'x':donnees.detail.positions.x * content.offsetWidth,'y':donnees.detail.positions.y * content.offsetHeight};
-                if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur) listeJoueur[indiceListeJoueur].setPositions(positions);
+              if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur && !donnees.detail.isJoueurMort){
+                listeJoueur[indiceListeJoueur].setPositions(positions);
+              }else if(listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur){
+                listeJoueur[indiceListeJoueur].monterEnY(vitesseRoute);
+              }
 
             }
             for (indiceListeNiveauAlcool = 0; indiceListeNiveauAlcool < listeNiveauAlcool.length; indiceListeNiveauAlcool++) {

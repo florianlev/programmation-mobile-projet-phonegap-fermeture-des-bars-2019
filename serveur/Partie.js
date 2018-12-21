@@ -82,6 +82,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
         listeJoueur[indiceListeJoueur].joueur.positions.x = donnees.positions.x;
         listeJoueur[indiceListeJoueur].joueur.positions.y = donnees.positions.y;
         listeJoueur[indiceListeJoueur].joueur.niveauAlcool = donnees.niveauAlcool;
+        listeJoueur[indiceListeJoueur].joueur.isJoueurMort = donnees.isJoueurMort;
 
         for (indice2ListeJoueur = 0; indice2ListeJoueur < listeJoueur.length; indice2ListeJoueur++) {
 
@@ -90,7 +91,8 @@ function Partie(idRoom, nomRoom, listeJoueur) {
             listeJoueur[indice2ListeJoueur].connexion.emit('envoyer_positions_adversaire_niveau_alcool', {
               positions: listeJoueur[indiceListeJoueur].joueur.positions,
               niveauAlcool : listeJoueur[indiceListeJoueur].joueur.niveauAlcool,
-              idJoueur: listeJoueur[indiceListeJoueur].joueur.id
+              idJoueur: listeJoueur[indiceListeJoueur].joueur.id,
+              isJoueurMort: listeJoueur[indiceListeJoueur].joueur.isJoueurMort
             });
           }
         }
@@ -101,23 +103,23 @@ function Partie(idRoom, nomRoom, listeJoueur) {
     for(iJoueur = 0; iJoueur < listeJoueur.length; iJoueur++){
       if(listeJoueur[iJoueur].connexion){
         listeJoueur[iJoueur].connexion.emit('repositionne_objet', type, id, position);
-        console.log('envoyer');
+        //console.log('envoyer');
       }
-      console.log(type + id + " " + position.x + " " + position.y);
+      //console.log(type + id + " " + position.x + " " + position.y);
     }
   }
   function gererBouteilleSortieEcran(idBouteille) {
-    console.log('bouteille sortie')
+    //console.log('bouteille sortie')
     gestionnaireObjets.afficherBouteilleDansLeTemps(idBouteille, getNombreHazard(0, 3000));
   }
 
   function gererObstacleSortieEcran(idObstacle) {
-    console.log('obstacle sortie')
+    //console.log('obstacle sortie')
     gestionnaireObjets.afficherObstacleDansLeTemps(idObstacle, getNombreHazard(0, 3000));
   }
 
   function gererVoitureSortiEcran(idVoiture) {
-    console.log('voiture sortie')
+    //console.log('voiture sortie')
     gestionnaireObjets.afficherVoitureDansLeTemps(idVoiture, getNombreHazard(0, 3000));
   }
   function getNombreHazard(min, max) {

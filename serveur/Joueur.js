@@ -9,7 +9,7 @@ function Joueur(id) {
     this.nomRoom;
     this.couleur;
     this.niveauAlcool;
-
+    this.isJoueurMort;
     this.positions = {
         x: 0,
         y: 0
