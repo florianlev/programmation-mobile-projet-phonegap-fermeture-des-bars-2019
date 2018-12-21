@@ -29,10 +29,7 @@
     console.log("HEIGHT" + window.innerHeight);
     this.naviguer();
 
-    chanson.rate(1.0);
-    chanson.once('load', function () {
-      chanson.play();
-    });
+  
   }
   naviguer = function (event) {
     if (!window.location.hash || (window.location.hash.match(/^#menu-principale/))) {
@@ -108,6 +105,7 @@
         nouveauJoueur.setIdRoom = nouvelleListeJoueur[indiceListeJoueur].idRoom;
         listeJoueur.push(nouveauJoueur);
       } else {
+        joueurActuel.setIsJoueurActuel = true;
         listeJoueur.push(joueurActuel);
       }
     }

@@ -5,7 +5,7 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
 
   function initialiser() {
 
-    vueJeuMultijoueur = new VueJeuMultijoueur();
+    vueJeuMultijoueur = new VueJeuMultijoueur(listeJoueur);
 
     document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
   }

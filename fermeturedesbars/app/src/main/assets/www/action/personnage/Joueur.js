@@ -10,11 +10,14 @@ function Joueur() {
   var distanceDoit;
   var fantome;
   var partieTerminer;
+  var isJoueurActuel;
+
   var EtatJoueur = {
     enMarche: "enMarche",
     estEcraser: "estEcraser",
     estEnVomissement: "estEnVomissement"
   }
+
   var animationCourante;
 
   var IMAGEIVROGNOREMARCHE = "images/spriteSheetIvrogne.png";
@@ -200,5 +203,13 @@ function Joueur() {
     this.pseudo = pseudo;
   }
 
+
+  this.setIsJoueurActuel = function(isJoueurActuel){
+    this.isJoueurActuel = isJoueurActuel
+  }
+
+  this.getIsJoueurActuel = function(){
+    return isJoueurActuel;
+  }
   initialiser();
 }
