@@ -6,7 +6,7 @@ function NiveauAlcool(scene, joueur) {
 
   function initialiser() {
 
-    pointsParSecondes = 10;
+    pointsParSecondes = 7;
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
       easing: 'easeInOut',

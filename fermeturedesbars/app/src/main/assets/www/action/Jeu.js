@@ -62,14 +62,15 @@ var Jeu = function (joueur) {
         console.log("grerCollisionAvecBoteille" + evenement.detail.idBouteille);
 
 
-
-        vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
+        //delais avant la premiere aparition des bouteilles
+        vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 3000));
       }
     }
 
     function gererBouteilleSortieEcran(evenement) {
       if(!partieTerminer){
-        vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 5000));
+        //delais avant la reaparition des bouteilles
+        vueJeu.ajouterBouteille(evenement.detail.idBouteille, getNombreHazard(0, 3000));
       }
     }
 
