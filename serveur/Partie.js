@@ -46,7 +46,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
       vitesseRoute += 0.005;
 
       debutInterval = nouvelInterval;
-    } */
+    } 
 
     //Appliquer les déplacements
     //gestionnaireObjets.deplacerLesObjets(vitesseRoute);
