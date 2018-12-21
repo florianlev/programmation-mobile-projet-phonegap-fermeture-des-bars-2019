@@ -12,7 +12,6 @@ var gestionnaireObjets = new GestionnaireObjets(event);
 var idRoom;
 
 
-
 function initialiser() {
     console.log("initialiser()");
 
@@ -68,9 +67,10 @@ function recevoirJoueurPret(idJoueur){
     }
 
     if(listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret >= 2){
-
         //Initialisation controleur jeu sur serveur
-        console.log("LA PARTIE COMMENCE !");;
+        console.log("LA PARTIE COMMENCE !");
+        io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('commencer_partie', listeJoueurDansRoom);
+
     }
 }
 
@@ -79,7 +79,6 @@ function joindreRoom(donnees) {
     if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
         listeJoueur[donnees.idJoueur].joueur.idRoom = donnees.idRoom;
         listeJoueur[donnees.idJoueur].joueur.nomRoom = listeRoom[donnees.idRoom].nom;
-        //listeJoueur[donnees.idJoueur].connexion.emit('envoyer_id_room', donnees.idRoom);
         listeJoueur[donnees.idJoueur].connexion.join(listeRoom[donnees.idRoom].nom);
         listeRoom[donnees.idRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);
         //envoyer la liste de tout le monde au joueur venant de se connecter
@@ -102,7 +101,6 @@ function creerRoom(donnees) {
     io.emit('nouvelleListeRoom', listeRoomJson);
     listeJoueur[idJoueur].connexion.emit('envoyer_idRoom', room.id);
     idRoom++;
-
 }
 
 
