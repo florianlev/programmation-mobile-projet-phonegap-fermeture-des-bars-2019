@@ -90,6 +90,9 @@ left: 0;
 .form-group{
 color: black;
 font-weight: bold;
+background-color: #088;
+  width: 300px;
+  
 
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
