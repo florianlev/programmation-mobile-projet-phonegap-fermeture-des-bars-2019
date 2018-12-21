@@ -14,7 +14,7 @@ var VueJeuMultijoueur = (function () {
         var isJeuStopper;
         var listeNiveauAlcool = [];
         var niveauAlcoolJoueurActuel;
-
+        var gestionnaireObjets;
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
             isPartieEnCours = false;

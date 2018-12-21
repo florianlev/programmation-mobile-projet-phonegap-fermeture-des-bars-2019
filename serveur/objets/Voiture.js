@@ -17,8 +17,8 @@ var Voiture = function ( idVoiture, eventEmiter) {
   }
 
   this.afficher = function () {
-    voiture.repositionnerVoiture();
     estCharger = true;
+    return voiture.repositionnerVoiture();
 
   }
   this.isCharger = function () {
@@ -33,7 +33,7 @@ var Voiture = function ( idVoiture, eventEmiter) {
         enAttenteDeplacement = true;
         //console.log("voiture out");
         //document.body.dispatchEvent(new CustomEvent("voituresortieecran", { detail: { idVoiture: voiture.getId() } }));
-        eventEmiter.emit("voituresortieecran", voiture.getId());
+        eventEmiter.emit("voiture_sortie_ecran", voiture.getId());
         //setTimeout(this.repositionnerVoiture, getNombreHazard(0,10000));
       }
 

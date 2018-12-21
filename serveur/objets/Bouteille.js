@@ -17,9 +17,8 @@ var Bouteille = function (idBouteille, eventEmiter) {
   }
 
   this.afficher = function () {
-    bouteille.repositionnerBouteille();
     estCharger = true;
-
+    return bouteille.repositionnerBouteille();
   }
 
 
@@ -36,7 +35,7 @@ var Bouteille = function (idBouteille, eventEmiter) {
       if (bouteille.y <= -200 && !enAttenteDeplacement) {
         enAttenteDeplacement = true;
         //document.body.dispatchEvent(new CustomEvent("bouteillesortieecran", { detail : {idBouteille: bouteille.getId() } }));
-        eventEmiter.emit("bouteillesortieecran", bouteille.getId());
+        eventEmiter.emit("bouteille_sortie_ecran", bouteille.getId());
     }
   }
 

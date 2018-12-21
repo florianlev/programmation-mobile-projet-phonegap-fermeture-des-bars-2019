@@ -28,7 +28,28 @@ function ConnexionNode() {
         connexion.on('commencer_partie', commencer);
         connexion.on('liste_joueurs_charger', gererDebutPartie);
         connexion.on('envoyer_positions_adversaire_niveau_alcool', recevoirPositionAdversaireEtNiveauAlcool);
+        connexion.on('cree_nouvel_objet', creeUnNouvelObjet);
+        connexion.on('repositionne_objet', repositionnerUnObjet);
+    }
 
+    function repositionnerUnObjet(type, idObjet, position){
+      document.body.dispatchEvent(new CustomEvent('repositionne_objet', {
+          detail: {
+              type: type,
+              id: idObjet,
+              position: position
+          }
+      }));
+    }
+
+    function creeUnNouvelObjet(type, idObjet, position){
+      document.body.dispatchEvent(new CustomEvent('cree_nouvel_objet', {
+          detail: {
+              type: type,
+              id: idObjet,
+              position: position
+          }
+      }));
     }
 
     function afficherJoueurPret(joueur) {

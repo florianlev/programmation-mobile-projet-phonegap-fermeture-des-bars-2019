@@ -20,9 +20,8 @@ var Obstacle = function (idObstacle, eventEmiter) {
   }
 
   this.afficher = function () {
-    obstacle.repositionnerObstacle();
     estCharger = true;
-
+    return obstacle.repositionnerObstacle();
   }
 
   this.isCharger = function () {
@@ -39,7 +38,7 @@ var Obstacle = function (idObstacle, eventEmiter) {
         enAttenteDeplacement = true;
         //console.log("idObstacle" + idObstacle);
         //document.body.dispatchEvent(new CustomEvent("obstaclesortieecran", { detail: { idObstacle: obstacle.getId() } }));
-        eventEmiter.emit("obstaclesortieecran", obstacle.getId());
+        eventEmiter.emit("obstacle_sortie_ecran", obstacle.getId());
       }
 
   }
