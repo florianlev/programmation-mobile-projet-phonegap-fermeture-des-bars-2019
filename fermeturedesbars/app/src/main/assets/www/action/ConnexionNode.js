@@ -1,9 +1,9 @@
 function ConnexionNode(afficherNouvellesListeRoom,
-                        transmettreIdRoom,
-                        creerJoueur,
-                        afficherListeJoueur,
-                        afficherJoueurPret,
-                        commencerMultijoueur) {
+    transmettreIdRoom,
+    creerJoueur,
+    afficherListeJoueur,
+    afficherJoueurPret,
+    commencerMultijoueur) {
 
     var connexion;
     var idJoueurActuel;
@@ -14,62 +14,79 @@ function ConnexionNode(afficherNouvellesListeRoom,
         connexion = io.connect('http://localhost:2000');
     }
 
-    this.initierConnexion = function (){
+    this.initierConnexion = function () {
 
         connexion.on('connect', etablirConnexion);
 
-        connexion.on('envoyerIdJoueur', function(idJoueur){
+        connexion.on('envoyerIdJoueur', function (idJoueur) {
             idJoueurActuel = idJoueur;
-            connexion.emit('envoyer_pseudo', {pseudo : localStorage['pseudo'], idJoueur : idJoueurActuel});
+            connexion.emit('envoyer_pseudo', {
+                pseudo: localStorage['pseudo'],
+                idJoueur: idJoueurActuel
+            });
         });
         connexion.on('envoyer_joueur', recevoirJoueur);
         connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
-        connexion.on('envoyer_idRoom', function(idRoom){
+        connexion.on('envoyer_idRoom', function (idRoom) {
             transmettreIdRoom(idRoom);
         });
-        connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
+        connexion.on('envoie_listeJoueur_room', recevoirListeJoueurRoom);
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
         connexion.on('commencer_partie', commencer);
-        
+        connexion.on('liste_joueurs_charger', gererDebutPartie);
+
     }
-    function commencer(listeJoueurJson){
-      commencerMultijoueur(JSON.parse(listeJoueurJson));
+
+    function commencer(listeJoueurJson) {
+        commencerMultijoueur(JSON.parse(listeJoueurJson));
     }
-    function etablirConnexion(event){
+
+    function etablirConnexion(event) {
         console.log('etablirConnexion()');
     }
 
-    function recevoirJoueur(joueur){
+    function recevoirJoueur(joueur) {
         joueurActuel = joueur;
         creerJoueur(joueur);
     }
 
-    this.creerUneRoom = function(nom){
+    this.creerUneRoom = function (nom) {
         console.log("creerUneRoom");
-        connexion.emit('creer_room', {nomRoom :nom, idJoueur: joueurActuel.id});
+        connexion.emit('creer_room', {
+            nomRoom: nom,
+            idJoueur: joueurActuel.id
+        });
     }
 
-    function recevoirNouvellesListeRoom(listeRoom){
+    function recevoirNouvellesListeRoom(listeRoom) {
         listeRoom = JSON.parse(listeRoom);
         afficherNouvellesListeRoom(listeRoom);
     }
 
-    this.rejoindreUneRoom = function(idRoom){
-        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: joueurActuel.id} );
+    this.rejoindreUneRoom = function (idRoom) {
+        connexion.emit('joindre_room', {
+            idRoom: idRoom,
+            idJoueur: joueurActuel.id
+        });
     }
 
-    function recevoirListeJoueurRoom(listeJoueurRoomJSON){
+    function recevoirListeJoueurRoom(listeJoueurRoomJSON) {
         console.log("recevoirListeJoueurRoom");
         listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
         afficherListeJoueur(listeJoueurRoom);
     }
 
-    this.envoyerJoueurPret = function(){
+    this.envoyerJoueurPret = function () {
         connexion.emit('envoyer_joueur_pret_serveur', joueurActuel.id);
     }
 
-    this.envoyerJoueurEstCharger = function(idJoueur){
+    this.envoyerJoueurEstCharger = function (idJoueur) {
         connexion.emit('elements_joueur_est_charger', idJoueur);
+    }
+
+    function gererDebutPartie() {
+        document.body.dispatchEvent(new CustomEvent("fondecranpret"));
+
     }
 
     initialiser();

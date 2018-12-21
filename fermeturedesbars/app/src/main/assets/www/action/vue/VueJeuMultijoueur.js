@@ -10,10 +10,12 @@ var VueJeuMultijoueur = (function () {
         var route;
         var hammer;
         var joueurActuel;
+        var isPartieEnCours;
         var isJeuStopper;
 
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
+            isPartieEnCours = false;
 
         }
 
@@ -57,13 +59,19 @@ var VueJeuMultijoueur = (function () {
                 gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
 
                 //Envoyer evenement au serveur pour demarrer le jeu
-                createjs.Ticker.addEventListener("tick", rafraichirJeu);
+                document.body.dispatchEvent(new CustomEvent("joueurestcharger"));
 
             }
         }
 
+        this.debuterPartie = function(isPartieEnCours){
+            this.isPartieEnCours = isPartieEnCours;
+        }
+
         this.setNiveauAlcool = function (nouveauNiveauAlcool) {
             niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
+            createjs.Ticker.addEventListener("tick", rafraichirJeu);
+
         }
 
 

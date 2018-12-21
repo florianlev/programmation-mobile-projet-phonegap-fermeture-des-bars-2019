@@ -9,7 +9,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
   var vitesse = 1000 / 60;
   var gestionnaireObjets = new GestionnaireObjets(emiter);
   var debutInterval = 0;
-  var partieCommencer = false;
+  var partieEnCours = false;
   var nombreJoueurCharger = 0;
 
   function initialiser() {
@@ -51,8 +51,8 @@ function Partie(idRoom, nomRoom, listeJoueur) {
 
     //Si les joueurs sont charger débuter la partie
     if (nombreJoueurCharger >= 2) {
-      partieCommencer = true;
-      io.to(room.nomRoom).emit('liste_joueurs_charger', partieCommencer);
+      partieEnCours = true;
+      io.to(room.nomRoom).emit('liste_joueurs_charger', partieEnCours);
     }
   }
 

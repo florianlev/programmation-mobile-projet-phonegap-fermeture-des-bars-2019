@@ -1,7 +1,7 @@
 var JeuMultijoueur = function (listeJoueur, connexionNode) {
 
   var vueJeuMultijoueur;
-  var partieTerminer;
+  var isPartieEnCours = false;
   var joueurActuel;
   var niveauAlcool;
 
@@ -13,6 +13,8 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
     document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
     document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
     document.body.addEventListener("joueurestcharger", envoyerJoueurEstCharger);
+    document.body.addEventListener("debuterPartie", debuterPartie);
+
 
 
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
@@ -25,7 +27,6 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
   }
   
   this.demarrerJeu = function () {
-    partieTerminer = false;
     vueJeuMultijoueur.afficher();
     niveauAlcool = 100;
   }
@@ -38,6 +39,11 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
   //Envoi au serveur que le joueur est prêt pour le jeu
   function envoyerJoueurEstCharger() {
     connexionNode.envoyerJoueurEstCharger(joueurActuel.id);
+  }
+
+  function debuterPartie(){
+    isPartieEnCours = true;
+    vueJeuMultijoueur.debuterPartie(isPartieEnCours);
   }
 
 
