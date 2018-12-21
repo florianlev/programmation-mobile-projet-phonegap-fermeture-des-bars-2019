@@ -29,14 +29,30 @@ function ConnexionNode() {
         connexion.on('liste_joueurs_charger', gererDebutPartie);
 
     }
-    function afficherJoueurPret(joueur){
-      document.body.dispatchEvent(new CustomEvent('afficher_joueur_pret', { detail : {joueur:joueur } }));
+
+    function afficherJoueurPret(joueur) {
+        document.body.dispatchEvent(new CustomEvent('afficher_joueur_pret', {
+            detail: {
+                joueur: joueur
+            }
+        }));
     }
-    function transmettreIdRoom(idRoom){
-      document.body.dispatchEvent(new CustomEvent('transmetre_id_room', { detail : {idRoom:idRoom } }));
+
+    function transmettreIdRoom(idRoom) {
+        document.body.dispatchEvent(new CustomEvent('transmetre_id_room', {
+            detail: {
+                idRoom: idRoom
+            }
+        }));
     }
+
     function commencer(listeJoueurJson) {
-      document.body.dispatchEvent(new CustomEvent('commencer_multijoueur', { detail : {listeJoueur:JSON.parse(listeJoueurJson) } }));
+        console.log('commencer_partie');
+        document.body.dispatchEvent(new CustomEvent('commencer_multijoueur', {
+            detail: {
+                listeJoueur: JSON.parse(listeJoueurJson)
+            }
+        }));
     }
 
     function etablirConnexion(event) {
@@ -45,7 +61,11 @@ function ConnexionNode() {
 
     function recevoirJoueur(joueur) {
         joueurActuel = joueur;
-        document.body.dispatchEvent(new CustomEvent('cree_joueur', { detail : {joueur:joueur } }));
+        document.body.dispatchEvent(new CustomEvent('cree_joueur', {
+            detail: {
+                joueur: joueur
+            }
+        }));
     }
 
     this.creerUneRoom = function (nom) {
@@ -58,7 +78,11 @@ function ConnexionNode() {
 
     function recevoirNouvellesListeRoom(listeRoom) {
         listeRoom = JSON.parse(listeRoom);
-        document.body.dispatchEvent(new CustomEvent('recevoir_nouvelle_liste_room', { detail : {listeRoom:listeRoom } }));
+        document.body.dispatchEvent(new CustomEvent('recevoir_nouvelle_liste_room', {
+            detail: {
+                listeRoom: listeRoom
+            }
+        }));
     }
 
     this.rejoindreUneRoom = function (idRoom) {
@@ -71,7 +95,11 @@ function ConnexionNode() {
     function recevoirListeJoueurRoom(listeJoueurRoomJSON) {
         console.log("recevoirListeJoueurRoom");
         listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
-        document.body.dispatchEvent(new CustomEvent('afficherListe_liste_joueur', { detail : {listeJoueurRoom:listeJoueurRoom } }));
+        document.body.dispatchEvent(new CustomEvent('afficherListe_liste_joueur', {
+            detail: {
+                listeJoueurRoom: listeJoueurRoom
+            }
+        }));
     }
 
     this.envoyerJoueurPret = function () {
@@ -83,7 +111,8 @@ function ConnexionNode() {
     }
 
     function gererDebutPartie() {
-        document.body.dispatchEvent(new CustomEvent("fondecranpret"));
+        console.log('gererDebutPartie');
+        document.body.dispatchEvent(new CustomEvent("debuterpartie"));
 
     }
 

@@ -20,6 +20,10 @@ function Room(id,nom) {
         listeJoueurActif.push(joueur);
     }
 
+    this.getListeJoueurEtConnexion = function(){
+        return listeJoueurActif;
+    }
+
     this.getListeJoueur = function(){
         var listeJoueur = [];
         for(i=0;i < listeJoueurActif.length; i++){

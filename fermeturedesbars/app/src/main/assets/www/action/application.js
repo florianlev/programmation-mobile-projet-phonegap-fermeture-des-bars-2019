@@ -15,9 +15,9 @@
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
 
-    document.addEventListener("transmetre_id_room", naviguerAttenteMultiJoueurAvecIdRoom);
-    document.addEventListener("cree_joueur", creerJoueurMultijoueur);
-    document.addEventListener("commencer_multijoueur", commencerMultijoueur);
+    document.body.addEventListener("transmetre_id_room", naviguerAttenteMultiJoueurAvecIdRoom);
+    document.body.addEventListener("cree_joueur", creerJoueurMultijoueur);
+    document.body.addEventListener("commencer_multijoueur", commencerMultijoueur);
     /*audio.chanson.onload = function(){
       audio.chanson.play();
     };*/
@@ -98,6 +98,7 @@
   }
 
   function commencerMultijoueur(evenement) {
+    console.log('commencerMultijoueur');
     nouvelleListeJoueur = evenement.detail.listeJoueur;
     var listeJoueur = [];
     for (indiceListeJoueur = 0; indiceListeJoueur < nouvelleListeJoueur.length; indiceListeJoueur++) {
@@ -112,7 +113,8 @@
         listeJoueur.push(joueurActuel);
       }
     }
-    this.jeuMultijoueur = new JeuMultijoueur(listeJoueur, connexionNode);
+    this.jeuMultijoueur = new JeuMultijoueur(listeJoueur, connexionNode,joueurActuel);
+    this.jeuMultijoueur.demarrerJeu();
   }
 
   function envoyerCreationRoom(nomRoom) {

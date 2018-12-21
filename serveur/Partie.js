@@ -13,7 +13,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
   var nombreJoueurCharger = 0;
 
   function initialiser() {
-
+    
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
       // Ajouter les evenements necessaire ICI pour le jeu
       listeJoueur[indiceListeJoueur].connexion.on('elements_joueur_est_charger', gererJoueurCharger);
@@ -29,30 +29,33 @@ function Partie(idRoom, nomRoom, listeJoueur) {
 
     debutInterval = Date.now();
 
-    gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
+   /*  gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
     gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
-    gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval);
+    gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval); */
 
 
     //Si le nouveau temps est plus grand que l'accelaration souhaiter par rapport au début de l'interval
-    if (nouvelInterval - debutInterval >= 20) {
+    /* if (nouvelInterval - debutInterval >= 20) {
       vitesseRoute += 0.005;
 
       debutInterval = nouvelInterval;
-    }
+    } */
 
     //Appliquer les déplacements
-    gestionnaireObjets.deplacerLesObjets(vitesseRoute);
+    //gestionnaireObjets.deplacerLesObjets(vitesseRoute);
   }
 
 
   function gererJoueurCharger(idJoueur) {
     nombreJoueurCharger++;
+    console.log('nbreJoueur : ' + nombreJoueurCharger);
 
     //Si les joueurs sont charger débuter la partie
-    if (nombreJoueurCharger >= 2) {
+    if (nombreJoueurCharger == 2) {
+      console.log('nombreJoueurCharger >= 2');
       partieEnCours = true;
-      io.to(room.nomRoom).emit('liste_joueurs_charger', partieEnCours);
+      console.log(nomRoom);
+      io.to(nomRoom).emit('liste_joueurs_charger', partieEnCours);
     }
   }
 

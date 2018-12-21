@@ -2,6 +2,7 @@ var http = require('http');
 var socketIo = require('socket.io');
 Room = require('./Room.js');
 Joueur = require('./Joueur.js');
+Partie = require ('./Partie.js');
 GestionnaireObjets = require('./objets/GestionnaireObjets.js');
 var event = require('events');
 var emiter = new event.EventEmitter;
@@ -10,6 +11,7 @@ var listeRoom = [];
 var listeJoueur = [];
 var gestionnaireObjets = new GestionnaireObjets(event);
 var idRoom;
+
 
 
 function initialiser() {
@@ -58,23 +60,22 @@ function recevoirPseudoJoueur(donnees) {
 function recevoirJoueurPret(idJoueur){
     listeJoueur[idJoueur].joueur.isPret = true;
     var nomRoom = listeJoueur[idJoueur].joueur.nomRoom;
+    var idRoom =listeJoueur[idJoueur].joueur.idRoom;
     io.to(nomRoom).emit('envoyer_joueur_pret_client', listeJoueur[idJoueur].joueur);
 
-    listeJoueurDansRoom = listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur();
+    listeJoueurDansRoom = listeRoom[idRoom].getListeJoueur();
     for(indiceListeJoueur =0; indiceListeJoueur < listeJoueurDansRoom.length; indiceListeJoueur++){
         if(listeJoueurDansRoom[indiceListeJoueur].isPret){
-            listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret++;
+            listeRoom[idRoom].nombreJoueurPret++;
         }
     }
 
-    if(listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret >= 2){
+    if(listeRoom[idRoom].nombreJoueurPret >= 2){
         //Initialisation controleur jeu sur serveur
         console.log("LA PARTIE COMMENCE !");
         listeJoueurDansRoomJSON = JSON.stringify(listeJoueurDansRoom);
         io.to(nomRoom).emit('commencer_partie', listeJoueurDansRoomJSON);
-        partie = new Partie(donnees.idRoom,nomRoom, listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur());
-
-
+        partie = new Partie(idRoom,nomRoom, listeRoom[idRoom].getListeJoueurEtConnexion());
     }
 }
 

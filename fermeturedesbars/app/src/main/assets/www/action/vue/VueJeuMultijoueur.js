@@ -21,7 +21,7 @@ var VueJeuMultijoueur = (function () {
 
         this.afficher = function () {
             console.log('vueJeuAfficher()');
-            hammer = new hammer(document.body);
+            hammer = new Hammer(document.body);
 
             document.body.innerHTML = contenuPage;
             canvas = document.getElementById("dessin");
@@ -52,11 +52,12 @@ var VueJeuMultijoueur = (function () {
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
                     });
-
+                    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool);
                 }
-                niveauAlcool = new NiveauAlcool(scene, joueur); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+
+                //Chargement niveau alcool
+                niveauAlcool = new NiveauAlcool(scene, joueur); 
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
-                gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
 
                 //Envoyer evenement au serveur pour demarrer le jeu
                 document.body.dispatchEvent(new CustomEvent("joueurestcharger"));
@@ -64,7 +65,8 @@ var VueJeuMultijoueur = (function () {
             }
         }
 
-        this.debuterPartie = function(isPartieEnCours){
+        this.debuterPartie = function (isPartieEnCours) {
+            console.log('debuterPartie');
             this.isPartieEnCours = isPartieEnCours;
             createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
@@ -72,8 +74,12 @@ var VueJeuMultijoueur = (function () {
 
         this.setNiveauAlcool = function (nouveauNiveauAlcool) {
             niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
-            createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
+        }
+
+        function rafraichirJeu(evenement) {
+            route.derouler(vitesseRoute);
+            scene.update(evenement);
         }
 
 
