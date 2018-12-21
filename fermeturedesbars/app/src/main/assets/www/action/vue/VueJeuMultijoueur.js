@@ -54,11 +54,8 @@ var VueJeuMultijoueur = (function () {
                 listeNiveauAlcool.push(niveauAlcool);
                 niveauAlcool.afficher();
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
-                if(!gestionnaireObjets){
-                  gestionnaireObjets = new GestionnaireObjets(scene, content);
-                  gestionnaireObjets.setJoueur(joueur);
-                }
                 if (joueur.getIsJoueurActuel()) {
+                    gestionnaireObjets = new GestionnaireObjets(scene, content,joueur);
                     joueurActuel = joueur;
                     hammer.on('pan', function (evenement) {
                         //if (joueur && !isJeuStopper) {
@@ -87,19 +84,20 @@ var VueJeuMultijoueur = (function () {
             createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
         }
-
+        this.augmenterNiveauAlcool = function(){
+          niveauAlcool.modifierNiveauAlcool(niveauAlcool.getNivauAlcool()+10);
+        }
         this.setNiveauAlcool = function (nouveauNiveauAlcool) {
             niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
 
         }
-
         function rafraichirJeu(evenement) {
             route.derouler(vitesseRoute);
             scene.update(evenement);
             positionJoueur = joueurActuel.getPositions()
             niveauAlcoolJoueurActuel.demarrerDiminution();
             gestionnaireObjets.deplacerLesObjets(vitesseRoute);
-
+            gestionnaireObjets.testerCollision();
             positions = {'x':positionJoueur.x/content.offsetWidth,'y':positionJoueur.y/content.offsetHeight};
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
                 detail: {

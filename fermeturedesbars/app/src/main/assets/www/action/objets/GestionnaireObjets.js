@@ -1,10 +1,9 @@
-var GestionnaireObjets = function (scene, content) {
+var GestionnaireObjets = function (scene, content, joueur) {
 
 
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
-  var joueur;
   var iterateurVerification = 0;
   //vitesse du jeu
 
