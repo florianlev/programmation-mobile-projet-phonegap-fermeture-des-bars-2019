@@ -29,7 +29,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
         });
         connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
-        connexion.on('commencer_partie', commmencer);
+        connexion.on('commencer_partie', commencer);
     }
     function commencer(listeJoueurJson){
       commencerMultijoueur(JSON.parse(listeJoueurJson));
