@@ -27,13 +27,13 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
 
     }
   }
-  this.deplacerRepositionnerUnObjet = function(idObstacle, position){
+  this.repositionnerUnObjet = function(idObstacle, position){
     obstacles[idObstacle].repositionnerManuellement(position);
   }
-  this.deplacerRepositionnerUneBouteille = function(idBouteille, position){
+  this.repositionnerUneBouteille = function(idBouteille, position){
     bouteilles[idBouteille].repositionnerManuellement(position);
   }
-  this.deplacerRepositionnerUneBouteille = function(idVoiture, position){
+  this.repositionnerUneVoiture = function(idVoiture, position){
     voitures[idVoiture].repositionnerManuellement(position);
   }
   this.deplacerLesObjets = function (vitesse) {
@@ -48,7 +48,7 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
       case 0:
         for (iObstacles = 0; iObstacles < obstacles.length; iObstacles++) {
           if (obstacles[iObstacles] && !obstacles[iObstacles].isEnAttenteDeplacment()) {
-            testerCollisionObjet(obstacles[iObstacles]);
+            testerCollisionObjet(obstacles[iObstacles], 'cone');
           }
         }
         iterateurVerification++;
@@ -64,7 +64,7 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
       case 2:
         for (iVoitures = 0; iVoitures < voitures.length; iVoitures++) {
           if (voitures[iVoitures] && !voitures[iVoitures].isEnAttenteDeplacment()) {
-            testerCollisionObjet(voitures[iVoitures]);
+            testerCollisionObjet(voitures[iVoitures], 'voiture');
           }
         }
         iterateurVerification = 0;
@@ -73,14 +73,14 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
   }
 
   //Verification de la collision avec le joueur et la voiture
-  function testerCollisionObjet(objet) {
+  function testerCollisionObjet(objet,type) {
     rectangleCollision = objet.getRectangleCollision();
     collisionJoueur = joueur.getRectangleCollision();
     if (rectangleCollision && collisionJoueur) {
       if (collisionJoueur.intersects(objet.getRectangleCollision(rectangleCollision))) {
         //console.log("COLLISIONNEMENT ! ");
         joueur.setEtatJoueurEcraser();
-        document.body.dispatchEvent(new CustomEvent("collisionavecobjet"));
+        document.body.dispatchEvent(new CustomEvent("collisionavecobjet", { detail: { typeMort:type } }));
       }
     }
   }

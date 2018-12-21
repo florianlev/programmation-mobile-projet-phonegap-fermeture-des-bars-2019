@@ -4,7 +4,7 @@
 
   var connexionNode;
   var joueurActuel;
-
+  var audio = new Audio();
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
@@ -14,6 +14,10 @@
     this.vueJeuMultijoueur = new VueJeuMultijoueur();
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
+
+    audio.chanson.once('load', function(){
+      audio.chanson.play();
+    })
 
     console.log(localStorage['pseudo']);
 
@@ -29,7 +33,7 @@
     console.log("HEIGHT" + window.innerHeight);
     this.naviguer();
 
-  
+
   }
   naviguer = function (event) {
     if (!window.location.hash || (window.location.hash.match(/^#menu-principale/))) {
@@ -62,7 +66,7 @@
 
     } else if (window.location.hash.match(/^#jeu/)) {
       joueur = new Joueur();
-      this.jeu = new Jeu(joueur);
+      this.jeu = new Jeu(joueur, audio);
       this.jeu.demarrerJeu();
       //this.vueJeu.afficher();
 

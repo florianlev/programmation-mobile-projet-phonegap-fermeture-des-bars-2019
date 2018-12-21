@@ -31,7 +31,7 @@ function NiveauAlcool(scene, joueur) {
       niveau = 0;
       //Envoie de l'etat enVomissement pour lancer l'annimation
       joueur.setEtatJoueurVomisement();
-      document.body.dispatchEvent(new CustomEvent("collisionavecobjet"));
+      document.body.dispatchEvent(new CustomEvent("collisionavecobjet", { detail: { typeMort:"alcool" } }));
     }
 
     niveauAlcool.animate(niveau / 100);

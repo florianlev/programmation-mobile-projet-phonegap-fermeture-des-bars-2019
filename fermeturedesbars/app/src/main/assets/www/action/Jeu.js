@@ -1,4 +1,4 @@
-var Jeu = function (joueur) {
+var Jeu = function (joueur, audio) {
 
     jeu = this;
     var vueJeu;
@@ -8,7 +8,7 @@ var Jeu = function (joueur) {
     var compteurObstacleCharge;
     var compteurVoitureCharge;
     var partieTerminer;
-
+    
     function initialiser() {
         vueJeu = new VueJeu();
 
@@ -40,10 +40,21 @@ var Jeu = function (joueur) {
         compteurBouteilleVerteChargee = 0;
     }
 
-    function terminerJeu() {
+    function terminerJeu(evenement) {
       if(!partieTerminer)
         vueJeu.stopperJeu(finaliserJeu);
       partieTerminer = true;
+      switch (evenement.detail.typeMort) {
+        case 'alcool':
+          audio.vomi.play();
+          break;
+        case 'voiture':
+          audio.heurterVoiture.play();
+          break;
+        case 'cone':
+          audio.HeurterCone.play();
+          break;
+      }
     }
 
 
