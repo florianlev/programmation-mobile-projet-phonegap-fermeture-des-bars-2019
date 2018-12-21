@@ -17,7 +17,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
       // Ajouter les evenements necessaire ICI pour le jeu
       listeJoueur[indiceListeJoueur].connexion.on('elements_joueur_est_charger', gererJoueurCharger);
-      listeJoueur[indiceListeJoueur].connexion.on('envoyer_positions', gererPositionsJoueur);
+      listeJoueur[indiceListeJoueur].connexion.on('envoyer_positions_et_niveau_alcool', gererPositionsEtNiveauAlcoolJoueur);
     }
 
     timeoutBoucle = setInterval(boucleJeu, vitesse);
@@ -60,20 +60,22 @@ function Partie(idRoom, nomRoom, listeJoueur) {
     }
   }
 
-  function gererPositionsJoueur(donnees) {
+  function gererPositionsEtNiveauAlcoolJoueur(donnees) {
 
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
 
       if (donnees.idJoueur == listeJoueur[indiceListeJoueur].joueur.id) {
         listeJoueur[indiceListeJoueur].joueur.positions.x = donnees.positions.x;
         listeJoueur[indiceListeJoueur].joueur.positions.y = donnees.positions.y;
+        listeJoueur[indiceListeJoueur].joueur.niveauAlcool = donnees.niveauAlcool;
 
         for (indice2ListeJoueur = 0; indice2ListeJoueur < listeJoueur.length; indice2ListeJoueur++) {
-          
+
           if (donnees.idJoueur != listeJoueur[indice2ListeJoueur].joueur.id) {
 
-            listeJoueur[indice2ListeJoueur].connexion.emit('envoyer_positions_adversaire', {
+            listeJoueur[indice2ListeJoueur].connexion.emit('envoyer_positions_adversaire_niveau_alcool', {
               positions: listeJoueur[indiceListeJoueur].joueur.positions,
+              niveauAlcool : listeJoueur[indiceListeJoueur].joueur.niveauAlcool,
               idJoueur: listeJoueur[indiceListeJoueur].joueur.id
             });
           }

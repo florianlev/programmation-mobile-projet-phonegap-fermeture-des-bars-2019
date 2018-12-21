@@ -1,4 +1,4 @@
-function NiveauAlcool(scene, joueur, idJoueur,couleur) {
+function NiveauAlcool(scene, joueur, idJoueur, couleur) {
 
   var niveauAlcool;
   var niveau;
@@ -8,11 +8,11 @@ function NiveauAlcool(scene, joueur, idJoueur,couleur) {
   function initialiser() {
 
     pointsParSecondes = 7;
-    
+
 
   }
 
-  this.afficher = function(){
+  this.afficher = function () {
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
       easing: 'easeInOut',
@@ -20,13 +20,20 @@ function NiveauAlcool(scene, joueur, idJoueur,couleur) {
       color: couleur,
       trailColor: '#eee',
       trailWidth: 45,
-      svgStyle: { width: '100%', height: '100%' }
+      svgStyle: {
+        width: '100%',
+        height: '100%'
+      }
     });
     niveauAlcool.animate(0.5);
   }
 
-  this.getNivauAlcool = function(){
+  this.getNivauAlcool = function () {
     return niveau;
+  }
+  this.setNiveauAlcool = function (nouveauNiveauAlcool) {
+    niveau = nouveauNiveauAlcool;
+    niveauAlcool.animate(niveau / 100);
   }
 
 
@@ -36,7 +43,11 @@ function NiveauAlcool(scene, joueur, idJoueur,couleur) {
       niveau = 0;
       //Envoie de l'etat enVomissement pour lancer l'annimation
       joueur.setEtatJoueurVomisement();
-      document.body.dispatchEvent(new CustomEvent("collisionavecobjet", { detail: { typeMort:"alcool" } }));
+      document.body.dispatchEvent(new CustomEvent("collisionavecobjet", {
+        detail: {
+          typeMort: "alcool"
+        }
+      }));
     }
 
     niveauAlcool.animate(niveau / 100);
@@ -45,6 +56,10 @@ function NiveauAlcool(scene, joueur, idJoueur,couleur) {
   this.modifierNiveauAlcool = function (nouveauNiveauAlcool) {
     niveau = nouveauNiveauAlcool;
     niveauAlcool.animate(niveau / 100);
+  }
+
+  this.getId = function () {
+    return idJoueur;
   }
 
 

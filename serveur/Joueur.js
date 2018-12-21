@@ -8,6 +8,7 @@ function Joueur(id) {
     this.isPret;
     this.nomRoom;
     this.couleur;
+    this.niveauAlcool;
 
     this.positions = {
         x: 0,

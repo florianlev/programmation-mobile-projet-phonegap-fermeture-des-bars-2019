@@ -27,7 +27,7 @@ function ConnexionNode() {
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
         connexion.on('commencer_partie', commencer);
         connexion.on('liste_joueurs_charger', gererDebutPartie);
-        connexion.on('envoyer_positions_adversaire', recevoirPositionAdversaire);
+        connexion.on('envoyer_positions_adversaire_niveau_alcool', recevoirPositionAdversaireEtNiveauAlcool);
 
     }
 
@@ -117,21 +117,25 @@ function ConnexionNode() {
 
     }
 
-    this.envoyerPositions = function (positions) {
-        connexion.emit('envoyer_positions', {
-            positions: positions,
+    this.envoyerPositionsEtNiveauAlcool = function (evenement) {
+        connexion.emit('envoyer_positions_et_niveau_alcool', {
+            positions: evenement.detail.positions,
+            niveauAlcool: evenement.detail.niveauAlcool,
             idJoueur: idJoueurActuel
         });
     }
 
-    function recevoirPositionAdversaire(donnees) {
-        document.body.dispatchEvent(new CustomEvent('transmettrepositionsadversaire', {
+    function recevoirPositionAdversaireEtNiveauAlcool(donnees) {
+        console.log('ID ACTUEL : ' + idJoueurActuel);
+        document.body.dispatchEvent(new CustomEvent('transmettrepositionsadversaireetniveaualcool', {
             detail: {
                 positions: donnees.positions,
+                niveauAlcool : donnees.niveauAlcool,
                 idJoueur: donnees.idJoueur
             }
         }));
     }
+
 
     initialiser();
 

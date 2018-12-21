@@ -16,9 +16,8 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
     document.body.addEventListener("joueurestcharger", envoyerJoueurEstCharger);
     document.body.addEventListener("debuterpartie", debuterPartie);
-    document.body.addEventListener("envoyerpositions", envoyerPositions);
-    document.body.addEventListener("transmettrepositionsadversaire", transmettrePositionsAdversaire);
-
+    document.body.addEventListener("envoyerpositionsetniveaualcool", envoyerPositionsEtNiveauAlcool);
+    document.body.addEventListener("transmettrepositionsadversaireetniveaualcool", transmettrePositionsAdversaireNiveauAlcool);
 
   }
 
@@ -46,13 +45,14 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     vueJeuMultijoueur.debuterPartie(isPartieEnCours);
   }
 
-  function envoyerPositions(evenement){
-    connexionNode.envoyerPositions(evenement.detail.positions);
+  function envoyerPositionsEtNiveauAlcool(evenement){
+    connexionNode.envoyerPositionsEtNiveauAlcool(evenement);
   }
 
-  function transmettrePositionsAdversaire(evenement){
-    vueJeuMultijoueur.transmettrePositionsAdversaire(evenement)
+  function transmettrePositionsAdversaireNiveauAlcool(evenement){
+    vueJeuMultijoueur.transmettrePositionsAdversaireNiveauAlcool(evenement)
   }
+
 
 
 
