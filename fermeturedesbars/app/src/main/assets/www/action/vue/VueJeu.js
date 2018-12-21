@@ -14,7 +14,7 @@ var VueJeu = (function () {
     var hammer;
     var joueur;
     var gestionnaireObjets;
-    var niveauAlcool
+    var niveauAlcool;
     var score;
     var accelerationJeu;
     var vitesseRoute;

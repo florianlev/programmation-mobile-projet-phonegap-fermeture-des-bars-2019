@@ -43,7 +43,6 @@ var VueJeuMultijoueur = (function () {
             console.log(listeJoueur.length);
             for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
                 var joueur = listeJoueur[indiceListeJoueur];
-                console.log(joueur.getId());
                 joueur.setContent(content);
                 joueur.setScene(scene);
                 joueur.afficher();
@@ -52,8 +51,10 @@ var VueJeuMultijoueur = (function () {
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
 
                 if (joueur.getIsJoueurActuel()) {
+                    joueurActuel = joueur;
                     hammer.on('pan', function (evenement) {
                         //if (joueur && !isJeuStopper) {
+                        joueur = joueurActuel;
                         if (joueur) {
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
@@ -81,6 +82,21 @@ var VueJeuMultijoueur = (function () {
         function rafraichirJeu(evenement) {
             route.derouler(vitesseRoute);
             scene.update(evenement);
+            //console.log(joueurActuel.getPositions());
+            document.body.dispatchEvent(new CustomEvent('envoyerpositions', {
+                detail: {
+                    positions: joueurActuel.getPositions()
+                }
+            }));
+
+        }
+
+        this.transmettrePositionsAdversaire = function (donnees) {
+            for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
+                if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur) {
+                    listeJoueur[indiceListeJoueur].setPositions(donnees.detail.positions);
+                }
+            }
         }
 
 

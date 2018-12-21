@@ -16,6 +16,9 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
     document.body.addEventListener("joueurestcharger", envoyerJoueurEstCharger);
     document.body.addEventListener("debuterpartie", debuterPartie);
+    document.body.addEventListener("envoyerpositions", envoyerPositions);
+    document.body.addEventListener("transmettrepositionsadversaire", transmettrePositionsAdversaire);
+
 
   }
 
@@ -41,6 +44,14 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
   function debuterPartie(){
     isPartieEnCours = true;
     vueJeuMultijoueur.debuterPartie(isPartieEnCours);
+  }
+
+  function envoyerPositions(evenement){
+    connexionNode.envoyerPositions(evenement.detail.positions);
+  }
+
+  function transmettrePositionsAdversaire(evenement){
+    vueJeuMultijoueur.transmettrePositionsAdversaire(evenement)
   }
 
 

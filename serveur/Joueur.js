@@ -8,7 +8,12 @@ function Joueur(id) {
     this.isPret;
     this.nomRoom;
 
-    function initialiser(){
+    this.positions = {
+        x: 0,
+        y: 0
+    };
+
+    function initialiser() {
         joueur.id = id;
         joueur.isPret = false;
     }
@@ -17,4 +22,3 @@ function Joueur(id) {
 }
 
 module.exports = Joueur;
-

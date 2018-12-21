@@ -27,6 +27,7 @@ function ConnexionNode() {
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
         connexion.on('commencer_partie', commencer);
         connexion.on('liste_joueurs_charger', gererDebutPartie);
+        connexion.on('envoyer_positions_adversaire', recevoirPositionAdversaire);
 
     }
 
@@ -114,6 +115,22 @@ function ConnexionNode() {
         console.log('gererDebutPartie');
         document.body.dispatchEvent(new CustomEvent("debuterpartie"));
 
+    }
+
+    this.envoyerPositions = function (positions) {
+        connexion.emit('envoyer_positions', {
+            positions: positions,
+            idJoueur: idJoueurActuel
+        });
+    }
+
+    function recevoirPositionAdversaire(donnees) {
+        document.body.dispatchEvent(new CustomEvent('transmettrepositionsadversaire', {
+            detail: {
+                positions: donnees.positions,
+                idJoueur: donnees.idJoueur
+            }
+        }));
     }
 
     initialiser();

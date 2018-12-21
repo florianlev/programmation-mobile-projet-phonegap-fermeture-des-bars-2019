@@ -13,10 +13,11 @@ function Partie(idRoom, nomRoom, listeJoueur) {
   var nombreJoueurCharger = 0;
 
   function initialiser() {
-    
+
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
       // Ajouter les evenements necessaire ICI pour le jeu
       listeJoueur[indiceListeJoueur].connexion.on('elements_joueur_est_charger', gererJoueurCharger);
+      listeJoueur[indiceListeJoueur].connexion.on('envoyer_positions', gererPositionsJoueur);
     }
 
     timeoutBoucle = setInterval(boucleJeu, vitesse);
@@ -29,9 +30,9 @@ function Partie(idRoom, nomRoom, listeJoueur) {
 
     debutInterval = Date.now();
 
-   /*  gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
-    gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
-    gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval); */
+    /*  gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
+     gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
+     gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval); */
 
 
     //Si le nouveau temps est plus grand que l'accelaration souhaiter par rapport au début de l'interval
@@ -56,6 +57,28 @@ function Partie(idRoom, nomRoom, listeJoueur) {
       partieEnCours = true;
       console.log(nomRoom);
       io.to(nomRoom).emit('liste_joueurs_charger', partieEnCours);
+    }
+  }
+
+  function gererPositionsJoueur(donnees) {
+
+    for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
+
+      if (donnees.idJoueur == listeJoueur[indiceListeJoueur].joueur.id) {
+        listeJoueur[indiceListeJoueur].joueur.positions.x = donnees.positions.x;
+        listeJoueur[indiceListeJoueur].joueur.positions.y = donnees.positions.y;
+
+        for (indice2ListeJoueur = 0; indice2ListeJoueur < listeJoueur.length; indice2ListeJoueur++) {
+          
+          if (donnees.idJoueur != listeJoueur[indice2ListeJoueur].joueur.id) {
+
+            listeJoueur[indice2ListeJoueur].connexion.emit('envoyer_positions_adversaire', {
+              positions: listeJoueur[indiceListeJoueur].joueur.positions,
+              idJoueur: listeJoueur[indiceListeJoueur].joueur.id
+            });
+          }
+        }
+      }
     }
   }
 

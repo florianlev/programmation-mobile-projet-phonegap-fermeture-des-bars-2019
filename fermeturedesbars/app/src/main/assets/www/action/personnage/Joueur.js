@@ -158,13 +158,23 @@ function Joueur() {
     }
   }
 
-  this.getPositions = function(){
-    return position = {x : xCourant, y: yCourant};
+  this.setPositions = function(positions){
+    animationCourante.x = positions.x;
+    animationCourante.y = positions.y
+
+  }
+
+
+  this.getPositions = function () {
+    return position = {
+      x: xCourant,
+      y: yCourant
+    };
   }
 
   //Retour de la collision du joueur
   this.getRectangleCollision = function () {
-    if(animationCourante) return animationCourante.getTransformedBounds();
+    if (animationCourante) return animationCourante.getTransformedBounds();
   }
   this.setEtatJoueurMarche = function () {
     this.setEtatJoueur(EtatJoueur.enMarche);
@@ -208,11 +218,11 @@ function Joueur() {
   }
 
 
-  this.setIsJoueurActuel = function(newIsJoueurActuel){
+  this.setIsJoueurActuel = function (newIsJoueurActuel) {
     isJoueurActuel = newIsJoueurActuel;
   }
 
-  this.getIsJoueurActuel = function(){
+  this.getIsJoueurActuel = function () {
     return isJoueurActuel;
   }
   initialiser();
