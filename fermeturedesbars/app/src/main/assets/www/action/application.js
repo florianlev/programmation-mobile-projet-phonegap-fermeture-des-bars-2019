@@ -47,7 +47,8 @@
       connexionNode = new ConnexionNode(afficherNouvellesListeRoom,
         naviguerAttenteMultiJoueurAvecIdRoom,
         creerJoueurMultijoueur,
-        afficherListeJoueur);
+        afficherListeJoueur,
+        afficherJoueurPret);
 
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
@@ -110,10 +111,13 @@
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 
-
   function afficherListeJoueur(listeJoueur){
     
     this.vueAttenteMultijoueur.afficherListeJoueur(listeJoueur)
+  }
+
+  function afficherJoueurPret(joueur){
+    vueAttenteMultijoueur.afficherJoueurPret(joueur);
   }
 
 
