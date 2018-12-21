@@ -23,7 +23,18 @@ var Audio = function()
               volume: 0.3,
               loop: false 
           });
-        
+          heurterVoiture = new Holw({
+              src: ['action/audio/sons/HeurterVoiture.mp3'],
+              volume: 0.3,
+              loop: false
+          });
+          voiture = new Holw({
+            src: ['action/audio/sons/Voiture.mp3'],
+            volume: 0.3,
+            loop: false
+        });
+
+
     }
 
 
