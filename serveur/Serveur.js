@@ -80,6 +80,15 @@ function recevoirJoueurPret(idJoueur){
 }
 
 function joindreRoom(donnees) {
+    listeRoom[donnees.idRoom].nombreJoueurDansRoom++;
+    if(listeRoom[donnees.idRoom].nombreJoueurDansRoom == 1){
+        //On met la couleure verte
+        listeJoueur[donnees.idJoueur].joueur.couleur = "#9CCA30";
+    }
+    else {
+        //On met la couleure orange
+        listeJoueur[donnees.idJoueur].joueur.couleur = "#E0B306";
+    }
     console.log("Le joueur " + listeJoueur[donnees.idJoueur].joueur.pseudo + " a rejoin la room : " + listeRoom[donnees.idRoom].nom);
     if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
         listeJoueur[donnees.idJoueur].joueur.idRoom = donnees.idRoom;

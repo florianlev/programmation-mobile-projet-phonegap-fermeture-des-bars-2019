@@ -4,6 +4,7 @@ function Joueur() {
   var id;
   var idRoom;
   var pseudo;
+  var couleur;
 
   var content;
   var scene;
@@ -215,6 +216,13 @@ function Joueur() {
   }
   this.setPseudo = function (pseudo) {
     this.pseudo = pseudo;
+  }
+
+  this.setCouleur = function(couleur){
+    this.couleur = couleur;
+  }
+  this.getCouleur = function(){
+    return this.couleur;
   }
 
 

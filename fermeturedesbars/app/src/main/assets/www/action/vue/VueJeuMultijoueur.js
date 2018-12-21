@@ -47,7 +47,8 @@ var VueJeuMultijoueur = (function () {
                 joueur.setScene(scene);
                 joueur.afficher();
                 //Chargement niveau alcool
-                niveauAlcool = new NiveauAlcool(scene, joueur);
+                niveauAlcool = new NiveauAlcool(scene, joueur, joueur.id,listeJoueur[indiceListeJoueur].getCouleur());
+                niveauAlcool.afficher();
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
 
                 if (joueur.getIsJoueurActuel()) {
@@ -82,6 +83,8 @@ var VueJeuMultijoueur = (function () {
         function rafraichirJeu(evenement) {
             route.derouler(vitesseRoute);
             scene.update(evenement);
+            niveauAlcool.demarrerDiminution();
+
             //console.log(joueurActuel.getPositions());
             document.body.dispatchEvent(new CustomEvent('envoyerpositions', {
                 detail: {

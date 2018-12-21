@@ -107,9 +107,11 @@
         nouveauJoueur.setId(nouvelleListeJoueur[indiceListeJoueur].id);
         nouveauJoueur.setPseudo(nouvelleListeJoueur[indiceListeJoueur].pseudo);
         nouveauJoueur.setIdRoom(nouvelleListeJoueur[indiceListeJoueur].idRoom);
+        nouveauJoueur.setCouleur(nouvelleListeJoueur[indiceListeJoueur].couleur);
         listeJoueur.push(nouveauJoueur);
       } else {
         joueurActuel.setIsJoueurActuel(true);
+        joueurActuel.setCouleur(nouvelleListeJoueur[indiceListeJoueur].couleur);
         listeJoueur.push(joueurActuel);
 
       }

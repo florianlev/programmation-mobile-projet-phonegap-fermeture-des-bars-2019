@@ -7,6 +7,7 @@ function Joueur(id) {
     this.idRoom;
     this.isPret;
     this.nomRoom;
+    this.couleur;
 
     this.positions = {
         x: 0,

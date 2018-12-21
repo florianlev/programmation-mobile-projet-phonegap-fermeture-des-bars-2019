@@ -1,23 +1,28 @@
-function NiveauAlcool(scene, joueur) {
+function NiveauAlcool(scene, joueur, idJoueur,couleur) {
 
   var niveauAlcool;
   var niveau;
   var pointsParSecondes;
+  var couleur;
 
   function initialiser() {
 
     pointsParSecondes = 7;
+    
+
+  }
+
+  this.afficher = function(){
     niveauAlcool = new ProgressBar.Line('#bar', {
       strokeWidth: 2,
       easing: 'easeInOut',
       duration: 10,
-      color: '#0077CC',
+      color: couleur,
       trailColor: '#eee',
       trailWidth: 45,
       svgStyle: { width: '100%', height: '100%' }
     });
     niveauAlcool.animate(0.5);
-
   }
 
   this.getNivauAlcool = function(){
@@ -41,6 +46,8 @@ function NiveauAlcool(scene, joueur) {
     niveau = nouveauNiveauAlcool;
     niveauAlcool.animate(niveau / 100);
   }
+
+
 
   initialiser();
 }
