@@ -98,7 +98,7 @@ var VueJeuMultijoueur = (function () {
             scene.update(evenement);
             positionJoueur = joueurActuel.getPositions()
             niveauAlcoolJoueurActuel.demarrerDiminution();
-            gestionnaireObjets.deplacerLesObjets();
+            gestionnaireObjets.deplacerLesObjets(vitesseRoute);
 
             positions = {'x':positionJoueur.x/content.offsetWidth,'y':positionJoueur.y/content.offsetHeight};
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
