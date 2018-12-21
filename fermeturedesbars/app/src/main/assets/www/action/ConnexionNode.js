@@ -1,8 +1,9 @@
-function ConnexionNode(afficherNouvellesListeRoom, 
+function ConnexionNode(afficherNouvellesListeRoom,
                         transmettreIdRoom,
                         creerJoueur,
                         afficherListeJoueur,
-                        afficherJoueurPret) {
+                        afficherJoueurPret,
+                        commencerMultijoueur) {
 
     var connexion;
     var idJoueurActuel;
@@ -14,7 +15,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
     }
 
     this.initierConnexion = function (){
-        
+
         connexion.on('connect', etablirConnexion);
 
         connexion.on('envoyerIdJoueur', function(idJoueur){
@@ -28,12 +29,15 @@ function ConnexionNode(afficherNouvellesListeRoom,
         });
         connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
+        connexion.on('commencer_partie', commmencer);
     }
-
+    function commencer(listeJoueurJson){
+      commencerMultijoueur(JSON.parse(listeJoueurJson));
+    }
     function etablirConnexion(event){
         console.log('etablirConnexion()');
     }
-    
+
     function recevoirJoueur(joueur){
         joueurActuel = joueur;
         creerJoueur(joueur);

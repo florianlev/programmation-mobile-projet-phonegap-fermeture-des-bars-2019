@@ -4,7 +4,7 @@
 
   var connexionNode;
   var joueurActuel;
-  
+
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
@@ -48,7 +48,8 @@
         naviguerAttenteMultiJoueurAvecIdRoom,
         creerJoueurMultijoueur,
         afficherListeJoueur,
-        afficherJoueurPret);
+        afficherJoueurPret,
+        commencerMultijoueur);
 
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
@@ -81,7 +82,7 @@
 
     } else if (window.location.hash.match(/^#statistique/)) {
       this.vueStatistique.afficher();
-      
+
     } else if (window.location.hash.match(/^#quitter/)) {
 
     }
@@ -97,7 +98,9 @@
   function envoyerJoueurPret(evenement){
     connexionNode.envoyerJoueurPret();
   }
+  function commencerMultijoueur(listeJoueur){
 
+  }
   function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
@@ -112,7 +115,7 @@
   }
 
   function afficherListeJoueur(listeJoueur){
-    
+
     this.vueAttenteMultijoueur.afficherListeJoueur(listeJoueur)
   }
 
