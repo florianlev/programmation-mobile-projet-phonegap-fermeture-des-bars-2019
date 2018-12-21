@@ -15,6 +15,9 @@
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
 
+    document.addEventListener("transmetre_id_room", naviguerAttenteMultiJoueurAvecIdRoom);
+    document.addEventListener("cree_joueur", creerJoueurMultijoueur);
+    document.addEventListener("commencer_multijoueur", commencerMultijoueur);
     /*audio.chanson.onload = function(){
       audio.chanson.play();
     };*/
@@ -43,12 +46,7 @@
     } else if (window.location.hash.match(/^#choix-room/)) {
 
 
-      connexionNode = new ConnexionNode(afficherNouvellesListeRoom,
-        naviguerAttenteMultiJoueurAvecIdRoom,
-        creerJoueurMultijoueur,
-        afficherListeJoueur,
-        afficherJoueurPret,
-        commencerMultijoueur);
+      connexionNode = new ConnexionNode();
 
       this.vueChoixRoom = new VueChoixRoom(envoyerCreationRoom);
       connexionNode.initierConnexion();
@@ -87,7 +85,8 @@
     }
   }
 
-  function creerJoueurMultijoueur(nouveauJoueur) {
+  function creerJoueurMultijoueur(evenement) {
+    nouveauJoueur = evenement.detail.joueur;
     console.log('creerJoueurMulti');
     joueurActuel = new Joueur();
     joueurActuel.setId(nouveauJoueur.id);
@@ -98,8 +97,8 @@
     connexionNode.envoyerJoueurPret();
   }
 
-  function commencerMultijoueur(nouvelleListeJoueur) {
-
+  function commencerMultijoueur(evenement) {
+    nouvelleListeJoueur = evenement.detail.listeJoueur;
     var listeJoueur = [];
     for (indiceListeJoueur = 0; indiceListeJoueur < nouvelleListeJoueur.length; indiceListeJoueur++) {
       if (nouvelleListeJoueur[indiceListeJoueur].id != joueurActuel.id) {
@@ -120,23 +119,24 @@
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
 
-  function afficherNouvellesListeRoom(listeRoom) {
+  /*function afficherNouvellesListeRoom(listeRoom) {
     this.vueChoixRoom.afficherListeRoom(listeRoom)
-  }
+  }*/
 
-  function naviguerAttenteMultiJoueurAvecIdRoom(idRoom) {
+  function naviguerAttenteMultiJoueurAvecIdRoom(evenement) {
+    idRoom = evenement.detail.idRoom;
     joueurActuel.setIdRoom(idRoom);
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 
-  function afficherListeJoueur(listeJoueur) {
+  /*function afficherListeJoueur(listeJoueur) {
 
     this.vueAttenteMultijoueur.afficherListeJoueur(listeJoueur)
-  }
+  }*/
 
-  function afficherJoueurPret(joueur) {
+  /*function afficherJoueurPret(joueur) {
     vueAttenteMultijoueur.afficherJoueurPret(joueur);
-  }
+  }*/
 
 
   initialiser();

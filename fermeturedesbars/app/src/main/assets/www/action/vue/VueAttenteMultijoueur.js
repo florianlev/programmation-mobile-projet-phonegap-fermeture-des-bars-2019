@@ -10,9 +10,12 @@ var VueAttenteMultijoueur = (function () {
       //var formulaireAttenteMulti = document.getElementById('formAttenteMulti');
 
       document.getElementById('btn-envoi-pret').addEventListener('click', envoyerJoueurPret);
+      document.body.addEventListener('afficherListe_liste_joueur', this.afficherListeJoueur);
+      ocument.body.addEventListener('afficher_joueur_pret', this.afficherJoueurPret);
     }
 
-    this.afficherListeJoueur = function (listeJoueur) {
+    this.afficherListeJoueur = function (evenement) {
+      listeJoueur = evenement.detail.listeJoueurRoom;
       document.getElementById('pseudo').innerHTML = "";
 
       for (i = 0; i < listeJoueur.length; i++) {
@@ -20,8 +23,8 @@ var VueAttenteMultijoueur = (function () {
       }
     }
 
-    this.afficherJoueurPret = function(joueur){
-      document.getElementById(joueur.id).innerHTML += "<p>Prêt !!</p>"
+    this.afficherJoueurPret = function(evenement){
+      document.getElementById(evenement.detail.joueur).innerHTML += "<p>Prêt !!</p>"
     }
   }
 

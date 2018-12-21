@@ -1,9 +1,4 @@
-function ConnexionNode(afficherNouvellesListeRoom,
-    transmettreIdRoom,
-    creerJoueur,
-    afficherListeJoueur,
-    afficherJoueurPret,
-    commencerMultijoueur) {
+function ConnexionNode() {
 
     var connexion;
     var idJoueurActuel;
@@ -27,18 +22,21 @@ function ConnexionNode(afficherNouvellesListeRoom,
         });
         connexion.on('envoyer_joueur', recevoirJoueur);
         connexion.on('nouvelleListeRoom', recevoirNouvellesListeRoom);
-        connexion.on('envoyer_idRoom', function (idRoom) {
-            transmettreIdRoom(idRoom);
-        });
+        connexion.on('envoyer_idRoom', transmettreIdRoom);
         connexion.on('envoie_listeJoueur_room', recevoirListeJoueurRoom);
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
         connexion.on('commencer_partie', commencer);
         connexion.on('liste_joueurs_charger', gererDebutPartie);
 
     }
-
+    function afficherJoueurPret(joueur){
+      document.body.dispatchEvent(new CustomEvent('afficher_joueur_pret', { detail : {joueur:joueur } }));
+    }
+    function transmettreIdRoom(idRoom){
+      document.body.dispatchEvent(new CustomEvent('transmetre_id_room', { detail : {idRoom:idRoom } }));
+    }
     function commencer(listeJoueurJson) {
-        commencerMultijoueur(JSON.parse(listeJoueurJson));
+      document.body.dispatchEvent(new CustomEvent('commencer_multijoueur', { detail : {listeJoueur:JSON.parse(listeJoueurJson) } }));
     }
 
     function etablirConnexion(event) {
@@ -47,7 +45,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
 
     function recevoirJoueur(joueur) {
         joueurActuel = joueur;
-        creerJoueur(joueur);
+        document.body.dispatchEvent(new CustomEvent('cree_joueur', { detail : {joueur:joueur } }));
     }
 
     this.creerUneRoom = function (nom) {
@@ -60,7 +58,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
 
     function recevoirNouvellesListeRoom(listeRoom) {
         listeRoom = JSON.parse(listeRoom);
-        afficherNouvellesListeRoom(listeRoom);
+        document.body.dispatchEvent(new CustomEvent('recevoir_nouvelle_liste_room', { detail : {listeRoom:listeRoom } }));
     }
 
     this.rejoindreUneRoom = function (idRoom) {
@@ -73,7 +71,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
     function recevoirListeJoueurRoom(listeJoueurRoomJSON) {
         console.log("recevoirListeJoueurRoom");
         listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
-        afficherListeJoueur(listeJoueurRoom);
+        document.body.dispatchEvent(new CustomEvent('afficherListe_liste_joueur', { detail : {listeJoueurRoom:listeJoueurRoom } }));
     }
 
     this.envoyerJoueurPret = function () {
