@@ -69,7 +69,8 @@ function recevoirJoueurPret(idJoueur){
     if(listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret >= 2){
         //Initialisation controleur jeu sur serveur
         console.log("LA PARTIE COMMENCE !");
-        io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('commencer_partie', listeJoueurDansRoom);
+        listeJoueurDansRoomJSON = JSON.stringify(listeJoueurDansRoom);
+        io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('commencer_partie', listeJoueurDansRoomJSON);
 
     }
 }
