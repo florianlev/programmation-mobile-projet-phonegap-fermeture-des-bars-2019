@@ -102,6 +102,7 @@
     nouvelleListeJoueur = evenement.detail.listeJoueur;
     var listeJoueur = [];
     for (indiceListeJoueur = 0; indiceListeJoueur < nouvelleListeJoueur.length; indiceListeJoueur++) {
+
       if (nouvelleListeJoueur[indiceListeJoueur].id != joueurActuel.id) {
         nouveauJoueur = new Joueur();
         nouveauJoueur.setId = nouvelleListeJoueur[indiceListeJoueur].id;
@@ -109,9 +110,11 @@
         nouveauJoueur.setIdRoom = nouvelleListeJoueur[indiceListeJoueur].idRoom;
         listeJoueur.push(nouveauJoueur);
       } else {
-        joueurActuel.setIsJoueurActuel = true;
+        joueurActuel.setIsJoueurActuel(true);
         listeJoueur.push(joueurActuel);
+
       }
+
     }
     this.jeuMultijoueur = new JeuMultijoueur(listeJoueur, connexionNode,joueurActuel);
     this.jeuMultijoueur.demarrerJeu();

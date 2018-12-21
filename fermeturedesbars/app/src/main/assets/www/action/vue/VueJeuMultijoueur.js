@@ -45,10 +45,13 @@ var VueJeuMultijoueur = (function () {
                 joueur.setContent(content);
                 joueur.setScene(scene);
                 joueur.afficher();
-
+                console.log(joueur.getIsJoueurActuel());
                 if (joueur.getIsJoueurActuel()) {
                     hammer.on('pan', function (evenement) {
-                        if (joueur && !isJeuStopper) {
+                        //if (joueur && !isJeuStopper) {
+                        console.log(joueur);
+                        if (joueur) {
+                            console.log('teest');
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
                     });
@@ -56,7 +59,7 @@ var VueJeuMultijoueur = (function () {
                 }
 
                 //Chargement niveau alcool
-                niveauAlcool = new NiveauAlcool(scene, joueur); 
+                niveauAlcool = new NiveauAlcool(scene, joueur);
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
 
                 //Envoyer evenement au serveur pour demarrer le jeu

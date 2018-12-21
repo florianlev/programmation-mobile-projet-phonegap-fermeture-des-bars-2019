@@ -158,6 +158,10 @@ function Joueur() {
     }
   }
 
+  this.getPositions = function(){
+    return position = {x : xCourant, y: yCourant};
+  }
+
   //Retour de la collision du joueur
   this.getRectangleCollision = function () {
     if(animationCourante) return animationCourante.getTransformedBounds();
@@ -204,8 +208,8 @@ function Joueur() {
   }
 
 
-  this.setIsJoueurActuel = function(isJoueurActuel){
-    this.isJoueurActuel = isJoueurActuel
+  this.setIsJoueurActuel = function(newIsJoueurActuel){
+    isJoueurActuel = newIsJoueurActuel;
   }
 
   this.getIsJoueurActuel = function(){
