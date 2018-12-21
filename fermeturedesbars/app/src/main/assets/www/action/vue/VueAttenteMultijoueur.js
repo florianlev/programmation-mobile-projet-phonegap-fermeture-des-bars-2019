@@ -24,7 +24,7 @@ var VueAttenteMultijoueur = (function () {
     }
 
     this.afficherJoueurPret = function(evenement){
-      document.getElementById(evenement.detail.joueur).innerHTML += "<p>Prêt !!</p>"
+      document.getElementById(evenement.detail.joueur.id).innerHTML += "<p>Prêt !!</p>"
     }
   }
 
