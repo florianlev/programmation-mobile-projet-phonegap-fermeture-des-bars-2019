@@ -7,7 +7,9 @@ var VueAttenteMultijoueur = (function () {
     this.afficher = function () {
       document.getElementsByTagName("body")[0].innerHTML = contenuPage;
       document.getElementById('pseudo').innerHTML = "";
-      formulaireRoom.addEventListener('submit', envoyerJoueurPret);
+      //var formulaireAttenteMulti = document.getElementById('formAttenteMulti');
+
+      document.getElementById('btn-envoi-pret').addEventListener('click', envoyerJoueurPret);
 
     }
 
@@ -15,11 +17,13 @@ var VueAttenteMultijoueur = (function () {
       document.getElementById('pseudo').innerHTML = "";
 
       for (i = 0; i < listeJoueur.length; i++) {
-        document.getElementById('pseudo').innerHTML += "<div><p>Joueur " + (i + 1) + " : " + listeJoueur[i].pseudo + "</p></div>";
+        document.getElementById('pseudo').innerHTML += "<div id='"+listeJoueur[i].id+"'><p>Joueur " + (i + 1) + " : " + listeJoueur[i].pseudo + "</p></div>";
       }
     }
 
-
+    this.afficherJoueurPret = function(joueur){
+      document.getElementById(joueur.id).innerHTML += "<p>Prêt !!</p>"
+    }
   }
 
 

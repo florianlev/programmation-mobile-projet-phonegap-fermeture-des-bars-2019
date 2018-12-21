@@ -46,7 +46,7 @@ function gererConnexion(nouvelleConnexion) {
     nouvelleConnexion.on("joindre_room", joindreRoom);
     nouvelleConnexion.on('creer_room', creerRoom);
     nouvelleConnexion.on('envoyer_pseudo', recevoirPseudoJoueur);
-    nouvelleConnexion.on('envoyer_joueur_pret', recevoirJoueurPret);
+    nouvelleConnexion.on('envoyer_joueur_pret_serveur', recevoirJoueurPret);
 }
 
 function recevoirPseudoJoueur(donnees) {
@@ -59,13 +59,14 @@ function recevoirPseudoJoueur(donnees) {
 function recevoirJoueurPret(idJoueur){
     listeJoueur[idJoueur].joueur.isPret = true;
 
-    io.to(listeRoom[donnees.idRoom].nom).emit('envoie_listeJoueur_room', listeJoueurActifRoomJson);
+    io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('envoyer_joueur_pret_client', listeJoueur[idJoueur].joueur);
 }
 
 function joindreRoom(donnees) {
     console.log("Le joueur " + listeJoueur[donnees.idJoueur].joueur.pseudo + " a rejoin la room : " + listeRoom[donnees.idRoom].nom);
     if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
         listeJoueur[donnees.idJoueur].joueur.idRoom = donnees.idRoom;
+        listeJoueur[donnees.idJoueur].joueur.nomRoom = listeRoom[donnees.idRoom].nom;
         //listeJoueur[donnees.idJoueur].connexion.emit('envoyer_id_room', donnees.idRoom);
         listeJoueur[donnees.idJoueur].connexion.join(listeRoom[donnees.idRoom].nom);
         listeRoom[donnees.idRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);

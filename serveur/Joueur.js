@@ -6,6 +6,7 @@ function Joueur(id) {
     this.pseudo;
     this.idRoom;
     this.isPret;
+    this.nomRoom;
 
     function initialiser(){
         joueur.id = id;
