@@ -15,7 +15,7 @@ function Partie(idRoom, joueur1, joueur2, eventServeur) {
   }
 
   function boucleJeu(){
-    
+
     debutInterval = Date.now();
   }
   gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
@@ -32,14 +32,6 @@ function Partie(idRoom, joueur1, joueur2, eventServeur) {
 
   //Appliquer les déplacements
   gestionnaireObjets.deplacerLesObjets(vitesseRoute);
-  gestionnaireObjets.testerCollision();
-  niveauAlcool.demarrerDiminution();
-
-  route.derouler(vitesseRoute);
-  scene.update(evenement);
-  if (isJeuStopper) {
-    joueur.monterEnY(vitesseRoute);
-  }
   }
   function gererBouteilleSortieEcran(idBouteille){
     position = gestionnaireObjets.repositionnerBouteille(idBouteille);
