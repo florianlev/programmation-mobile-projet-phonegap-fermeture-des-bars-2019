@@ -60,7 +60,9 @@ function Joueur() {
 
     if(isJoueurActuel)scene.addChild(fantome);
   }
-
+  this.isJoueurMort = function(){
+    return partieTerminer;
+  }
   function terminerChargement() {
 
     //Création de la spriteSheet

@@ -105,7 +105,10 @@ var VueJeuMultijoueur = (function () {
                     niveauAlcool: niveauAlcoolJoueurActuel.getNivauAlcool()
                 }
             }));
-
+            for(iJoueur = 0; iJoueur < listeJoueur.length; iJoueur++){
+              if(listeJoueur[iJoueur].isJoueurMort())
+                listeJoueur[iJoueur].monterEnY(vitesseRoute);
+            }
             var nouvelInterval = Date.now();
             //SI au premier instant du jeu on initialise le debut de l'interval a quelque chose
             if (!debutInterval) {
@@ -116,6 +119,7 @@ var VueJeuMultijoueur = (function () {
 
               debutInterval = nouvelInterval;
             }
+
         }
 
         this.transmettrePositionsAdversaireNiveauAlcool = function (donnees) {
