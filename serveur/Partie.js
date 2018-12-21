@@ -1,4 +1,5 @@
-function Partie(idRoom, joueur1, joueur2, eventServeur) {
+function Partie(idRoom, listeJoueur) {
+
   GestionnaireObjets = require('./objets/GestionnaireObjets.js');
   this.idRoom = idRoom;
   var timeoutBoucle;
@@ -7,8 +8,10 @@ function Partie(idRoom, joueur1, joueur2, eventServeur) {
   var vitesse = 1000 / 60;
   var gestionnaireObjets = new GestionnaireObjets(emiter);
   var debutInterval = 0;
+  var partieTerminer = false;
 
   function initialiser() {
+
     timeoutBoucle = setInterval(boucleJeu, vitesse);
     emiter.on('bouteillesortieecran', gererBouteilleSortieEcran);
     emiter.on('obstaclesortieecran', gererObstacleSortieEcran);

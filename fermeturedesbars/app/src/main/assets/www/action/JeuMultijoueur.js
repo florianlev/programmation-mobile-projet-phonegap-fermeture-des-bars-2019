@@ -1,7 +1,26 @@
 var JeuMultijoueur = function (listeJoueur, connexionNode) {
+
   var vueJeuMultijoueur;
-  function initialiser(){
+  var partieTerminer;
+
+  function initialiser() {
+
     vueJeuMultijoueur = new VueJeuMultijoueur();
+
+    document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
   }
+
+  function chargerJoueurEtObjet(){
+    vueJeuMultijoueur.chargerJoueurEtObjet(joueur);
+
+  }
+
+
+  this.demarrerJeu = function(){
+    partieTerminer = false;
+
+  }
+
+
   initialiser();
 }

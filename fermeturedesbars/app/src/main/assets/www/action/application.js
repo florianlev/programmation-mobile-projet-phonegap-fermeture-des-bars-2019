@@ -21,9 +21,7 @@
     window.location.hash = '#menu-principale';
     if (!localStorage['pseudo']) {
       window.location.hash = '#choisir-pseudo';
-    }
-
-    else {
+    } else {
       this.naviguer();
     }
 
@@ -88,19 +86,34 @@
     }
   }
 
-  function creerJoueurMultijoueur(nouveauJoueur){
+  function creerJoueurMultijoueur(nouveauJoueur) {
     console.log('creerJoueurMulti');
     joueurActuel = new Joueur();
     joueurActuel.setId(nouveauJoueur.id);
     joueurActuel.setPseudo(nouveauJoueur.pseudo);
   }
 
-  function envoyerJoueurPret(evenement){
+  function envoyerJoueurPret(evenement) {
     connexionNode.envoyerJoueurPret();
   }
-  function commencerMultijoueur(listeJoueur){
 
+  function commencerMultijoueur(nouvelleListeJoueur) {
+
+    var listeJoueur = [];
+    for (indiceListeJoueur = 0; indiceListeJoueur < nouvelleListeJoueur.length; indiceListeJoueur++) {
+      if (nouvelleListeJoueur[indiceListeJoueur].id != joueurActuel.id) {
+        nouveauJoueur = new Joueur();
+        nouveauJoueur.setId = nouvelleListeJoueur[indiceListeJoueur].id;
+        nouveauJoueur.setPseudo = nouvelleListeJoueur[indiceListeJoueur].pseudo;
+        nouveauJoueur.setIdRoom = nouvelleListeJoueur[indiceListeJoueur].idRoom;
+        listeJoueur.push(nouveauJoueur);
+      } else {
+        listeJoueur.push(joueurActuel);
+      }
+    }
+    this.jeuMultijoueur = new JeuMultijoueur(listeJoueur, connexionNode);
   }
+
   function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
   }
@@ -114,12 +127,12 @@
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 
-  function afficherListeJoueur(listeJoueur){
+  function afficherListeJoueur(listeJoueur) {
 
     this.vueAttenteMultijoueur.afficherListeJoueur(listeJoueur)
   }
 
-  function afficherJoueurPret(joueur){
+  function afficherJoueurPret(joueur) {
     vueAttenteMultijoueur.afficherJoueurPret(joueur);
   }
 
