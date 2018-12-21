@@ -3,11 +3,11 @@ function Partie(idRoom, nomRoom, listeJoueur) {
   GestionnaireObjets = require('./objets/GestionnaireObjets.js');
   this.idRoom = idRoom;
   this.nomRoom = nomRoom;
+  var gestionnaireObjets;
   var timeoutBoucle;
   var event = require('events');
   var emiter = new event.EventEmitter();
   var vitesse = 1000 / 60;
-  var gestionnaireObjets = new GestionnaireObjets(emiter);
   var debutInterval = 0;
   var partieEnCours = false;
   var nombreJoueurCharger = 0;
@@ -24,15 +24,21 @@ function Partie(idRoom, nomRoom, listeJoueur) {
     emiter.on('bouteillesortieecran', gererBouteilleSortieEcran);
     emiter.on('obstaclesortieecran', gererObstacleSortieEcran);
     emiter.on('voituresortieecran', gererVoitureSortiEcran);
+
+    //gestionnaireObjets = new GestionnaireObjets(event);
+
+    //setInterval(boucleJeu, 1000 / 60);
   }
 
-  function boucleJeu() {
+
+  //Calcul position des objets et des bouteilles
+  /* function boucleJeu() {
 
     debutInterval = Date.now();
 
-    /*  gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
+     gestionnaireObjets.repositionnerObjets(Bouteille, nouvelInterval);
      gestionnaireObjets.repositionnerObjets(Obstacle, nouvelInterval);
-     gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval); */
+     gestionnaireObjets.repositionnerObjets(Voiture, nouvelInterval);
 
 
     //Si le nouveau temps est plus grand que l'accelaration souhaiter par rapport au début de l'interval
@@ -44,7 +50,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
 
     //Appliquer les déplacements
     //gestionnaireObjets.deplacerLesObjets(vitesseRoute);
-  }
+  } */
 
 
   function gererJoueurCharger(idJoueur) {
