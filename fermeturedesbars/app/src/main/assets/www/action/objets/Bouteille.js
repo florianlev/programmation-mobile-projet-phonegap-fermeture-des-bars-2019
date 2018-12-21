@@ -39,8 +39,10 @@ var Bouteille = function (scene, content, idBouteille) {
   }
 
   this.afficher = function () {
+    bitmapBouteille.x = -200;
     scene.addChild(bitmapBouteille);
-    bouteille.repositionnerBouteille();
+    console.log('afficherBouteille')
+    //bouteille.repositionnerBouteille();
     estCharger = true;
 
   }
@@ -65,6 +67,7 @@ var Bouteille = function (scene, content, idBouteille) {
   }
 
   this.repositionnerBouteille = function () {
+    console.log('repositionnerBouteille');
     limiteXDoite = content.offsetWidth * 0.7;
     limiteXGauche = content.offsetWidth * 0.2;
     bitmapBouteille.y = content.offsetHeight + 50 + getNombreHazard(0,800);

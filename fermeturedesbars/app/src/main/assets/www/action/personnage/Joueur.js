@@ -157,7 +157,7 @@ function Joueur() {
 
   //Retour de la collision du joueur
   this.getRectangleCollision = function () {
-    return animationCourante.getTransformedBounds();
+    if(animationCourante) return animationCourante.getTransformedBounds();
   }
   this.setEtatJoueurMarche = function () {
     this.setEtatJoueur(EtatJoueur.enMarche);

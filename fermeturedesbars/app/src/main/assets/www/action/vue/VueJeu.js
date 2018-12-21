@@ -21,8 +21,6 @@ var VueJeu = (function () {
     var etatCourantJoueur;
     var boucleJeuRepeteur;
     var debutInterval;
-    var delaiNouvelleBouteille;
-    var debutIntervalBouteille;
     var isJeuStopper;
 
     function initialiser() {
@@ -55,8 +53,6 @@ var VueJeu = (function () {
 
 
       debutInterval = 0;
-      delaiNouvelleBouteille = [];
-      debutIntervalBouteille = [];
     }
 
     //Boucle de jeu
@@ -160,8 +156,6 @@ var VueJeu = (function () {
           etatCourantJoueur = null;
           boucleJeuRepeteur = null;
           debutInterval = null;
-          delaiNouvelleBouteille = null;
-          debutIntervalBouteille = null;
           finaliserJeu();
 
         }, 2000);

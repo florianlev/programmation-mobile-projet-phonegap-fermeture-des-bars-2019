@@ -75,8 +75,9 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
   //Verification de la collision avec le joueur et la voiture
   function testerCollisionObjet(objet) {
     rectangleCollision = objet.getRectangleCollision();
-    if (rectangleCollision) {
-      if (joueur.getRectangleCollision().intersects(objet.getRectangleCollision(rectangleCollision))) {
+    collisionJoueur = joueur.getRectangleCollision();
+    if (rectangleCollision && collisionJoueur) {
+      if (collisionJoueur.intersects(objet.getRectangleCollision(rectangleCollision))) {
         //console.log("COLLISIONNEMENT ! ");
         joueur.setEtatJoueurEcraser();
         document.body.dispatchEvent(new CustomEvent("collisionavecobjet"));
