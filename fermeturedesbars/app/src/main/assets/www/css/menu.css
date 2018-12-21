@@ -74,10 +74,15 @@
   top:450px;
 }
 .statistique{
-  top:500px;
+  position: fixed;
+bottom: 50px;
+
 }
 .quitterStatistique{
-  top:600px;
+  position: fixed;
+bottom: 0;
+
+
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
