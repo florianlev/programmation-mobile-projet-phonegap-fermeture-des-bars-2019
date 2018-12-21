@@ -10,7 +10,6 @@ var VueAttenteMultijoueur = (function () {
       //var formulaireAttenteMulti = document.getElementById('formAttenteMulti');
 
       document.getElementById('btn-envoi-pret').addEventListener('click', envoyerJoueurPret);
-
     }
 
     this.afficherListeJoueur = function (listeJoueur) {

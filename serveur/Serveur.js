@@ -60,6 +60,18 @@ function recevoirJoueurPret(idJoueur){
     listeJoueur[idJoueur].joueur.isPret = true;
 
     io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('envoyer_joueur_pret_client', listeJoueur[idJoueur].joueur);
+    listeJoueurDansRoom = listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur();
+    for(indiceListeJoueur =0; indiceListeJoueur < listeJoueurDansRoom.length; indiceListeJoueur++){
+        if(listeJoueurDansRoom[indiceListeJoueur].isPret){
+            listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret++;
+        }
+    }
+
+    if(listeRoom[listeJoueur[idJoueur].joueur.idRoom].nombreJoueurPret >= 2){
+
+        //Initialisation controleur jeu sur serveur
+        console.log("LA PARTIE COMMENCE !");;
+    }
 }
 
 function joindreRoom(donnees) {
@@ -103,4 +115,6 @@ function gererBouteilleSortieEcran(idBouteille){
   function gererVoitureSortiEcran(idVoiture){
     position = gestionnaireObjets.repositionnerVoiture(idVoiture);
   }
+
+
 initialiser();

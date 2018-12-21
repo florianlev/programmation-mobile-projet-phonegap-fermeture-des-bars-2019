@@ -6,11 +6,14 @@ function Room(id,nom) {
 
     this.nom;
     this.id;
+    this.nombreJoueurPret;
 
 
     function initialiser() {
         room.nom = nom;
         room.id = id;
+
+        room.nombreJoueurPret = 0;
     }
 
     this.setJoueurDansListeRoom = function(joueur){
