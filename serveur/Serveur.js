@@ -57,8 +57,9 @@ function recevoirPseudoJoueur(donnees) {
 
 function recevoirJoueurPret(idJoueur){
     listeJoueur[idJoueur].joueur.isPret = true;
+    var nomRoom = listeJoueur[idJoueur].joueur.nomRoom;
+    io.to(nomRoom).emit('envoyer_joueur_pret_client', listeJoueur[idJoueur].joueur);
 
-    io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('envoyer_joueur_pret_client', listeJoueur[idJoueur].joueur);
     listeJoueurDansRoom = listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur();
     for(indiceListeJoueur =0; indiceListeJoueur < listeJoueurDansRoom.length; indiceListeJoueur++){
         if(listeJoueurDansRoom[indiceListeJoueur].isPret){
@@ -70,8 +71,8 @@ function recevoirJoueurPret(idJoueur){
         //Initialisation controleur jeu sur serveur
         console.log("LA PARTIE COMMENCE !");
         listeJoueurDansRoomJSON = JSON.stringify(listeJoueurDansRoom);
-        io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('commencer_partie', listeJoueurDansRoomJSON);
-        partie = new Partie(donnees.idRoom, listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur());
+        io.to(nomRoom).emit('commencer_partie', listeJoueurDansRoomJSON);
+        partie = new Partie(donnees.idRoom,nomRoom, listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur());
 
 
     }

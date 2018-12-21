@@ -9,11 +9,13 @@ var VueJeuMultijoueur = (function () {
         var scene;
         var route;
         var hammer;
-        var joueurActuel; 
+        var joueurActuel;
+        var isPartieEnCours;
         var isJeuStopper;
 
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
+            isPartieEnCours = false;
 
         }
 
@@ -36,41 +38,44 @@ var VueJeuMultijoueur = (function () {
             route = new Route(scene, content, canvas);
         }
 
-        this.chargerJoueurEtObjet = function(){
+        this.chargerJoueurEtObjet = function () {
 
-            for(indiceListeJoueur = 0; indiceListeJoueur<listeJoueur.length; indiceListeJoueur++){
+            for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
                 var joueur = listeJoueur[indiceListeJoueur];
                 joueur.setContent(content);
                 joueur.setScene(scene);
                 joueur.afficher();
 
-                if(joueur.getIsJoueurActuel()){
-                    hammer.on('pan', function(evenement){
-                        if(joueur && !isJeuStopper){
+                if (joueur.getIsJoueurActuel()) {
+                    hammer.on('pan', function (evenement) {
+                        if (joueur && !isJeuStopper) {
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
                     });
-                
+
                 }
                 niveauAlcool = new NiveauAlcool(scene, joueur); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
                 gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
-                
+
                 //Envoyer evenement au serveur pour demarrer le jeu
-                    createjs.Ticker.addEventListener("tick", rafraichirJeu);
+                document.body.dispatchEvent(new CustomEvent("joueurestcharger"));
 
             }
         }
 
+        this.debuterPartie = function(isPartieEnCours){
+            this.isPartieEnCours = isPartieEnCours;
+            createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
+        }
 
+        this.setNiveauAlcool = function (nouveauNiveauAlcool) {
+            niveauAlcool.modifierNiveauAlcool(nouveauNiveauAlcool);
+            createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
-        function deplacerJoueur(evenement) {
-            if (joueur && !isJeuStopper) {
-              joueur.setPosition(evenement.center.x, evenement.center.y);
-      
-            }
-          }
+        }
+
 
         function arrangerCanvas() {
             console.log("vueJeuArrangerCanvas");

@@ -1,8 +1,10 @@
 var JeuMultijoueur = function (listeJoueur, connexionNode) {
 
   var vueJeuMultijoueur;
-  var partieTerminer;
+  var isPartieEnCours = false;
   var joueurActuel;
+  var niveauAlcool;
+
 
   function initialiser() {
 
@@ -11,17 +13,22 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
     document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
     document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
     document.body.addEventListener("joueurestcharger", envoyerJoueurEstCharger);
+    document.body.addEventListener("debuterPartie", debuterPartie);
+
 
 
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
       if (listeJoueur[indiceListeJoueur].getIsJoueurActuel()) joueurActuel = listeJoueur[indiceListeJoueur];
     }
-    
   }
 
   function chargerJoueurEtObjet() {
     vueJeuMultijoueur.chargerJoueurEtObjet(joueur);
-
+  }
+  
+  this.demarrerJeu = function () {
+    vueJeuMultijoueur.afficher();
+    niveauAlcool = 100;
   }
 
   function gererNiveauAlcoolCharger(evenement) {
@@ -34,11 +41,12 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
     connexionNode.envoyerJoueurEstCharger(joueurActuel.id);
   }
 
-
-  this.demarrerJeu = function () {
-    partieTerminer = false;
-
+  function debuterPartie(){
+    isPartieEnCours = true;
+    vueJeuMultijoueur.debuterPartie(isPartieEnCours);
   }
+
+
 
 
   initialiser();
