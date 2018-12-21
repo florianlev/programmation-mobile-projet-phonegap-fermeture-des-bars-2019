@@ -86,8 +86,10 @@ left: 0;
   bottom: 0;
   width: 100%;
   left: 0;
-
-
+}
+.form-group{
+color: black;
+font-weight: bold;
 
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
