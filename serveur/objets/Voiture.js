@@ -1,4 +1,4 @@
-var Voiture = function ( idVoiture, event) {
+var Voiture = function ( idVoiture, eventEmiter) {
 
   var voiture = this;
   voiture.height = 20;
@@ -7,7 +7,6 @@ var Voiture = function ( idVoiture, event) {
   voiture.x = 0;
   require('./../JEU.js');
   var enAttenteDeplacement = false;
-  var eventEmiter = new event.EventEmitter;
   var delaiAffichage;
   var debutInterval;
 

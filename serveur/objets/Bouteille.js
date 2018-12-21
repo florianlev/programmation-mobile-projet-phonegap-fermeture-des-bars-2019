@@ -1,4 +1,4 @@
-var Bouteille = function (idBouteille, event) {
+var Bouteille = function (idBouteille, eventEmiter) {
   var bouteille = this;
   var estCharger = false;
   bouteille.height = 20;
@@ -8,7 +8,6 @@ var Bouteille = function (idBouteille, event) {
   var delaiAffichage;
   var enAttenteDeplacement = false;
   var debutInterval;
-  var eventEmiter = new event.EventEmitter;
   require('./../JEU.js');
   function initialiser() {
 

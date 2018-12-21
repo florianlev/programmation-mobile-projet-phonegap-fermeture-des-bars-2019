@@ -1,4 +1,4 @@
-var GestionnaireObjets = function (event) {
+var GestionnaireObjets = function (eventEmiter) {
   Bouteille = require('./Bouteille.js');
   Obstacle = require('./Obstacle.js');
   Voiture = require('./Voiture.js');

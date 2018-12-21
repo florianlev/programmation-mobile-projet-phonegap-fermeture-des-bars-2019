@@ -1,4 +1,4 @@
-var Obstacle = function (idObstacle, event) {
+var Obstacle = function (idObstacle, eventEmiter) {
 
   var obstacle = this;
   obstacle.height = 20;
@@ -6,7 +6,6 @@ var Obstacle = function (idObstacle, event) {
   obstacle.y = 0;
   obstacle.x = 0;
   var estCharger = false;
-  var eventEmiter = new event.EventEmitter;
 
   var enAttenteDeplacement = false;
 
