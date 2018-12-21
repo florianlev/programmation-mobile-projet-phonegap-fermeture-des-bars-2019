@@ -121,6 +121,7 @@ var VueJeu = (function () {
       joueur = nouveauJoueur;
       joueur.setContent(content);
       joueur.setScene(scene);
+      joueur.setIsJoueurActuel(true);
       joueur.afficher();
       hammer.on('pan', deplacerJoueur);
       //niveauAlcool =new NiveauAlcool(scene);
@@ -128,7 +129,8 @@ var VueJeu = (function () {
       //TO DO  : POUR TOUT CES OBSTACLES ESSAYER DE VOIR POOUR UN SYSTEME DAPPARITION RANDOM de 1 OU PLUSIEURS FOIS LE MEME OBSTACLE
       score = new Score(scene);
       couleur ="#9CCA30";
-      niveauAlcool = new NiveauAlcool(scene, joueur, ""); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+      niveauAlcool = new NiveauAlcool(scene, joueur, 0, "#0077CC"); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+      niveauAlcool.afficher();
       document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
       gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
       createjs.Ticker.addEventListener("tick", rafraichirJeu);

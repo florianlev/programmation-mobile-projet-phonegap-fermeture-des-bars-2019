@@ -50,12 +50,12 @@ function NiveauAlcool(scene, joueur, idJoueur, couleur) {
       }));
     }
 
-    niveauAlcool.animate(niveau / 100);
+    if(niveauAlcool) niveauAlcool.animate(niveau / 100);
   }
 
   this.modifierNiveauAlcool = function (nouveauNiveauAlcool) {
     niveau = nouveauNiveauAlcool;
-    niveauAlcool.animate(niveau / 100);
+    if(niveauAlcool) niveauAlcool.animate(niveau / 100);
   }
 
   this.getId = function () {
