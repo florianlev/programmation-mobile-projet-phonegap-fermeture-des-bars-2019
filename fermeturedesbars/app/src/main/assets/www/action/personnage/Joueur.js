@@ -58,7 +58,7 @@ function Joueur() {
     fantome.x = content.offsetWidth / 2;
     fantome.y = window.innerHeight / 2 + 100;
 
-    scene.addChild(fantome);
+    if(isJoueurActuel)scene.addChild(fantome);
   }
 
   function terminerChargement() {

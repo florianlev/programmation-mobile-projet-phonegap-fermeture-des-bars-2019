@@ -11,7 +11,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
   var debutInterval = 0;
   var partieEnCours = false;
   var nombreJoueurCharger = 0;
-
+  require('./JEU.js');
   function initialiser() {
 
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
@@ -20,7 +20,6 @@ function Partie(idRoom, nomRoom, listeJoueur) {
       listeJoueur[indiceListeJoueur].connexion.on('envoyer_positions_et_niveau_alcool', gererPositionsEtNiveauAlcoolJoueur);
     }
 
-    timeoutBoucle = setInterval(boucleJeu, vitesse);
     emiter.on('bouteillesortieecran', gererBouteilleSortieEcran);
     emiter.on('obstaclesortieecran', gererObstacleSortieEcran);
     emiter.on('voituresortieecran', gererVoitureSortiEcran);
@@ -46,7 +45,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
       vitesseRoute += 0.005;
 
       debutInterval = nouvelInterval;
-    } 
+    }
 
     //Appliquer les déplacements
     //gestionnaireObjets.deplacerLesObjets(vitesseRoute);

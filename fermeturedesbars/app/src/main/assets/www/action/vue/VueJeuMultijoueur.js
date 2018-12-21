@@ -92,12 +92,12 @@ var VueJeuMultijoueur = (function () {
         function rafraichirJeu(evenement) {
             route.derouler(vitesseRoute);
             scene.update(evenement);
-
+            positionJoueur = joueurActuel.getPositions()
             niveauAlcoolJoueurActuel.demarrerDiminution();
-
+            positions = {'x':positionJoueur.x/content.offsetWidth,'y':positionJoueur.y/content.offsetHeight};
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
                 detail: {
-                    positions: joueurActuel.getPositions(),
+                    positions: positions,
                     niveauAlcool: niveauAlcoolJoueurActuel.getNivauAlcool()
                 }
             }));
@@ -106,7 +106,10 @@ var VueJeuMultijoueur = (function () {
 
         this.transmettrePositionsAdversaireNiveauAlcool = function (donnees) {
             for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
-                if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur) listeJoueur[indiceListeJoueur].setPositions(donnees.detail.positions);
+              //console.log(donnees.detail.positions.x);
+              //console.log(donnees.detail.positions.x* content.offsetWidth);
+              positions = {'x':donnees.detail.positions.x * content.offsetWidth,'y':donnees.detail.positions.y * content.offsetHeight};
+                if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur) listeJoueur[indiceListeJoueur].setPositions(positions);
 
             }
             for (indiceListeNiveauAlcool = 0; indiceListeNiveauAlcool < listeNiveauAlcool.length; indiceListeNiveauAlcool++) {
