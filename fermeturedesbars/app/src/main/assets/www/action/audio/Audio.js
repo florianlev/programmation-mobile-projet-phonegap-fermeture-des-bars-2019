@@ -33,6 +33,11 @@ var Audio = function()
             volume: 0.3,
             loop: false
         });
+        heurterCone = new Holw({
+            src: ['action/audio/sons/HeurterCone.mp3'],
+            volume: 0.3,
+            loop: false
+        });
 
 
     }
