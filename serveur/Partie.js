@@ -1,14 +1,16 @@
-function Partie(idRoom, listeJoueur) {
+function Partie(idRoom, nomRoom, listeJoueur) {
 
   GestionnaireObjets = require('./objets/GestionnaireObjets.js');
   this.idRoom = idRoom;
+  this.nomRoom = nomRoom;
   var timeoutBoucle;
   var event = require('events');
   var emiter = new event.EventEmitter();
   var vitesse = 1000 / 60;
   var gestionnaireObjets = new GestionnaireObjets(emiter);
   var debutInterval = 0;
-  var partieTerminer = false;
+  var partieCommencer = false;
+  var nombreJoueurCharger = 0;
 
   function initialiser() {
 
@@ -41,6 +43,17 @@ function Partie(idRoom, listeJoueur) {
 
     //Appliquer les déplacements
     gestionnaireObjets.deplacerLesObjets(vitesseRoute);
+  }
+
+
+  function gererJoueurCharger(idJoueur) {
+    nombreJoueurCharger++;
+
+    //Si les joueurs sont charger débuter la partie
+    if (nombreJoueurCharger >= 2 ){
+      partieCommencer = true;
+      io.to(room.nomRoom).emit('liste_joueurs_charger', partieCommencer);
+    }
   }
 
   function gererBouteilleSortieEcran(idBouteille) {
