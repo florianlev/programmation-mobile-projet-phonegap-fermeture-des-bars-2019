@@ -5,6 +5,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
 
     var connexion;
     var idJoueurActuel;
+    var joueurActuel;
 
     function initialiser() {
         console.log("initialiserConnexionNode");
@@ -14,6 +15,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
     this.initierConnexion = function (){
         
         connexion.on('connect', etablirConnexion);
+
         connexion.on('envoyerIdJoueur', function(idJoueur){
             idJoueurActuel = idJoueur;
             connexion.emit('envoyer_pseudo', {pseudo : localStorage['pseudo'], idJoueur : idJoueurActuel});
@@ -32,12 +34,13 @@ function ConnexionNode(afficherNouvellesListeRoom,
     }
 
     function recevoirJoueur(joueur){
+        joueurActuel = joueur;
         creerJoueur(joueur);
     }
 
     this.creerUneRoom = function(nom){
         console.log("creerUneRoom");
-        connexion.emit('creer_room', {nomRoom :nom, idJoueur: idJoueurActuel});
+        connexion.emit('creer_room', {nomRoom :nom, idJoueur: joueurActuel.id});
     }
 
     function recevoirNouvellesListeRoom(listeRoom){
@@ -46,27 +49,17 @@ function ConnexionNode(afficherNouvellesListeRoom,
     }
 
     this.rejoindreUneRoom = function(idRoom){
-        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: idJoueurActuel} );
+        connexion.emit('joindre_room', {idRoom: idRoom, idJoueur: joueurActuel.id} );
     }
 
     function recevoirListeJoueurRoom(listeJoueurRoomJSON){
         console.log("recevoirListeJoueurRoom");
         listeJoueurRoom = JSON.parse(listeJoueurRoomJSON);
-        var joueur;
-        var nJoueur;
-
         afficherListeJoueur(listeJoueurRoom);
-        /* if (listeJoueurRoom[1]){
-            joueur = listeJoueurRoom[1];
-            nJoueur = 2;
-            afficherListeJoueur(listeJoueurRoom[0],1);
-        }
-        else{
-            joueur = listeJoueurRoom[0];
-            nJoueur = 1;
-            afficherListeJoueur(joueur,nJoueur);
+    }
 
-        } */
+    this.envoyerJoueurPret(){
+        connexion.emit('envoyer_joueur_pret', joueurActuel.id);
     }
 
 

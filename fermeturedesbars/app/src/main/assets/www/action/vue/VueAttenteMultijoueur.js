@@ -2,11 +2,12 @@ var VueAttenteMultijoueur = (function () {
 
   var contenuPage = document.getElementById("attente-multijoueur").innerHTML;;
 
-  return function () {
+  return function (envoyerJoueurPret) {
 
     this.afficher = function () {
       document.getElementsByTagName("body")[0].innerHTML = contenuPage;
       document.getElementById('pseudo').innerHTML = "";
+      formulaireRoom.addEventListener('submit', envoyerJoueurPret);
 
     }
 
@@ -17,6 +18,8 @@ var VueAttenteMultijoueur = (function () {
         document.getElementById('pseudo').innerHTML += "<div><p>Joueur " + (i + 1) + " : " + listeJoueur[i].pseudo + "</p></div>";
       }
     }
+
+
   }
 
 

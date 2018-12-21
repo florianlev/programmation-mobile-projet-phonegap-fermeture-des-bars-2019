@@ -55,7 +55,7 @@
 
     } else if (window.location.hash.match(/^#attente-multijoueur\/([0-9])+/)) {
       hash = window.location.hash.match(/^#attente-multijoueur\/([0-9])+/);
-      this.vueAttenteMultijoueur = new VueAttenteMultijoueur();
+      this.vueAttenteMultijoueur = new VueAttenteMultijoueur(envoyerJoueurPret);
       idRoom = hash[1];
       connexionNode.rejoindreUneRoom(idRoom);
       this.vueAttenteMultijoueur.afficher();
@@ -93,6 +93,9 @@
     joueurActuel.setPseudo(nouveauJoueur.pseudo);
   }
 
+  function envoyerJoueurPret(evenement){
+    connexionNode.envoyerJoueurPret();
+  }
 
   function envoyerCreationRoom(nomRoom) {
     listeRoom = connexionNode.creerUneRoom(nomRoom);
@@ -103,6 +106,7 @@
   }
 
   function naviguerAttenteMultiJoueurAvecIdRoom(idRoom) {
+    joueurActuel.setIdRoom(idRoom);
     window.location.hash = "#attente-multijoueur/" + idRoom;
   }
 

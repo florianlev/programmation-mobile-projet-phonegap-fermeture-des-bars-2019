@@ -5,17 +5,12 @@ function Joueur(id) {
     this.id;
     this.pseudo;
     this.idRoom;
+    this.isPret;
 
     function initialiser(){
         joueur.id = id;
+        joueur.isPret = false;
     }
-
-    this.setIdRoom = function(idRoom){
-        joueur.idRoom = idRoom;
-
-    }
-
-    
 
     initialiser();
 }

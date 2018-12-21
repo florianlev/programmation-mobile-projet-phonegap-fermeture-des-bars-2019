@@ -5,8 +5,8 @@ function Joueur() {
   var idRoom;
   var pseudo;
 
-  this.content;
-  this.scene;
+  var content;
+  var scene;
   var distanceDoit;
   var fantome;
   var partieTerminer;
@@ -36,7 +36,6 @@ function Joueur() {
 
   this.afficher = function () {
     console.log('afficher()');
-    console.log(this.scene);
 
     distanceDoit = 80;
     partieTerminer = false;
@@ -44,7 +43,7 @@ function Joueur() {
     imageIvrogne.src = IMAGEIVROGNOREMARCHE;
     imageIvrogne.onload = terminerChargement;
 
-    xCourant = joueur.content.offsetWidth / 2;
+    xCourant = content.offsetWidth / 2;
     yCourant = 100;
 
     //Pour le déplacement du personnage le tactile
@@ -52,10 +51,10 @@ function Joueur() {
     fantome.graphics.beginFill("black").drawCircle(0, 0, 50);
     fantome.graphics.beginFill("white").drawCircle(0, 0, 25);
     fantome.alpha = 0.5;
-    fantome.x = joueur.content.offsetWidth / 2;
+    fantome.x = content.offsetWidth / 2;
     fantome.y = window.innerHeight / 2 + 100;
 
-    joueur.scene.addChild(fantome);
+    scene.addChild(fantome);
   }
 
   function terminerChargement() {
@@ -80,7 +79,7 @@ function Joueur() {
     });
 
     //Pour les 3 anims on créer une sprite et on l'adapte en fonction de l'ecran
-    scale = (0.4 * joueur.content.offsetWidth) / 1920;
+    scale = (0.4 * content.offsetWidth) / 1920;
     animMarche = new createjs.Sprite(spriteIvrogne, "marche");
     animMarche.scaleX = scale;
     animMarche.scaleY = scale;
@@ -106,11 +105,11 @@ function Joueur() {
 
   //Gestion des animations en fonction des changement de l'etatCourant du personnage
   function gererAnimation(animation) {
-    joueur.scene.removeChild(animMarche);
+    scene.removeChild(animMarche);
     animationCourante = animation;
     animationCourante.x = xCourant;
     animationCourante.y = yCourant;
-    joueur.scene.addChild(animationCourante);
+    scene.addChild(animationCourante);
   }
 
   //On set l'etat du joueur suivant la machine d'etat
@@ -142,8 +141,8 @@ function Joueur() {
     if (!partieTerminer) {
       differenceY = window.innerHeight / 2;
       y = y - differenceY;
-      limiteXDoite = joueur.content.offsetWidth * 0.7;
-      limiteXGauche = joueur.content.offsetWidth * 0.2;
+      limiteXDoite = content.offsetWidth * 0.7;
+      limiteXGauche = content.offsetWidth * 0.2;
       if ((animationCourante.x - x) < distanceDoit && (animationCourante.x - x) > -distanceDoit && (animationCourante.y - y) < distanceDoit && (animationCourante.y - y) > -distanceDoit && y > 0 && x < limiteXDoite && x > limiteXGauche) {
         animationCourante.x = x;
         animationCourante.y = y;
@@ -170,12 +169,12 @@ function Joueur() {
     this.setEtatJoueur(EtatJoueur.estEnVomissement);
   }
 
-  this.setContent = function (content) {
-    joueur.content = content;
+  this.setContent = function (nouveauContent) {
+    content = nouveauContent;
   }
 
-  this.setScene = function (scene) {
-    joueur.scene = scene;
+  this.setScene = function (nouvelScene) {
+    scene = nouvelScene;
   }
 
   this.getId = function () {

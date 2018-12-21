@@ -46,29 +46,27 @@ function gererConnexion(nouvelleConnexion) {
     nouvelleConnexion.on("joindre_room", joindreRoom);
     nouvelleConnexion.on('creer_room', creerRoom);
     nouvelleConnexion.on('envoyer_pseudo', recevoirPseudoJoueur);
+    nouvelleConnexion.on('envoyer_joueur_pret', recevoirJoueurPret);
+}
 
-
-}
-function gererBouteilleSortieEcran(idBouteille){
-  position = gestionnaireObjets.repositionnerBouteille(idBouteille);
-}
-function gererObstacleSortieEcran(idObstacle){
-  position = gestionnaireObjets.repositionnerObstacle(idObstacle);
-}
-function gererVoitureSortiEcran(idVoiture){
-  position = gestionnaireObjets.repositionnerVoiture(idVoiture);
-}
 function recevoirPseudoJoueur(donnees) {
     console.log('Arrivée de : ' + donnees.pseudo);
     listeJoueur[donnees.idJoueur].joueur.pseudo = donnees.pseudo;
     // envoie de la classe du joueur au client 
-
     listeJoueur[donnees.idJoueur].connexion.emit('envoyer_joueur', listeJoueur[donnees.idJoueur].joueur);
+}
+
+function recevoirJoueurPret(idJoueur){
+    listeJoueur[idJoueur].joueur.isPret = true;
+
+    io.to(listeRoom[donnees.idRoom].nom).emit('envoie_listeJoueur_room', listeJoueurActifRoomJson);
 }
 
 function joindreRoom(donnees) {
     console.log("Le joueur " + listeJoueur[donnees.idJoueur].joueur.pseudo + " a rejoin la room : " + listeRoom[donnees.idRoom].nom);
     if (!listeRoom[donnees.idRoom].getListeJoueur().id || donnees.idJoueur != listeRoom[donnees.idRoom].getListeJoueur().id) {
+        listeJoueur[donnees.idJoueur].joueur.idRoom = donnees.idRoom;
+        //listeJoueur[donnees.idJoueur].connexion.emit('envoyer_id_room', donnees.idRoom);
         listeJoueur[donnees.idJoueur].connexion.join(listeRoom[donnees.idRoom].nom);
         listeRoom[donnees.idRoom].setJoueurDansListeRoom(listeJoueur[donnees.idJoueur]);
         //envoyer la liste de tout le monde au joueur venant de se connecter
@@ -87,13 +85,6 @@ function creerRoom(donnees) {
     var room = new Room(idRoom, nomRoom);
     listeRoom[idRoom] = room;
 
-
-    //listeJoueur[idJoueur].connexion.join(room.nom);
-
-    //console.log("Le joueur " + idJoueur + "a rejoin la room : " + room.nom);
-    /*  listeJoueur.splice(idJoueur, 1);
-     listeConnexion.splice(idJoueur, 1);
-  */
     var listeRoomJson = JSON.stringify(listeRoom);
     io.emit('nouvelleListeRoom', listeRoomJson);
     listeJoueur[idJoueur].connexion.emit('envoyer_idRoom', room.id);
@@ -101,4 +92,14 @@ function creerRoom(donnees) {
 
 }
 
+
+function gererBouteilleSortieEcran(idBouteille){
+    position = gestionnaireObjets.repositionnerBouteille(idBouteille);
+  }
+  function gererObstacleSortieEcran(idObstacle){
+    position = gestionnaireObjets.repositionnerObstacle(idObstacle);
+  }
+  function gererVoitureSortiEcran(idVoiture){
+    position = gestionnaireObjets.repositionnerVoiture(idVoiture);
+  }
 initialiser();
