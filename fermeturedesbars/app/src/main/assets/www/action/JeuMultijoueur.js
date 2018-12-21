@@ -18,13 +18,26 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     document.body.addEventListener("debuterpartie", debuterPartie);
     document.body.addEventListener("envoyerpositionsetniveaualcool", envoyerPositionsEtNiveauAlcool);
     document.body.addEventListener("transmettrepositionsadversaireetniveaualcool", transmettrePositionsAdversaireNiveauAlcool);
+    document.body.addEventListener("repositionne_objet",repositionneObjet);
 
   }
-
+  function repositionneObjet(evenement){
+    switch (evenement.detail.type) {
+      case 'bouteille':
+        vueJeuMultijoueur.repositionnerUneBouteille(evenement.detail.id, evenement.detail.position);
+        break;
+      case 'obstacle':
+        vueJeuMultijoueur.repositionnerUnObjet(evenement.detail.id, evenement.detail.position);
+        break;
+      case 'voiture':
+        vueJeuMultijoueur.repositionnerUneVoiture(evenement.detail.id, evenement.detail.position);
+        break;
+    }
+  }
   function chargerJoueurEtObjet() {
     vueJeuMultijoueur.chargerJoueurEtObjet();
   }
-  
+
   this.demarrerJeu = function () {
     vueJeuMultijoueur.afficher();
     niveauAlcool = 100;

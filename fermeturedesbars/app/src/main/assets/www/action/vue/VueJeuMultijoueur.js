@@ -15,6 +15,7 @@ var VueJeuMultijoueur = (function () {
         var listeNiveauAlcool = [];
         var niveauAlcoolJoueurActuel;
         var gestionnaireObjets;
+        var debutInterval;
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
             isPartieEnCours = false;
@@ -47,12 +48,16 @@ var VueJeuMultijoueur = (function () {
                 joueur.setContent(content);
                 joueur.setScene(scene);
                 joueur.afficher();
+
                 //Chargement niveau alcool
                 niveauAlcool = new NiveauAlcool(scene, joueur, joueur.id, listeJoueur[indiceListeJoueur].getCouleur());
                 listeNiveauAlcool.push(niveauAlcool);
                 niveauAlcool.afficher();
                 document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
-
+                if(!gestionnaireObjets){
+                  gestionnaireObjets = new GestionnaireObjets(scene, content);
+                  gestionnaireObjets.setJoueur(joueur);
+                }
                 if (joueur.getIsJoueurActuel()) {
                     joueurActuel = joueur;
                     hammer.on('pan', function (evenement) {
@@ -62,7 +67,6 @@ var VueJeuMultijoueur = (function () {
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
                     });
-                    gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool);
                 }
 
             }
@@ -94,6 +98,8 @@ var VueJeuMultijoueur = (function () {
             scene.update(evenement);
             positionJoueur = joueurActuel.getPositions()
             niveauAlcoolJoueurActuel.demarrerDiminution();
+            gestionnaireObjets.deplacerLesObjets();
+
             positions = {'x':positionJoueur.x/content.offsetWidth,'y':positionJoueur.y/content.offsetHeight};
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
                 detail: {
@@ -102,6 +108,16 @@ var VueJeuMultijoueur = (function () {
                 }
             }));
 
+            var nouvelInterval = Date.now();
+            //SI au premier instant du jeu on initialise le debut de l'interval a quelque chose
+            if (!debutInterval) {
+              debutInterval = Date.now();
+            }
+            if (nouvelInterval - debutInterval >= 20) {
+              vitesseRoute += 0.005;
+
+              debutInterval = nouvelInterval;
+            }
         }
 
         this.transmettrePositionsAdversaireNiveauAlcool = function (donnees) {
@@ -119,7 +135,15 @@ var VueJeuMultijoueur = (function () {
             }
         }
 
-
+        this.repositionnerUnObjet = function(id, position){
+          gestionnaireObjets.repositionnerUnObjet(id, position);
+        }
+        this.repositionnerUneVoiture = function(id, position){
+          gestionnaireObjets.repositionnerUneVoiture(id, position);
+        }
+        this.repositionnerUneBouteille = function(id, position){
+          gestionnaireObjets.repositionnerUneBouteille(id, position);
+        }
         function arrangerCanvas() {
             console.log("vueJeuArrangerCanvas");
             content = document.getElementById("content");

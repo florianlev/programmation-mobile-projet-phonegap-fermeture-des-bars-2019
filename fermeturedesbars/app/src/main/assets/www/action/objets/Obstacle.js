@@ -40,8 +40,9 @@ var Obstacle = function (scene, content, idObstacle) {
   }
 
   this.afficher = function () {
+    bitmapObstacle.x = -200;
     scene.addChild(bitmapObstacle);
-    obstacle.repositionnerObstacle();
+    //obstacle.repositionnerObstacle();
     estCharger = true;
 
   }
@@ -112,8 +113,10 @@ var Obstacle = function (scene, content, idObstacle) {
     return debutInterval;
   }
   this.repositionnerManuellement = function(position){
-    bitmapObstacle.x = content.offsetWidth*position.x;
-    bitmapObstacle.y = content.offsetHeight*position.y;
+    if(bitmapObstacle){
+      bitmapObstacle.x = content.offsetWidth*position.x;
+      bitmapObstacle.y = content.offsetHeight*position.y;
+    }
   }
 
   function getNombreHazard(min, max) {

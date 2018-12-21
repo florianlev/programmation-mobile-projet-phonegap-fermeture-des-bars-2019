@@ -1,10 +1,10 @@
-var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) {
+var GestionnaireObjets = function (scene, content) {
 
 
   var bouteilles = new Array();
   var voitures = new Array();
   var obstacles = new Array();
-
+  var joueur;
   var iterateurVerification = 0;
   //vitesse du jeu
 
@@ -74,23 +74,27 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
 
   //Verification de la collision avec le joueur et la voiture
   function testerCollisionObjet(objet,type) {
-    rectangleCollision = objet.getRectangleCollision();
-    collisionJoueur = joueur.getRectangleCollision();
-    if (rectangleCollision && collisionJoueur) {
-      if (collisionJoueur.intersects(objet.getRectangleCollision(rectangleCollision))) {
-        //console.log("COLLISIONNEMENT ! ");
-        joueur.setEtatJoueurEcraser();
-        document.body.dispatchEvent(new CustomEvent("collisionavecobjet", { detail: { typeMort:type } }));
+    if(joueur){
+      rectangleCollision = objet.getRectangleCollision();
+      collisionJoueur = joueur.getRectangleCollision();
+      if (rectangleCollision && collisionJoueur) {
+        if (collisionJoueur.intersects(objet.getRectangleCollision(rectangleCollision))) {
+          //console.log("COLLISIONNEMENT ! ");
+          joueur.setEtatJoueurEcraser();
+          document.body.dispatchEvent(new CustomEvent("collisionavecobjet", { detail: { typeMort:type } }));
+        }
       }
     }
   }
 
   function testerCollisionBouteille(bouteille) {
-    rectangleCollision = bouteille.getRectangleCollision();
-    if (rectangleCollision && !bouteille.isEnAttenteDeplacment()) {
-      if (joueur.getRectangleCollision().intersects(rectangleCollision)) {
-        bouteille.setEnAttenteDeplacement(true);
-        document.body.dispatchEvent(new CustomEvent("collisionavecbouteille", { detail: { idBouteille: bouteille.getId() } }));
+    if(joueur){
+      rectangleCollision = bouteille.getRectangleCollision();
+      if (rectangleCollision && !bouteille.isEnAttenteDeplacment()) {
+        if (joueur.getRectangleCollision().intersects(rectangleCollision)) {
+          bouteille.setEnAttenteDeplacement(true);
+          document.body.dispatchEvent(new CustomEvent("collisionavecbouteille", { detail: { idBouteille: bouteille.getId() } }));
+        }
       }
     }
   }
@@ -170,7 +174,9 @@ var GestionnaireObjets = function (scene, content, joueur, niveauAlcool, score) 
   this.getListeBouteilles = function () {
     return bouteilles;
   }
-
+  this.setJoueur = function(joueurActuel){
+    joueur = joueurActuel;
+  }
   this.getListeObstacles = function () {
     return obstacles;
   }

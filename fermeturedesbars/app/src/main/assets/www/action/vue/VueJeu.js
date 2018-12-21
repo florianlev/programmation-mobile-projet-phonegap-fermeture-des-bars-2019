@@ -132,7 +132,8 @@ var VueJeu = (function () {
       niveauAlcool = new NiveauAlcool(scene, joueur, 0, "#0077CC"); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
       niveauAlcool.afficher();
       document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
-      gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
+      gestionnaireObjets = new GestionnaireObjets(scene, content);
+      gestionnaireObjets.setJoueur(joueur);
       createjs.Ticker.addEventListener("tick", rafraichirJeu);
     }
 

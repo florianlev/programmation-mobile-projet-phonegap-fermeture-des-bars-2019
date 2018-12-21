@@ -25,7 +25,7 @@ var Bouteille = function (scene, content, idBouteille) {
     scale = (0.7 * content.offsetWidth) / 1920;
     bitmapBouteille.scaleX = scale;
     bitmapBouteille.scaleY = scale;
-
+    console.log('scale bouteille');
 
     //initialiser bitmapbouteille hors de l'ecran
 
@@ -43,7 +43,7 @@ var Bouteille = function (scene, content, idBouteille) {
     scene.addChild(bitmapBouteille);
     //bouteille.repositionnerBouteille();
     estCharger = true;
-
+    console.log('afficherBouteille');
   }
 
 
@@ -114,8 +114,11 @@ var Bouteille = function (scene, content, idBouteille) {
     return debutInterval;
   }
   this.repositionnerManuellement = function(position){
-    bitmapbouteille.x = content.offsetWidth*position.x;
-    bitmapBouteille.y = content.offsetHeight*position.y;
+    if(bitmapBouteille){
+      bitmapBouteille.x = content.offsetWidth*position.x;
+      bitmapBouteille.y = content.offsetHeight*position.y;
+      console.log("bouteille "+idBouteille+" " + bitmapBouteille.x  + " " + bitmapBouteille.y);
+    }
   }
 
   initialiser();

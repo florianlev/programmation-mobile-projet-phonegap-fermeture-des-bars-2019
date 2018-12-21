@@ -34,7 +34,8 @@ var Voiture = function (scene, content, idVoiture) {
 
   this.afficher = function () {
     scene.addChild(bitmapVoiture);
-    voiture.repositionnerVoiture();
+    bitmapVoiture.x = -200;
+    //voiture.repositionnerVoiture();
     estCharger = true;
 
   }
@@ -88,8 +89,10 @@ var Voiture = function (scene, content, idVoiture) {
     return enAttenteDeplacement;
   }
   this.repositionnerManuellement = function(position){
-    bitmapVoiture.x = content.offsetWidth*position.x;
-    bitmapVoiture.y = content.offsetHeight*position.y;
+    if(bitmapVoiture){
+      bitmapVoiture.x = content.offsetWidth*position.x;
+      bitmapVoiture.y = content.offsetHeight*position.y;
+    }
   }
   this.setEnAttenteDeplacement = function (attente) {
     enAttenteDeplacement = attente;

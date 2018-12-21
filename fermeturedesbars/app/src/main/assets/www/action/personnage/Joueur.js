@@ -139,7 +139,7 @@ function Joueur() {
   this.monterEnY = function (vitesse) {
     animationCourante.y -= vitesse;
     xCourant -= vitesse;
-    fantome.y += vitesse * 5;
+    fantome.y += vitesse * 10;
   }
   this.setPosition = function (x, y) {
     if (!partieTerminer) {
