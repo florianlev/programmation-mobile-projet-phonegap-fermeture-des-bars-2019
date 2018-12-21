@@ -41,7 +41,6 @@ var Bouteille = function (scene, content, idBouteille) {
   this.afficher = function () {
     bitmapBouteille.x = -200;
     scene.addChild(bitmapBouteille);
-    console.log('afficherBouteille')
     //bouteille.repositionnerBouteille();
     estCharger = true;
 

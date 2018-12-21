@@ -38,7 +38,6 @@ function NiveauAlcool(scene, joueur) {
   }
 
   this.modifierNiveauAlcool = function (nouveauNiveauAlcool) {
-    console.log("modifierAlcool" + nouveauNiveauAlcool);
     niveau = nouveauNiveauAlcool;
     niveauAlcool.animate(niveau / 100);
   }

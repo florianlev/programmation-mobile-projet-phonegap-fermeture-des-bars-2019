@@ -185,15 +185,15 @@ function Joueur() {
   }
 
   this.getId = function () {
-    return id;
+    return this.id;
   }
 
   this.getPseudo = function () {
-    return pseudo;
+    return this.pseudo;
   }
 
   this.getIdRoom = function () {
-    return idRoom;
+    return this.idRoom;
   }
 
 

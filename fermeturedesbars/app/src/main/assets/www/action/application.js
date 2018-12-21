@@ -87,7 +87,6 @@
 
   function creerJoueurMultijoueur(evenement) {
     nouveauJoueur = evenement.detail.joueur;
-    console.log('creerJoueurMulti');
     joueurActuel = new Joueur();
     joueurActuel.setId(nouveauJoueur.id);
     joueurActuel.setPseudo(nouveauJoueur.pseudo);
@@ -105,9 +104,9 @@
 
       if (nouvelleListeJoueur[indiceListeJoueur].id != joueurActuel.id) {
         nouveauJoueur = new Joueur();
-        nouveauJoueur.setId = nouvelleListeJoueur[indiceListeJoueur].id;
-        nouveauJoueur.setPseudo = nouvelleListeJoueur[indiceListeJoueur].pseudo;
-        nouveauJoueur.setIdRoom = nouvelleListeJoueur[indiceListeJoueur].idRoom;
+        nouveauJoueur.setId(nouvelleListeJoueur[indiceListeJoueur].id);
+        nouveauJoueur.setPseudo(nouvelleListeJoueur[indiceListeJoueur].pseudo);
+        nouveauJoueur.setIdRoom(nouvelleListeJoueur[indiceListeJoueur].idRoom);
         listeJoueur.push(nouveauJoueur);
       } else {
         joueurActuel.setIsJoueurActuel(true);

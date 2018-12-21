@@ -12,6 +12,7 @@ var VueJeuMultijoueur = (function () {
         var joueurActuel;
         var isPartieEnCours;
         var isJeuStopper;
+        var niveauAlcool;
 
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
@@ -39,33 +40,30 @@ var VueJeuMultijoueur = (function () {
         }
 
         this.chargerJoueurEtObjet = function () {
-
+            console.log(listeJoueur.length);
             for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
                 var joueur = listeJoueur[indiceListeJoueur];
+                console.log(joueur.getId());
                 joueur.setContent(content);
                 joueur.setScene(scene);
                 joueur.afficher();
-                console.log(joueur.getIsJoueurActuel());
+                //Chargement niveau alcool
+                niveauAlcool = new NiveauAlcool(scene, joueur);
+                document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
+
                 if (joueur.getIsJoueurActuel()) {
                     hammer.on('pan', function (evenement) {
                         //if (joueur && !isJeuStopper) {
-                        console.log(joueur);
                         if (joueur) {
-                            console.log('teest');
                             joueur.setPosition(evenement.center.x, evenement.center.y);
                         }
                     });
                     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool);
                 }
-
-                //Chargement niveau alcool
-                niveauAlcool = new NiveauAlcool(scene, joueur);
-                document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
-
-                //Envoyer evenement au serveur pour demarrer le jeu
-                document.body.dispatchEvent(new CustomEvent("joueurestcharger"));
-
             }
+
+            //Envoyer evenement au serveur pour demarrer le jeu
+            document.body.dispatchEvent(new CustomEvent("joueurestcharger"));
         }
 
         this.debuterPartie = function (isPartieEnCours) {

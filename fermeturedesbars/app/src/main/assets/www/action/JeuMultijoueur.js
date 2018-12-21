@@ -9,6 +9,7 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
   function initialiser() {
 
     console.log('jeuMultijoueur');
+
     vueJeuMultijoueur = new VueJeuMultijoueur(listeJoueur);
 
     document.body.addEventListener("fondecranpret", chargerJoueurEtObjet);
@@ -38,7 +39,6 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
   }
 
   function debuterPartie(){
-    console.log('debuterPartie');
     isPartieEnCours = true;
     vueJeuMultijoueur.debuterPartie(isPartieEnCours);
   }
