@@ -22,14 +22,11 @@ var Jeu = function (joueur, audio) {
         document.body.addEventListener("voiturechargee", gererVoitureChargee);
         document.body.addEventListener("voituresortieecran", gererVoitureSortiEcran);
         document.body.addEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
-
     }
 
     function chargerJoueurEtObjet(){
         vueJeu.chargerJoueurEtObjet(joueur);
     }
-
-
 
     this.demarrerJeu = function () {
         partieTerminer = false;

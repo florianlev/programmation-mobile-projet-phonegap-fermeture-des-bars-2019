@@ -50,7 +50,7 @@ function Partie(idRoom, nomRoom, listeJoueur) {
     nombreJoueurCharger++;
 
     //Si les joueurs sont charger débuter la partie
-    if (nombreJoueurCharger >= 2 ){
+    if (nombreJoueurCharger >= 2) {
       partieCommencer = true;
       io.to(room.nomRoom).emit('liste_joueurs_charger', partieCommencer);
     }

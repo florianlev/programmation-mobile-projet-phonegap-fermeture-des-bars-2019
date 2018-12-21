@@ -3,6 +3,8 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
   var vueJeuMultijoueur;
   var partieTerminer;
   var joueurActuel;
+  var niveauAlcool;
+
 
   function initialiser() {
 
@@ -16,12 +18,16 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
     for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
       if (listeJoueur[indiceListeJoueur].getIsJoueurActuel()) joueurActuel = listeJoueur[indiceListeJoueur];
     }
-    
   }
 
   function chargerJoueurEtObjet() {
     vueJeuMultijoueur.chargerJoueurEtObjet(joueur);
-
+  }
+  
+  this.demarrerJeu = function () {
+    partieTerminer = false;
+    vueJeuMultijoueur.afficher();
+    niveauAlcool = 100;
   }
 
   function gererNiveauAlcoolCharger(evenement) {
@@ -35,10 +41,6 @@ var JeuMultijoueur = function (listeJoueur, connexionNode) {
   }
 
 
-  this.demarrerJeu = function () {
-    partieTerminer = false;
-
-  }
 
 
   initialiser();
