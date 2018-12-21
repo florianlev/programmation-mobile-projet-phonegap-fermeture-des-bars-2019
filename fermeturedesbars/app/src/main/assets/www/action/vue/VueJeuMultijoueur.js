@@ -66,6 +66,8 @@ var VueJeuMultijoueur = (function () {
 
         this.debuterPartie = function(isPartieEnCours){
             this.isPartieEnCours = isPartieEnCours;
+            createjs.Ticker.addEventListener("tick", rafraichirJeu);
+
         }
 
         this.setNiveauAlcool = function (nouveauNiveauAlcool) {
