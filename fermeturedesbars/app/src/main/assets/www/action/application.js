@@ -4,7 +4,7 @@
 
   var connexionNode;
   var joueurActuel;
-  var audio = new Audio();
+ // var audio = new Audio();
   function initialiser() {
 
     this.vueApreciation = new VueApreciation();
@@ -15,9 +15,9 @@
     this.vueMenuPrincipale = new VueMenuPrincipale();
     this.vueStatistique = new VueStatistique();
 
-    audio.chanson.once('load', function(){
+    /*audio.chanson.onload = function(){
       audio.chanson.play();
-    })
+    };*/
 
     console.log(localStorage['pseudo']);
 
@@ -66,7 +66,7 @@
 
     } else if (window.location.hash.match(/^#jeu/)) {
       joueur = new Joueur();
-      this.jeu = new Jeu(joueur, audio);
+      this.jeu = new Jeu(joueur, /*audio*/);
       this.jeu.demarrerJeu();
       //this.vueJeu.afficher();
 

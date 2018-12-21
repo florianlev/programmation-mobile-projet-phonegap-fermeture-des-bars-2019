@@ -43,5 +43,5 @@ var Audio = function()
     }
 
 
-    initialiser();
+   // initialiser();
 }
