@@ -92,8 +92,14 @@ color: black;
 font-weight: bold;
 background-color: #088;
   width: 300px;
-  
 
+
+}
+.titreh2{
+  color: black;
+  text-align: center;
+  background-color: #088;
+    width: 300px;
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
