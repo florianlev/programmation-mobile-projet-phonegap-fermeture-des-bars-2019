@@ -126,7 +126,6 @@ function ConnexionNode() {
     }
 
     function recevoirPositionAdversaireEtNiveauAlcool(donnees) {
-        console.log('ID ACTUEL : ' + idJoueurActuel);
         document.body.dispatchEvent(new CustomEvent('transmettrepositionsadversaireetniveaualcool', {
             detail: {
                 positions: donnees.positions,

@@ -64,10 +64,10 @@ var VueJeuMultijoueur = (function () {
                     });
                     gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool);
                 }
-                
+
             }
-            for(indiceListeNiveauAlcool=0; indiceListeNiveauAlcool<listeNiveauAlcool.length; indiceListeNiveauAlcool++){
-                if(listeNiveauAlcool[indiceListeNiveauAlcool].getId() == joueurActuel.getId() ){
+            for (indiceListeNiveauAlcool = 0; indiceListeNiveauAlcool < listeNiveauAlcool.length; indiceListeNiveauAlcool++) {
+                if (listeNiveauAlcool[indiceListeNiveauAlcool].getId() == joueurActuel.getId()) {
                     niveauAlcoolJoueurActuel = listeNiveauAlcool[indiceListeNiveauAlcool];
 
                 }
@@ -95,7 +95,6 @@ var VueJeuMultijoueur = (function () {
 
             niveauAlcoolJoueurActuel.demarrerDiminution();
 
-            //console.log(joueurActuel.getPositions());
             document.body.dispatchEvent(new CustomEvent('envoyerpositionsetniveaualcool', {
                 detail: {
                     positions: joueurActuel.getPositions(),
@@ -106,14 +105,12 @@ var VueJeuMultijoueur = (function () {
         }
 
         this.transmettrePositionsAdversaireNiveauAlcool = function (donnees) {
-
             for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
                 if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur) listeJoueur[indiceListeJoueur].setPositions(donnees.detail.positions);
-                
+
             }
-            for (indiceListeNiveauAlcool=0; indiceListeNiveauAlcool< listeNiveauAlcool.length; indiceListeNiveauAlcool++){
+            for (indiceListeNiveauAlcool = 0; indiceListeNiveauAlcool < listeNiveauAlcool.length; indiceListeNiveauAlcool++) {
                 if (listeNiveauAlcool[indiceListeNiveauAlcool].getId() == donnees.detail.idJoueur) {
-                    console.log(donnees.detail.niveauAlcool);
                     listeNiveauAlcool[indiceListeNiveauAlcool].setNiveauAlcool(donnees.detail.niveauAlcool);
                 }
             }
