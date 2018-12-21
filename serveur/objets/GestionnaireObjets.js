@@ -16,16 +16,16 @@ var GestionnaireObjets = function (eventEmiter) {
     disperseurObstacle = 1;
 
     for (iObstacles = 0; iObstacles < global.JEU.NOMBRE_OBSTACLE; iObstacles++) {
-      obstacles.push(new Obstacle(iObstacles, event));
+      obstacles.push(new Obstacle(iObstacles, eventEmiter));
     }
 
     for (iBouteilles = 0; iBouteilles < global.JEU.NOMBRE_BOUTEILLE; iBouteilles++) {
-      bouteilles.push(new Bouteille(iBouteilles, event));
+      bouteilles.push(new Bouteille(iBouteilles, eventEmiter));
     }
 
     for (iVoitures = 0; iVoitures < global.JEU.NOMBRE_VOITURE; iVoitures++) {
 
-      voitures.push(new Voiture(iVoitures, event));
+      voitures.push(new Voiture(iVoitures, eventEmiter));
 
     }
   }
