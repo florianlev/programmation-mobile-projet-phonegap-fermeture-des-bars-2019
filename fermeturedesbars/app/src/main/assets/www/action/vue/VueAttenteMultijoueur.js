@@ -11,7 +11,7 @@ var VueAttenteMultijoueur = (function () {
 
       document.getElementById('btn-envoi-pret').addEventListener('click', envoyerJoueurPret);
       document.body.addEventListener('afficherListe_liste_joueur', this.afficherListeJoueur);
-      ocument.body.addEventListener('afficher_joueur_pret', this.afficherJoueurPret);
+      document.body.addEventListener('afficher_joueur_pret', this.afficherJoueurPret);
     }
 
     this.afficherListeJoueur = function (evenement) {
