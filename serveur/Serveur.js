@@ -71,7 +71,7 @@ function recevoirJoueurPret(idJoueur){
         console.log("LA PARTIE COMMENCE !");
         listeJoueurDansRoomJSON = JSON.stringify(listeJoueurDansRoom);
         io.to(listeJoueur[idJoueur].joueur.nomRoom).emit('commencer_partie', listeJoueurDansRoomJSON);
-        partie = new Partie(donnees.idRoom, listeJoueurRoom);
+        partie = new Partie(donnees.idRoom, listeRoom[listeJoueur[idJoueur].joueur.idRoom].getListeJoueur());
 
 
     }

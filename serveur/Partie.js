@@ -12,6 +12,11 @@ function Partie(idRoom, listeJoueur) {
 
   function initialiser() {
 
+    for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
+      // Ajouter les evenements necessaire ICI pour le jeu
+      listeJoueur[indiceListeJoueur].connexion.on('elements_joueur_est_charger', gererJoueurCharger);
+    }
+
     timeoutBoucle = setInterval(boucleJeu, vitesse);
     emiter.on('bouteillesortieecran', gererBouteilleSortieEcran);
     emiter.on('obstaclesortieecran', gererObstacleSortieEcran);

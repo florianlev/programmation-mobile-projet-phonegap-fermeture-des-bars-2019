@@ -1,6 +1,7 @@
 var VueJeuMultijoueur = (function () {
 
     var contenuPage = document.getElementById("jeu-multijoueur").innerHTML;
+
     return function (listeJoueur) {
         var vueJeuMultijoueur = this;
         var canvas;
@@ -9,6 +10,7 @@ var VueJeuMultijoueur = (function () {
         var route;
         var hammer;
         var joueurActuel; 
+        var isJeuStopper;
 
         function initialiser() {
             console.log("vueJeuMultijoueurInitialiser");
@@ -27,7 +29,6 @@ var VueJeuMultijoueur = (function () {
             scene = new createjs.Stage(canvas);
 
             //Inistialisation du rafraichissement du jeu
-            //createjs.Ticker.addEventListener("tick", rafraichirJeu);
             createjs.Ticker.setInterval(1000 / 60);
             createjs.Ticker.setFPS(60);
 
@@ -38,13 +39,38 @@ var VueJeuMultijoueur = (function () {
         this.chargerJoueurEtObjet = function(){
 
             for(indiceListeJoueur = 0; indiceListeJoueur<listeJoueur.length; indiceListeJoueur++){
-                listeJoueur[indiceListeJoueur].setContent(content);
-                listeJoueur[indiceListeJoueur].setScene(scene);
-                listeJoueur[indiceListeJoueur].afficher();
+                var joueur = listeJoueur[indiceListeJoueur];
+                joueur.setContent(content);
+                joueur.setScene(scene);
+                joueur.afficher();
+
+                if(joueur.getIsJoueurActuel()){
+                    hammer.on('pan', function(evenement){
+                        if(joueur && !isJeuStopper){
+                            joueur.setPosition(evenement.center.x, evenement.center.y);
+                        }
+                    });
+                
+                }
+                niveauAlcool = new NiveauAlcool(scene, joueur); //LORSEQUE LA BARRE DU HAUT EST VIDE FIN DE PARTIE; ACOSE DE LA DUPLICATION
+                document.body.dispatchEvent(new CustomEvent("niveaualcoolestcharger"));
+                gestionnaireObjets = new GestionnaireObjets(scene, content, joueur, niveauAlcool, score);
+                
+                //Envoyer evenement au serveur pour demarrer le jeu
+                    createjs.Ticker.addEventListener("tick", rafraichirJeu);
 
             }
-
         }
+
+
+
+
+        function deplacerJoueur(evenement) {
+            if (joueur && !isJeuStopper) {
+              joueur.setPosition(evenement.center.x, evenement.center.y);
+      
+            }
+          }
 
         function arrangerCanvas() {
             console.log("vueJeuArrangerCanvas");

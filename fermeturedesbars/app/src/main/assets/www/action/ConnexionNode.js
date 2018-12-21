@@ -30,6 +30,7 @@ function ConnexionNode(afficherNouvellesListeRoom,
         connexion.on('envoie_listeJoueur_room',recevoirListeJoueurRoom);
         connexion.on('envoyer_joueur_pret_client', afficherJoueurPret);
         connexion.on('commencer_partie', commencer);
+        
     }
     function commencer(listeJoueurJson){
       commencerMultijoueur(JSON.parse(listeJoueurJson));
@@ -67,7 +68,9 @@ function ConnexionNode(afficherNouvellesListeRoom,
         connexion.emit('envoyer_joueur_pret_serveur', joueurActuel.id);
     }
 
-
+    this.envoyerJoueurEstCharger = function(idJoueur){
+        connexion.emit('elements_joueur_est_charger', idJoueur);
+    }
 
     initialiser();
 
