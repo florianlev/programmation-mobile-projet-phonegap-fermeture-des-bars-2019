@@ -20,7 +20,10 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     document.body.addEventListener("transmettrepositionsadversaireetniveaualcool", transmettrePositionsAdversaireNiveauAlcool);
     document.body.addEventListener("repositionne_objet",repositionneObjet);
     document.body.addEventListener("collisionavecbouteille", colisionBouteille);
-
+    document.body.addEventListener("collisionavecobjet", mortJoueur);
+  }
+  function mortJoueur(evenement){
+    vueJeuMultijoueur.setEtatJoueurEcraser();
   }
   function colisionBouteille(evenement){
     console.log('collision');

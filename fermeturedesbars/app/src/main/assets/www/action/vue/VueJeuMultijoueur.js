@@ -151,6 +151,9 @@ var VueJeuMultijoueur = (function () {
         this.repositionnerUneBouteille = function(id, position){
           gestionnaireObjets.repositionnerUneBouteille(id, position);
         }
+        this.setEtatJoueurEcraser = function(){
+          joueurActuel.setEtatJoueur("estEcraser");
+        }
         function arrangerCanvas() {
             console.log("vueJeuArrangerCanvas");
             content = document.getElementById("content");
