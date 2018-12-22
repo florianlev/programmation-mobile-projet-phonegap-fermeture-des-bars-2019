@@ -3,9 +3,9 @@ var GestionnaireObjets = function (eventEmiter) {
   Obstacle = require('./Obstacle.js');
   Voiture = require('./Voiture.js');
   require('./../JEU.js');
-  var bouteilles = new Array();
-  var voitures = new Array();
-  var obstacles = new Array();
+  var listeBouteilles = new Array();
+  var listeVoiture = new Array();
+  var listeObstacle = new Array();
 
   var iterateurVerification = 0;
   //vitesse du jeu
@@ -16,57 +16,57 @@ var GestionnaireObjets = function (eventEmiter) {
     disperseurObstacle = 1;
 
     for (iObstacles = 0; iObstacles < global.JEU.NOMBRE_OBSTACLE; iObstacles++) {
-      obstacles.push(new Obstacle(iObstacles, eventEmiter));
-      obstacles[iObstacles].setDelaiAffichage(getNombreHazard(1000,3000));
-      obstacles[iObstacles].setDebutInterval(Date.now());
+      listeObstacle.push(new Obstacle(iObstacles, eventEmiter));
+      listeObstacle[iObstacles].setDelaiAffichage(getNombreHazard(1000,3000));
+      listeObstacle[iObstacles].setDebutInterval(Date.now());
     }
 
     for (iBouteilles = 0; iBouteilles < global.JEU.NOMBRE_BOUTEILLE; iBouteilles++) {
-      bouteilles.push(new Bouteille(iBouteilles, eventEmiter));
-      bouteilles[iBouteilles].setDelaiAffichage(getNombreHazard(1000,3000));
-      bouteilles[iBouteilles].setDebutInterval(Date.now());
+      listeBouteilles.push(new Bouteille(iBouteilles, eventEmiter));
+      listeBouteilles[iBouteilles].setDelaiAffichage(getNombreHazard(1000,3000));
+      listeBouteilles[iBouteilles].setDebutInterval(Date.now());
     }
 
     for (iVoitures = 0; iVoitures < global.JEU.NOMBRE_VOITURE; iVoitures++) {
-      voitures.push(new Voiture(iVoitures, eventEmiter));
-      voitures[iVoitures].setDelaiAffichage(getNombreHazard(1000,3000));
-      voitures[iVoitures].setDebutInterval(Date.now());
+      listeVoiture.push(new Voiture(iVoitures, eventEmiter));
+      listeVoiture[iVoitures].setDelaiAffichage(getNombreHazard(1000,3000));
+      listeVoiture[iVoitures].setDebutInterval(Date.now());
 
     }
   }
 
   this.deplacerLesObjets = function (vitesse) {
-    deplacerObjets(bouteilles, vitesse);
-    deplacerObjets(obstacles, vitesse);
-    deplacerVoiture(voitures, vitesse);
+    deplacerObjets(listeBouteilles, vitesse);
+    deplacerObjets(listeObstacle, vitesse);
+    deplacerVoiture(listeVoiture, vitesse);
   }
 
   //deplace les objets contenu dans l'array(bouteille et obstacles)
-  function deplacerObjets(objets, vitesse) {
-    for (iObjets = 0; iObjets < objets.length; iObjets++) {
-      objets[iObjets].mouvement(vitesse);
+  function deplacerObjets(listeObjets, vitesse) {
+    for (iObjets = 0; iObjets < listeObjets.length; iObjets++) {
+      listeObjets[iObjets].mouvement(vitesse);
     }
   }
-  function deplacerVoiture(vehicule, vitesse) {
-    for (iVehicule = 0; iVehicule < vehicule.length; iVehicule++) {
-      vehicule[iVehicule].mouvementVoiture(vitesse * global.JEU.VITESSE_VOITURE);
+  function deplacerVoiture(listeVehicule, vitesse) {
+    for (iVehicule = 0; iVehicule < listeVehicule.length; iVehicule++) {
+      listeVehicule[iVehicule].mouvementVoiture(vitesse * global.JEU.VITESSE_VOITURE);
     }
   }
 
   function repositionnerBouteille(idBouteille) {
-    position = bouteilles[idBouteille].repositionnerBouteille();
+    position = listeBouteilles[idBouteille].repositionnerBouteille();
     eventEmiter.emit('repositionner_objet','bouteille', idBouteille, position);
   }
 
   function repositionnerObstacle (idObstacle) {
     //console.log("repositionnerObstacle : " + idObstacle);
-    position = obstacles[idObstacle].repositionnerObstacle();
+    position = listeObstacle[idObstacle].repositionnerObstacle();
     eventEmiter.emit('repositionner_objet','obstacle', idObstacle, position);
   }
 
   function repositionnerVoiture(idVoiture) {
     //console.log("repositionnerObstacle : " + idVoiture);
-    position = voitures[idVoiture].repositionnerVoiture();
+    position = listeVoiture[idVoiture].repositionnerVoiture();
     eventEmiter.emit('repositionner_objet','voiture', idVoiture, position);
   }
 
@@ -74,16 +74,16 @@ var GestionnaireObjets = function (eventEmiter) {
 
     switch (classe.name){
       case Bouteille.name:
-        listeObjets = bouteilles;
+        listeObjets = listeBouteilles;
         action = repositionnerBouteille;
         break;
       case Obstacle.name:
         action = repositionnerObstacle;
-        listeObjets = obstacles;
+        listeObjets = listeObstacle;
         break;
       case Voiture.name:
         action = repositionnerVoiture;
-        listeObjets = voitures;
+        listeObjets = listeVoiture;
         break;
     }
 
@@ -102,46 +102,46 @@ var GestionnaireObjets = function (eventEmiter) {
 
 
   this.afficherBouteilleDansLeTemps = function (idBouteille, delai) {
-    bouteilles[idBouteille].setDelaiAffichage(delai);
-    bouteilles[idBouteille].setDebutInterval(Date.now());
+    listeBouteilles[idBouteille].setDelaiAffichage(delai);
+    listeBouteilles[idBouteille].setDebutInterval(Date.now());
   }
 
   this.afficherObstacleDansLeTemps = function (idObstacle, delai) {
     //console.log("afficherObstacleDansLeTemps" + idObstacle);
-    obstacles[idObstacle].setDelaiAffichage(delai);
-    obstacles[idObstacle].setDebutInterval(Date.now());
+    listeObstacle[idObstacle].setDelaiAffichage(delai);
+    listeObstacle[idObstacle].setDebutInterval(Date.now());
   }
 
   this.afficherVoitureDansLeTemps = function (idVoiture, delai) {
     //console.log("afficherObstacleDansLeTemps" + idVoiture);
-    voitures[idVoiture].setDelaiAffichage(delai);
-    voitures[idVoiture].setDebutInterval(Date.now());
+    listeVoiture[idVoiture].setDelaiAffichage(delai);
+    listeVoiture[idVoiture].setDebutInterval(Date.now());
   }
 
   this.getListeBouteilles = function () {
-    return bouteilles;
+    return listeBouteilles;
   }
 
   this.getListeObstacles = function () {
-    return obstacles;
+    return listeObstacle;
   }
 
   this.getListeVoiture = function () {
-    return voitures;
+    return listeVoiture;
   }
 
   this.detruire = function()
 {
-  for (iObstacles = 0; iObstacles < obstacles.length; iObstacles++) {
-    obstacles[iObstacles] = null;
+  for (iObstacles = 0; iObstacles < listeObstacle.length; iObstacles++) {
+    listeObstacle[iObstacles] = null;
 
   }
   for (iBouteilles = 0; iBouteilles < global.JEU.NOMBRE_BOUTEILLE; iBouteilles++) {
-    bouteilles[iBouteilles] = null;
+    listeBouteilles[iBouteilles] = null;
   }
 
   for (iVoitures = 0; iVoitures < global.JEU.NOMBRE_VOITURE; iVoitures++) {
-    voitures[iVoitures] = null;
+    listeVoiture[iVoitures] = null;
   }
 }
 function getNombreHazard(min, max) {
