@@ -147,6 +147,9 @@ function ConnexionNode() {
         }));
     }
 
+    this.partieTerminer = function(){
+      connexion.emit('partieTerminer');
+    }
 
     initialiser();
 

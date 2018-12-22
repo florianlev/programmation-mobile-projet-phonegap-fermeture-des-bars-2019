@@ -21,13 +21,39 @@ var JeuMultijoueur = function (listeJoueur, connexionNode,joueurActuel) {
     document.body.addEventListener("repositionne_objet",repositionneObjet);
     document.body.addEventListener("collisionavecbouteille", colisionBouteille);
     document.body.addEventListener("collisionavecobjet", mortJoueur);
+    document.body.addEventListener("partieTerminer", terminerJeu);
+  }
+  function terminerJeu(){
+    console.log('vrm terminer');
+    isPartieEnCours = null;
+    joueurActuel = null;
+    niveauAlcool = null;
+
+    document.body.removeEventListener("fondecranpret", chargerJoueurEtObjet);
+    document.body.removeEventListener("niveaualcoolestcharger", gererNiveauAlcoolCharger);
+    document.body.removeEventListener("joueurestcharger", envoyerJoueurEstCharger);
+    document.body.removeEventListener("debuterpartie", debuterPartie);
+    document.body.removeEventListener("envoyerpositionsetniveaualcool", envoyerPositionsEtNiveauAlcool);
+    document.body.removeEventListener("transmettrepositionsadversaireetniveaualcool", transmettrePositionsAdversaireNiveauAlcool);
+    document.body.removeEventListener("repositionne_objet",repositionneObjet);
+    document.body.removeEventListener("collisionavecbouteille", colisionBouteille);
+    document.body.removeEventListener("collisionavecobjet", mortJoueur);
+    document.body.removeEventListener("partieTerminer", terminerJeu);
+
+    connexionNode.partieTerminer();
+
+    window.location.hash = "fin-multijoueur";
   }
   function mortJoueur(evenement){
     vueJeuMultijoueur.setEtatJoueurEcraser();
+    console.log('joueurMort')
   }
   function colisionBouteille(evenement){
     console.log('collision');
     vueJeuMultijoueur.augmenterNiveauAlcool();
+  }
+  this.getScore = function(){
+    return vueJeuMultijoueur.getScore();
   }
   function repositionneObjet(evenement){
     switch (evenement.detail.type) {

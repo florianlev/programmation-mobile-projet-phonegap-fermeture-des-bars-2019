@@ -107,9 +107,11 @@ var VueJeuMultijoueur = (function () {
                 }
             }));
             for(iJoueur = 0; iJoueur < listeJoueur.length; iJoueur++){
-              if(listeJoueur[iJoueur].isJoueurMort())
+              if(listeJoueur[iJoueur].isJoueurMort()){
                 listeJoueur[iJoueur].monterEnY(vitesseRoute);
+              }
             }
+
             var nouvelInterval = Date.now();
             //SI au premier instant du jeu on initialise le debut de l'interval a quelque chose
             if (!debutInterval) {
@@ -120,9 +122,26 @@ var VueJeuMultijoueur = (function () {
 
               debutInterval = nouvelInterval;
             }
-
         }
-
+        function terminerPartie(){
+          console.log('terminer')
+          setTimeout(function(){
+            createjs.Ticker.off("tick", rafraichirJeu);
+            canvas = null;
+            content = null;
+            scene = null;
+            route = null;
+            hammer = null;
+            joueurActuel = null;
+            isPartieEnCours = null;
+            isJeuStopper = null;
+            listeNiveauAlcool = null;
+            niveauAlcoolJoueurActuel = null;
+            gestionnaireObjets = null;
+            debutInterval = null;
+            document.body.dispatchEvent(new CustomEvent("partieTerminer"));
+          }, 3000);
+        }
         this.transmettrePositionsAdversaireNiveauAlcool = function (donnees) {
             for (indiceListeJoueur = 0; indiceListeJoueur < listeJoueur.length; indiceListeJoueur++) {
               //console.log(donnees.detail.positions.x);
@@ -131,7 +150,8 @@ var VueJeuMultijoueur = (function () {
               if (listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur && !donnees.detail.isJoueurMort){
                 listeJoueur[indiceListeJoueur].setPositions(positions);
               }else if(listeJoueur[indiceListeJoueur].id == donnees.detail.idJoueur){
-                listeJoueur[indiceListeJoueur].monterEnY(vitesseRoute);
+                //listeJoueur[indiceListeJoueur].monterEnY(vitesseRoute);
+                listeJoueur[indiceListeJoueur].setEtatJoueur("estEcraser");
               }
 
             }
@@ -140,6 +160,7 @@ var VueJeuMultijoueur = (function () {
                     listeNiveauAlcool[indiceListeNiveauAlcool].setNiveauAlcool(donnees.detail.niveauAlcool);
                 }
             }
+            if(joueurActuel.isJoueurMort() && donnees.detail.isJoueurMort) terminerPartie();
         }
 
         this.repositionnerUnObjet = function(id, position){
@@ -153,6 +174,9 @@ var VueJeuMultijoueur = (function () {
         }
         this.setEtatJoueurEcraser = function(){
           joueurActuel.setEtatJoueur("estEcraser");
+        }
+        this.getScore = function(){
+          //return
         }
         function arrangerCanvas() {
             console.log("vueJeuArrangerCanvas");
