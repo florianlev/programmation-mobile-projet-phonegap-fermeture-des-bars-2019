@@ -1,8 +1,8 @@
-Ce projet à été réaliser en JavaScript HTML5 et CSS3
+Ce projet à été réaliser en JavaScript HTML5 et CSS3 et le serveur en Node JS
 
 Les librairies suivantes on était utilisés :
 
-Node JS Socket IO: MultiJoueur
+ Socket IO: MultiJoueur
 
 Hammer.JS : Gestures
 
