@@ -8,7 +8,7 @@ CreateJS : Affichage dessins, sprites
 HowlerJS : Sons
 
 
-Ce jeu à était produit par :
+Ce jeu à été produit par :
 
 Florian LEVY
 Guillaume Desjardins
