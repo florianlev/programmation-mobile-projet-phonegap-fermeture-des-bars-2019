@@ -1,3 +1,16 @@
-programmation-mobile-projet-phonegap-fermeture-des-bars-2018
-Vidéo présentation (Son mauvaise qualitée)
-https://youtu.be/cec_bRLdhrA
+Ce projet à été réaliser en JavaScript HTML5 et CSS3
+
+Les librairies suivantes on était utilisés :
+
+Node JS : MultiJoueur
+Hammer.JS : Gestures
+CreateJS : Affichage dessins, sprites 
+HowlerJS : Sons
+
+
+Ce jeu à était produit par :
+
+Florian LEVY
+Guillaume Desjardins
+Sedrick LEVESQUE
+
