@@ -14,3 +14,5 @@ Florian LEVY
 Guillaume Desjardins
 Sedrick LEVESQUE
 
+Sprite Personnage par : 
+Jérôme Tarley
