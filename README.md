@@ -1,3 +1,7 @@
+# But du jeu
+
+Votre personnage sort du bar, le but est de ramasser un maximum de bouteilles en esquivant les obstacles et en essayant de garder un niveau d'alcolémie le plus élevée possible.
+
 # Technologies
 * HTML 5 
 * CSS3
