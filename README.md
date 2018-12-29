@@ -4,6 +4,7 @@
 * JavaScript
 * Node JS : serveur de jeu
 * Socket IO : echange connexion
+* JSON : format echange des données entre client et serveur
 * Create JS : dessins, spritesheet etc..
 * Hammer JS : gesture tactile (pan)
 * HowlerJS : sons, musique
