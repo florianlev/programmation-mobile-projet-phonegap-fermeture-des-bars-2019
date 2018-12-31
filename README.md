@@ -17,6 +17,7 @@ Essayez de battre votre ami en survivant plus longtemps et en ayant le plus de p
 * Hammer JS : gesture tactile (pan)
 * HowlerJS : sons, musique
 * MySQL : Appreciation
+* Cordova PhoneGap
 
 Ce projet à été réaliser en JavaScript HTML5 et CSS3 et le serveur en Node JS
 
