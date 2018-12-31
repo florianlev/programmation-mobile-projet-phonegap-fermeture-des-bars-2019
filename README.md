@@ -20,6 +20,9 @@ Essayez de battre votre ami en survivant plus longtemps et en ayant le plus de p
 
 Ce projet à été réaliser en JavaScript HTML5 et CSS3 et le serveur en Node JS
 
+# Fonctionnalités
+
+Un système de room est disponnible pour le mode multijoueur. Vous pouvez créer votre room et jouer avec un ami.
 
 # Crédits 
 
