@@ -35,3 +35,8 @@ Sedrick LEVESQUE
 Sprite Personnage par :
 
 Jérôme Tarley
+
+# Liens
+
+Lien direct vers le code client JavaScript : 
+https://github.com/florianlev/programmation-mobile-projet-phonegap-fermeture-des-bars-2019/tree/master/fermeturedesbars/app/src/main/assets/www
